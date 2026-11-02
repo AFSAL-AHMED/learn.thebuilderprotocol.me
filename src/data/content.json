@@ -1,0 +1,26 @@
+{
+  "tracks": [
+    {
+      "id": "ai-engineering",
+      "title": "AI & LLM Systems Engineering",
+      "badge": "CORE TRACK",
+      "desc": "Under-the-hood mechanics of attention mechanisms, low-latency inference, context retrieval pipelines, model quantization, and autonomous multi-agent loops.",
+      "readTime": "45 min total",
+      "modules": [
+        {
+          "id": "llm-transformers",
+          "title": "01. Attention Mechanisms & Transformer Runtime Math",
+          "readTime": "12 min",
+          "summary": "Mathematical breakdown of Scaled Dot-Product Attention, KV-caching, and GPU VRAM footprint formulas.",
+          "content": [
+            "### 1.1 The Scaled Dot-Product Attention Equation",
+            "At the core of modern autoregressive architectures (LLaMA 3, Mistral, GPT-4) is the attention calculation:",
+            "Attention(Q, K, V) = softmax((Q * K^T) / sqrt(d_k)) * V",
+            "",
+            "Where Q is Query, K is Key, and V is Value. sqrt(d_k) prevents magnitude saturation."
+          ]
+        }
+      ]
+    }
+  ]
+}
