@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './index.css'
 
 /* ─── QUIZ DATA ───────────────────────────────────────── */
@@ -101,6 +101,127 @@ const STATS = [
   { value: '4.9/5', label: 'Builder Rating' },
 ]
 
+/* ─── INITIAL TECH DROPS (COLUMN 1: PUBLISH KNOWLEDGE) ── */
+const INITIAL_TECH_DROPS = [
+  {
+    id: 'drop-1',
+    title: 'Distributed Agent Swarms with LangGraph & Redis Pub/Sub',
+    category: 'AI & Agentic',
+    techStack: 'LangGraph · Redis Streams · Python 3.12 · FastAPI',
+    authorName: 'Sarah Lin',
+    authorHandle: '@sarah_ai',
+    authorAvatar: 'SL',
+    timeAgo: '2h ago',
+    upvotes: 142,
+    userUpvoted: false,
+    description: 'A production blueprint for orchestrating 20+ autonomous agents with state checkpoints stored in Redis. Includes dynamic worker delegation, loop-break timeouts, and fault-tolerant failovers.',
+    deepDive: `// Protocol Architecture:
+1. Supervisor Agent receives user prompt, decomposes into subtasks via LangGraph StateGraph.
+2. Worker Nodes subscribe to consumer groups on Redis Streams ("agent:tasks:stream").
+3. State checkpointer serializes snapshots to Redis with 24h TTL for instant recovery.
+4. Human-in-the-loop interrupts suspend graph state before high-privilege tool calls.`,
+    tags: ['LangGraph', 'Redis', 'Multi-Agent', 'Checkpointer'],
+    link: 'https://github.com/thebuilderprotocol/agent-swarms-redis',
+  },
+  {
+    id: 'drop-2',
+    title: 'Zero-Cold-Start In-Memory Vector Search with Rust & WASM',
+    category: 'Edge & WASM',
+    techStack: 'Rust · WebAssembly · Cloudflare Workers · HNSW',
+    authorName: 'Vikram Joshi',
+    authorHandle: '@vikram_systems',
+    authorAvatar: 'VJ',
+    timeAgo: '5h ago',
+    upvotes: 98,
+    userUpvoted: false,
+    description: 'Embedded an HNSW vector index directly inside Cloudflare Workers using Rust compiled to WASM. Delivers sub-8ms latency for 50,000 document embeddings without external vector DB latency.',
+    deepDive: `// Benchmark & Setup:
+- Compiled hnsw-rs to wasm32-unknown-unknown with lto = "fat" and opt-level = 3.
+- In-memory footprint: ~18MB for 50k 384-dim embeddings.
+- Cache pre-warmed from Cloudflare KV during worker boot lifecycle.
+- Query p99 latency: 7.2ms vs 120ms typical cloud vector DB HTTP lookups.`,
+    tags: ['Rust', 'WASM', 'HNSW', 'Cloudflare', 'VectorSearch'],
+    link: 'https://github.com/thebuilderprotocol/edge-wasm-vectors',
+  },
+  {
+    id: 'drop-3',
+    title: 'Autonomous Smart Contract Security Auditor on Claude 3.5 Sonnet',
+    category: 'Security & Web3',
+    techStack: 'TypeScript · AST Parser · Claude 3.5 · Foundry',
+    authorName: 'Elena Rostova',
+    authorHandle: '@elena_sec',
+    authorAvatar: 'ER',
+    timeAgo: '1d ago',
+    upvotes: 215,
+    userUpvoted: false,
+    description: 'A verification pipeline that extracts execution graphs from Solidity ASTs, runs symbolic taint analysis, and feeds suspicious reentrancy or authorization flows to Claude with formal invariants.',
+    deepDive: `// Verification Pipeline:
+- AST Parsing: Slither + tree-sitter Solidity compiler bindings.
+- Invariant Prompting: Injects protocol state invariants into Claude system context.
+- Fuzzing Validation: Generates Foundry test files (.t.sol) to prove whether the exploit is executable.`,
+    tags: ['Solidity', 'Security', 'Claude API', 'Foundry', 'AST'],
+    link: 'https://github.com/thebuilderprotocol/solidity-claude-auditor',
+  },
+]
+
+/* ─── INITIAL KNOWLEDGE REQUESTS (COLUMN 2: REQUEST KNOWLEDGE) ── */
+const INITIAL_REQUESTS = [
+  {
+    id: 'req-1',
+    domain: 'High-Performance Systems',
+    targetTech: 'Zig · Low-Latency · SIMD · Memory Arenas',
+    title: 'Building Deterministic Low-Latency Order Books in Zig',
+    requesterName: 'Dan K.',
+    requesterHandle: '@dan_fintech',
+    requesterAvatar: 'DK',
+    timeAgo: '3h ago',
+    bountyVotes: 248,
+    userRequested: false,
+    difficulty: 'Hardcore',
+    status: 'IN REVIEW',
+    statusBadge: 'badge-amethyst',
+    description: 'Looking for a comprehensive breakdown on creating a lock-free limit order book in Zig. Need ring buffer memory layout, cache-line alignment, and SIMD price-level matching with zero runtime allocations.',
+    urgency: 'High Demand',
+    contributorStatus: '2 builders drafting protocol guide',
+  },
+  {
+    id: 'req-2',
+    domain: 'AI Infra & LLMOps',
+    targetTech: 'vLLM · DeepSeek R1 · Ray Clusters · FP8',
+    title: 'Self-Hosting DeepSeek R1 671B on Multi-Node Kubernetes with vLLM',
+    requesterName: 'Kai Vance',
+    requesterHandle: '@kai_ai',
+    requesterAvatar: 'KV',
+    timeAgo: '5h ago',
+    bountyVotes: 389,
+    userRequested: false,
+    difficulty: 'Advanced',
+    status: 'OPEN BOUNTY',
+    statusBadge: 'badge-cyan',
+    description: 'Detailed tutorial wanted on configuring tensor & pipeline parallelism across 8x H100 GPU nodes for DeepSeek R1. Need real YAML configs for Ray, vLLM continuous batching, and RoCE v2 network tuning.',
+    urgency: 'Extreme Demand',
+    contributorStatus: 'Seeking verified instructor',
+  },
+  {
+    id: 'req-3',
+    domain: 'Cloud Native & Service Mesh',
+    targetTech: 'Envoy Proxy · Rust Proxy-Wasm · Istio',
+    title: 'Writing Custom WebAssembly Filter Plugins for Envoy & Istio',
+    requesterName: 'Marcus T.',
+    requesterHandle: '@marcus_devops',
+    requesterAvatar: 'MT',
+    timeAgo: '1d ago',
+    bountyVotes: 164,
+    userRequested: false,
+    difficulty: 'Intermediate',
+    status: 'LOOKING FOR AUTHOR',
+    statusBadge: 'badge-green',
+    description: 'A practical, end-to-end guide on building high-performance rate-limiting and JWT claims enrichment filters in Rust that compile to WASM and hot-reload in Envoy without restarting pods.',
+    urgency: 'Moderate Demand',
+    contributorStatus: 'Open for community submission',
+  },
+]
+
 /* ─── MAIN APP ────────────────────────────────────────── */
 export default function App() {
   const [activeNav, setActiveNav] = useState('curriculum')
@@ -114,6 +235,221 @@ export default function App() {
 
   const [certName, setCertName] = useState('')
   const [certIssued, setCertIssued] = useState(false)
+
+  // ─── COMMUNITY EXCHANGE STATE ──────────────────────────
+  const [techDrops, setTechDrops] = useState(() => {
+    try {
+      const saved = localStorage.getItem('tbp_tech_drops')
+      return saved ? JSON.parse(saved) : INITIAL_TECH_DROPS
+    } catch {
+      return INITIAL_TECH_DROPS
+    }
+  })
+
+  const [knowledgeRequests, setKnowledgeRequests] = useState(() => {
+    try {
+      const saved = localStorage.getItem('tbp_knowledge_requests')
+      return saved ? JSON.parse(saved) : INITIAL_REQUESTS
+    } catch {
+      return INITIAL_REQUESTS
+    }
+  })
+
+  const [exchangeSearch, setExchangeSearch] = useState('')
+  const [activeCategoryFilter, setActiveCategoryFilter] = useState('ALL')
+  const [activeDifficultyFilter, setActiveDifficultyFilter] = useState('ALL')
+  const [showPublishForm, setShowPublishForm] = useState(false)
+  const [showRequestForm, setShowRequestForm] = useState(false)
+  const [expandedDropId, setExpandedDropId] = useState(null)
+  const [claimedRequestIds, setClaimedRequestIds] = useState([])
+  const [toast, setToast] = useState({ message: '', visible: false, type: 'cyan' })
+
+  // Form states
+  const [newDrop, setNewDrop] = useState({
+    title: '',
+    category: 'AI & Agentic',
+    techStack: '',
+    authorName: '',
+    authorHandle: '',
+    description: '',
+    deepDive: '',
+    tags: '',
+    link: '',
+  })
+
+  const [newRequest, setNewRequest] = useState({
+    title: '',
+    domain: 'AI Infra & Systems',
+    targetTech: '',
+    requesterName: '',
+    requesterHandle: '',
+    difficulty: 'Advanced',
+    description: '',
+  })
+
+  const triggerToast = (message, type = 'cyan') => {
+    setToast({ message, visible: true, type })
+    setTimeout(() => {
+      setToast({ message: '', visible: false, type: 'cyan' })
+    }, 3500)
+  }
+
+  // Persist to localStorage
+  useEffect(() => {
+    try {
+      localStorage.setItem('tbp_tech_drops', JSON.stringify(techDrops))
+    } catch (e) {
+      console.warn('Storage sync error', e)
+    }
+  }, [techDrops])
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('tbp_knowledge_requests', JSON.stringify(knowledgeRequests))
+    } catch (e) {
+      console.warn('Storage sync error', e)
+    }
+  }, [knowledgeRequests])
+
+  const handleUpvoteDrop = (id) => {
+    setTechDrops((prev) =>
+      prev.map((d) => {
+        if (d.id === id) {
+          const isUpvoted = d.userUpvoted
+          return {
+            ...d,
+            upvotes: isUpvoted ? d.upvotes - 1 : d.upvotes + 1,
+            userUpvoted: !isUpvoted,
+          }
+        }
+        return d
+      })
+    )
+    triggerToast('Tech Drop endorsed // Reputation recorded', 'cyan')
+  }
+
+  const handleUpvoteRequest = (id) => {
+    setKnowledgeRequests((prev) =>
+      prev.map((r) => {
+        if (r.id === id) {
+          const isRequested = r.userRequested
+          return {
+            ...r,
+            bountyVotes: isRequested ? r.bountyVotes - 1 : r.bountyVotes + 1,
+            userRequested: !isRequested,
+          }
+        }
+        return r
+      })
+    )
+    triggerToast('+1 Added to Content Request Demand Queue', 'amethyst')
+  }
+
+  const handleClaimRequest = (id, title) => {
+    if (claimedRequestIds.includes(id)) return
+    setClaimedRequestIds((prev) => [...prev, id])
+    setKnowledgeRequests((prev) =>
+      prev.map((r) =>
+        r.id === id
+          ? {
+              ...r,
+              status: 'CLAIMED BY YOU',
+              statusBadge: 'badge-green',
+              contributorStatus: 'Draft in progress by you',
+            }
+          : r
+      )
+    )
+    triggerToast(`Topic Claimed: "${title.slice(0, 28)}..." // Outline registered`, 'green')
+  }
+
+  const handlePublishSubmit = (e) => {
+    e.preventDefault()
+    if (!newDrop.title.trim() || !newDrop.techStack.trim() || !newDrop.description.trim()) {
+      triggerToast('Please complete title, tech stack, and description.', 'warning')
+      return
+    }
+
+    const tagList = newDrop.tags
+      ? newDrop.tags.split(',').map((t) => t.trim()).filter(Boolean)
+      : newDrop.techStack.split('·').map((t) => t.trim()).filter(Boolean)
+
+    const createdDrop = {
+      id: `drop-${Date.now()}`,
+      title: newDrop.title.trim(),
+      category: newDrop.category || 'AI & Agentic',
+      techStack: newDrop.techStack.trim(),
+      authorName: newDrop.authorName.trim() || 'Anonymous Builder',
+      authorHandle: newDrop.authorHandle.trim()
+        ? (newDrop.authorHandle.startsWith('@') ? newDrop.authorHandle : `@${newDrop.authorHandle}`)
+        : '@builder',
+      authorAvatar: (newDrop.authorName.trim() || 'AB').slice(0, 2).toUpperCase(),
+      timeAgo: 'Just now',
+      upvotes: 1,
+      userUpvoted: true,
+      description: newDrop.description.trim(),
+      deepDive: newDrop.deepDive.trim() || `// Published by ${newDrop.authorName || 'Builder'}\nArchitecture verified on Protocol v2.0.`,
+      tags: tagList.length > 0 ? tagList : ['CustomStack', 'BuilderProtocol'],
+      link: newDrop.link.trim() || '',
+    }
+
+    setTechDrops((prev) => [createdDrop, ...prev])
+    setNewDrop({
+      title: '',
+      category: 'AI & Agentic',
+      techStack: '',
+      authorName: '',
+      authorHandle: '',
+      description: '',
+      deepDive: '',
+      tags: '',
+      link: '',
+    })
+    setShowPublishForm(false)
+    triggerToast('Tech Drop successfully published to the Protocol Network!', 'cyan')
+  }
+
+  const handleRequestSubmit = (e) => {
+    e.preventDefault()
+    if (!newRequest.title.trim() || !newRequest.targetTech.trim() || !newRequest.description.trim()) {
+      triggerToast('Please complete title, target tech, and description.', 'warning')
+      return
+    }
+
+    const createdReq = {
+      id: `req-${Date.now()}`,
+      domain: newRequest.domain || 'AI Infra & Systems',
+      targetTech: newRequest.targetTech.trim(),
+      title: newRequest.title.trim(),
+      requesterName: newRequest.requesterName.trim() || 'Learner Builder',
+      requesterHandle: newRequest.requesterHandle.trim()
+        ? (newRequest.requesterHandle.startsWith('@') ? newRequest.requesterHandle : `@${newRequest.requesterHandle}`)
+        : '@learner',
+      requesterAvatar: (newRequest.requesterName.trim() || 'LB').slice(0, 2).toUpperCase(),
+      timeAgo: 'Just now',
+      bountyVotes: 1,
+      userRequested: true,
+      difficulty: newRequest.difficulty || 'Advanced',
+      status: 'OPEN BOUNTY',
+      statusBadge: 'badge-cyan',
+      description: newRequest.description.trim(),
+      urgency: 'New Request',
+      contributorStatus: 'Broadcast to network instructors',
+    }
+
+    setKnowledgeRequests((prev) => [createdReq, ...prev])
+    setNewRequest({
+      title: '',
+      domain: 'AI Infra & Systems',
+      targetTech: '',
+      requesterName: '',
+      requesterHandle: '',
+      difficulty: 'Advanced',
+      description: '',
+    })
+    setShowRequestForm(false)
+    triggerToast('Knowledge Request broadcasted to the Builder Protocol community!', 'amethyst')
+  }
 
   const totalQ = QUIZ_QUESTIONS.length
   const question = QUIZ_QUESTIONS[currentQ]
@@ -169,6 +505,7 @@ export default function App() {
   const navLinks = [
     { id: 'curriculum', label: '// Curriculum' },
     { id: 'tracks', label: '// Tracks' },
+    { id: 'exchange', label: '// Exchange' },
     { id: 'quiz', label: '// Quiz' },
     { id: 'certificate', label: '// Certificate' },
   ]
@@ -455,12 +792,736 @@ export default function App() {
         <div className="divider-cyan" />
       </div>
 
+      {/* ─── COMMUNITY PROTOCOL EXCHANGE (2 COLUMNS) ──────── */}
+      <section id="exchange" className="py-20 px-4 sm:px-6 lg:px-8 relative">
+        <div className="max-w-7xl mx-auto">
+
+          {/* Section Header */}
+          <div className="section-header mb-6">
+            <span className="label-mono" style={{ color: 'rgba(0,240,255,0.7)' }}>// 002</span>
+            <h2 className="display-md text-white">Community Knowledge Exchange</h2>
+            <div className="section-header-line" />
+            <span className="label-mono hidden sm:block" style={{ color: 'rgba(255,255,255,0.2)' }}>DECENTRALIZED_KNOWLEDGE_BASE</span>
+          </div>
+
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+            <p className="text-sm sm:text-base max-w-2xl" style={{ color: 'rgba(139,158,199,0.85)' }}>
+              A peer-to-peer engineering exchange. Builders who master new tech can publish architectures &amp; stacks, while engineers looking to level up can request on-demand guides from the community.
+            </p>
+
+            {/* Quick Live Network Stats */}
+            <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs" style={{ background: 'rgba(0,240,255,0.06)', border: '1px solid rgba(0,240,255,0.2)' }}>
+                <span className="w-2 h-2 rounded-full" style={{ background: '#00F0FF' }} />
+                <span className="font-mono" style={{ color: '#00F0FF' }}>{techDrops.length} Drops Published</span>
+              </div>
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs" style={{ background: 'rgba(157,78,221,0.06)', border: '1px solid rgba(157,78,221,0.2)' }}>
+                <span className="w-2 h-2 rounded-full" style={{ background: '#9D4EDD' }} />
+                <span className="font-mono" style={{ color: '#9D4EDD' }}>{knowledgeRequests.length} Requests Open</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Universal Search Filter Bar */}
+          <div className="flex flex-col sm:flex-row gap-3 mb-10">
+            <div className="relative flex-1">
+              <input
+                type="text"
+                value={exchangeSearch}
+                onChange={(e) => setExchangeSearch(e.target.value)}
+                placeholder="Search stacks or requested tech (e.g. LangGraph, Rust, WASM, Zig, DeepSeek, Envoy)..."
+                className="input-field pl-10"
+                style={{ width: '100%', fontSize: '0.85rem' }}
+              />
+              <svg className="absolute left-3.5 top-1/2 -translate-y-1/2" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="2">
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+              </svg>
+            </div>
+            {exchangeSearch && (
+              <button
+                onClick={() => setExchangeSearch('')}
+                className="btn-secondary"
+                style={{ fontSize: '0.75rem', padding: '0.5rem 1rem' }}
+              >
+                Clear Search
+              </button>
+            )}
+          </div>
+
+          {/* ─── 2 COLUMNS GRID ───────────────────────────────── */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+
+            {/* ════ COLUMN 1: PUBLISH KNOWLEDGE & TECH STACKS ═══ */}
+            <div className="flex flex-col rounded-2xl overflow-hidden" style={{ background: 'rgba(255,255,255,0.015)', border: '1px solid rgba(0,240,255,0.18)' }}>
+              {/* Column Top Accent Line */}
+              <div className="h-[2px] w-full" style={{ background: 'linear-gradient(90deg, #00F0FF, rgba(0,240,255,0.2))' }} />
+
+              <div className="p-6">
+                {/* Column Header */}
+                <div className="flex items-start justify-between gap-4 mb-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(0,240,255,0.1)', border: '1px solid rgba(0,240,255,0.25)', color: '#00F0FF' }}>
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242" />
+                        <path d="M12 12v9" />
+                        <path d="m16 16-4-4-4 4" />
+                      </svg>
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="tag-mono" style={{ color: '#00F0FF' }}>COLUMN 01 // KNOWLEDGE DROPS</span>
+                      </div>
+                      <h3 className="text-white font-bold text-lg" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+                        Publish Tech &amp; Stacks
+                      </h3>
+                    </div>
+                  </div>
+
+                  <button
+                    id="toggle-publish-form-btn"
+                    onClick={() => {
+                      setShowPublishForm((v) => !v)
+                      setShowRequestForm(false)
+                    }}
+                    className="btn-primary"
+                    style={{ fontSize: '0.75rem', padding: '0.5rem 0.875rem' }}
+                  >
+                    {showPublishForm ? '✕ Close Form' : '+ Publish Stack'}
+                  </button>
+                </div>
+
+                <p className="text-xs sm:text-sm mb-6 leading-relaxed" style={{ color: 'rgba(139,158,199,0.7)' }}>
+                  Have you built something new or mastered an advanced architecture? Publish your tech stack, benchmarks, and knowledge breakdown to establish your protocol reputation.
+                </p>
+
+                {/* Inline Collapsible Publish Form */}
+                {showPublishForm && (
+                  <form
+                    onSubmit={handlePublishSubmit}
+                    className="mb-8 p-5 rounded-xl animate-fade-in-up"
+                    style={{ background: 'rgba(0,240,255,0.03)', border: '1px solid rgba(0,240,255,0.25)' }}
+                  >
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="label-mono font-bold" style={{ color: '#00F0FF' }}>// NEW PROTOCOL KNOWLEDGE DROP</span>
+                      <span className="label-mono" style={{ color: 'rgba(255,255,255,0.3)' }}>Instant Publish</span>
+                    </div>
+
+                    <div className="space-y-3.5">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                          <label className="label-mono block mb-1" style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.65rem' }}>Your Name</label>
+                          <input
+                            type="text"
+                            required
+                            placeholder="e.g. Afsal Ahmed"
+                            value={newDrop.authorName}
+                            onChange={(e) => setNewDrop({ ...newDrop, authorName: e.target.value })}
+                            className="input-field"
+                            style={{ fontSize: '0.8rem', padding: '0.5rem 0.75rem' }}
+                          />
+                        </div>
+                        <div>
+                          <label className="label-mono block mb-1" style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.65rem' }}>Handle / Tag</label>
+                          <input
+                            type="text"
+                            placeholder="e.g. @afsal_dev"
+                            value={newDrop.authorHandle}
+                            onChange={(e) => setNewDrop({ ...newDrop, authorHandle: e.target.value })}
+                            className="input-field"
+                            style={{ fontSize: '0.8rem', padding: '0.5rem 0.75rem' }}
+                          />
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <div className="sm:col-span-2">
+                          <label className="label-mono block mb-1" style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.65rem' }}>Tech Stack / Tooling</label>
+                          <input
+                            type="text"
+                            required
+                            placeholder="e.g. Bun 1.2 · Elysia · Drizzle · Neon"
+                            value={newDrop.techStack}
+                            onChange={(e) => setNewDrop({ ...newDrop, techStack: e.target.value })}
+                            className="input-field"
+                            style={{ fontSize: '0.8rem', padding: '0.5rem 0.75rem' }}
+                          />
+                        </div>
+                        <div>
+                          <label className="label-mono block mb-1" style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.65rem' }}>Category</label>
+                          <select
+                            value={newDrop.category}
+                            onChange={(e) => setNewDrop({ ...newDrop, category: e.target.value })}
+                            className="input-field"
+                            style={{ fontSize: '0.8rem', padding: '0.5rem 0.75rem', background: '#0D1120', color: 'white' }}
+                          >
+                            <option value="AI & Agentic">AI &amp; Agentic</option>
+                            <option value="Edge & WASM">Edge &amp; WASM</option>
+                            <option value="Security & Web3">Security &amp; Web3</option>
+                            <option value="Distributed Infra">Distributed Infra</option>
+                            <option value="Low-Level & Systems">Low-Level &amp; Systems</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="label-mono block mb-1" style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.65rem' }}>Drop Title / Breakthrough</label>
+                        <input
+                          type="text"
+                          required
+                          placeholder="e.g. Sub-10ms Global State Synchronization with CRDTs on Cloudflare"
+                          value={newDrop.title}
+                          onChange={(e) => setNewDrop({ ...newDrop, title: e.target.value })}
+                          className="input-field"
+                          style={{ fontSize: '0.8rem', padding: '0.5rem 0.75rem' }}
+                        />
+                      </div>
+
+                      <div>
+                        <label className="label-mono block mb-1" style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.65rem' }}>Knowledge Summary &amp; Takeaways</label>
+                        <textarea
+                          rows="3"
+                          required
+                          placeholder="Explain what problem this solves, how you engineered it, key bottlenecks overcome, and trade-offs..."
+                          value={newDrop.description}
+                          onChange={(e) => setNewDrop({ ...newDrop, description: e.target.value })}
+                          className="input-field"
+                          style={{ fontSize: '0.8rem', padding: '0.5rem 0.75rem', resize: 'vertical' }}
+                        />
+                      </div>
+
+                      <div>
+                        <label className="label-mono block mb-1" style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.65rem' }}>Architecture Blueprint / Code Snippet (Optional)</label>
+                        <textarea
+                          rows="3"
+                          placeholder="// Paste architecture flow, config, or pseudo-code..."
+                          value={newDrop.deepDive}
+                          onChange={(e) => setNewDrop({ ...newDrop, deepDive: e.target.value })}
+                          className="input-field font-mono"
+                          style={{ fontSize: '0.75rem', padding: '0.5rem 0.75rem', resize: 'vertical' }}
+                        />
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                          <label className="label-mono block mb-1" style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.65rem' }}>GitHub / Spec URL (Optional)</label>
+                          <input
+                            type="url"
+                            placeholder="https://github.com/..."
+                            value={newDrop.link}
+                            onChange={(e) => setNewDrop({ ...newDrop, link: e.target.value })}
+                            className="input-field"
+                            style={{ fontSize: '0.8rem', padding: '0.5rem 0.75rem' }}
+                          />
+                        </div>
+                        <div>
+                          <label className="label-mono block mb-1" style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.65rem' }}>Tags (Comma-separated)</label>
+                          <input
+                            type="text"
+                            placeholder="Bun, Edge, CRDT, Drizzle"
+                            value={newDrop.tags}
+                            onChange={(e) => setNewDrop({ ...newDrop, tags: e.target.value })}
+                            className="input-field"
+                            style={{ fontSize: '0.8rem', padding: '0.5rem 0.75rem' }}
+                          />
+                        </div>
+                      </div>
+
+                      <div className="flex gap-2 justify-end pt-2">
+                        <button
+                          type="button"
+                          onClick={() => setShowPublishForm(false)}
+                          className="btn-secondary"
+                          style={{ fontSize: '0.75rem', padding: '0.5rem 1rem' }}
+                        >
+                          Cancel
+                        </button>
+                        <button
+                          type="submit"
+                          className="btn-primary"
+                          style={{ fontSize: '0.75rem', padding: '0.5rem 1.25rem' }}
+                        >
+                          Publish to Protocol Feed →
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                )}
+
+                {/* Filter tags for Drops */}
+                <div className="flex flex-wrap gap-1.5 mb-5">
+                  {['ALL', 'AI & Agentic', 'Edge & WASM', 'Security & Web3'].map((cat) => (
+                    <button
+                      key={cat}
+                      onClick={() => setActiveCategoryFilter(cat)}
+                      className="px-2.5 py-1 rounded-md text-xs font-mono transition-all duration-200"
+                      style={{
+                        background: activeCategoryFilter === cat ? 'rgba(0,240,255,0.15)' : 'rgba(255,255,255,0.03)',
+                        border: `1px solid ${activeCategoryFilter === cat ? 'rgba(0,240,255,0.4)' : 'rgba(255,255,255,0.06)'}`,
+                        color: activeCategoryFilter === cat ? '#00F0FF' : 'rgba(255,255,255,0.5)',
+                      }}
+                    >
+                      {cat}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Published Drops Feed */}
+                <div className="space-y-4">
+                  {techDrops
+                    .filter((d) => {
+                      const matchesCategory = activeCategoryFilter === 'ALL' || d.category === activeCategoryFilter
+                      const matchesSearch =
+                        !exchangeSearch ||
+                        d.title.toLowerCase().includes(exchangeSearch.toLowerCase()) ||
+                        d.techStack.toLowerCase().includes(exchangeSearch.toLowerCase()) ||
+                        d.description.toLowerCase().includes(exchangeSearch.toLowerCase())
+                      return matchesCategory && matchesSearch
+                    })
+                    .map((drop) => {
+                      const isExpanded = expandedDropId === drop.id
+                      return (
+                        <div
+                          key={drop.id}
+                          className="p-5 rounded-xl transition-all duration-200"
+                          style={{
+                            background: 'rgba(255,255,255,0.02)',
+                            border: '1px solid rgba(255,255,255,0.06)',
+                          }}
+                        >
+                          {/* Header row: Author + Meta */}
+                          <div className="flex items-center justify-between gap-3 mb-3">
+                            <div className="flex items-center gap-2.5">
+                              <div
+                                className="w-8 h-8 rounded-lg flex items-center justify-center font-mono font-bold text-xs"
+                                style={{
+                                  background: 'linear-gradient(135deg, rgba(0,240,255,0.2), rgba(157,78,221,0.2))',
+                                  border: '1px solid rgba(0,240,255,0.3)',
+                                  color: '#00F0FF',
+                                }}
+                              >
+                                {drop.authorAvatar}
+                              </div>
+                              <div>
+                                <div className="flex items-center gap-1.5">
+                                  <span className="text-white font-semibold text-xs leading-none">{drop.authorName}</span>
+                                  <span className="font-mono text-[10px]" style={{ color: 'rgba(0,240,255,0.8)' }}>{drop.authorHandle}</span>
+                                </div>
+                                <span className="font-mono text-[10px]" style={{ color: 'rgba(255,255,255,0.3)' }}>{drop.timeAgo}</span>
+                              </div>
+                            </div>
+
+                            <span className="badge badge-cyan" style={{ fontSize: '0.6rem' }}>
+                              {drop.category}
+                            </span>
+                          </div>
+
+                          {/* Title */}
+                          <h4 className="text-white font-bold text-base mb-1.5 leading-snug" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+                            {drop.title}
+                          </h4>
+
+                          {/* Tech Stack Banner */}
+                          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md mb-3" style={{ background: 'rgba(0,240,255,0.05)', border: '1px solid rgba(0,240,255,0.15)' }}>
+                            <span className="font-mono text-xs font-semibold" style={{ color: '#00F0FF' }}>
+                              ⚡ {drop.techStack}
+                            </span>
+                          </div>
+
+                          {/* Description */}
+                          <p className="text-xs sm:text-sm leading-relaxed mb-4" style={{ color: 'rgba(139,158,199,0.85)' }}>
+                            {drop.description}
+                          </p>
+
+                          {/* Deep Dive Accordion */}
+                          {drop.deepDive && (
+                            <div className="mb-4">
+                              <button
+                                onClick={() => setExpandedDropId(isExpanded ? null : drop.id)}
+                                className="inline-flex items-center gap-1.5 font-mono text-xs transition-colors"
+                                style={{ color: isExpanded ? '#00F0FF' : 'rgba(0,240,255,0.7)' }}
+                              >
+                                <span>{isExpanded ? '▼ Hide Architecture Blueprint' : '▶ View Architecture Blueprint & Code'}</span>
+                              </button>
+
+                              {isExpanded && (
+                                <pre
+                                  className="mt-2.5 p-3.5 rounded-lg overflow-x-auto font-mono text-xs leading-relaxed"
+                                  style={{
+                                    background: '#090D18',
+                                    border: '1px solid rgba(0,240,255,0.2)',
+                                    color: '#A5F3FC',
+                                    whiteSpace: 'pre-wrap',
+                                  }}
+                                >
+                                  {drop.deepDive}
+                                </pre>
+                              )}
+                            </div>
+                          )}
+
+                          {/* Tags */}
+                          <div className="flex flex-wrap gap-1 mb-4">
+                            {drop.tags.map((tag) => (
+                              <span key={tag} className="badge badge-slate" style={{ fontSize: '0.6rem' }}>
+                                #{tag}
+                              </span>
+                            ))}
+                          </div>
+
+                          <div className="divider mb-3" />
+
+                          {/* Footer Actions */}
+                          <div className="flex items-center justify-between">
+                            <button
+                              onClick={() => handleUpvoteDrop(drop.id)}
+                              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-mono font-semibold transition-all"
+                              style={{
+                                background: drop.userUpvoted ? 'rgba(0,240,255,0.18)' : 'rgba(255,255,255,0.04)',
+                                border: `1px solid ${drop.userUpvoted ? 'rgba(0,240,255,0.5)' : 'rgba(255,255,255,0.08)'}`,
+                                color: drop.userUpvoted ? '#00F0FF' : 'rgba(255,255,255,0.7)',
+                              }}
+                            >
+                              <span>▲</span>
+                              <span>{drop.upvotes} {drop.userUpvoted ? 'Endorsed' : 'Endorse Stack'}</span>
+                            </button>
+
+                            {drop.link && (
+                              <a
+                                href={drop.link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-1 font-mono text-xs transition-opacity hover:opacity-100"
+                                style={{ color: 'rgba(0,240,255,0.75)' }}
+                              >
+                                <span>Repo / Spec</span>
+                                <span>↗</span>
+                              </a>
+                            )}
+                          </div>
+                        </div>
+                      )
+                    })}
+                </div>
+              </div>
+            </div>
+
+            {/* ════ COLUMN 2: REQUEST TECHNICAL KNOWLEDGE ═══════ */}
+            <div className="flex flex-col rounded-2xl overflow-hidden" style={{ background: 'rgba(255,255,255,0.015)', border: '1px solid rgba(157,78,221,0.2)' }}>
+              {/* Column Top Accent Line */}
+              <div className="h-[2px] w-full" style={{ background: 'linear-gradient(90deg, #9D4EDD, rgba(157,78,221,0.2))' }} />
+
+              <div className="p-6">
+                {/* Column Header */}
+                <div className="flex items-start justify-between gap-4 mb-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(157,78,221,0.12)', border: '1px solid rgba(157,78,221,0.28)', color: '#9D4EDD' }}>
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <circle cx="12" cy="12" r="10" />
+                        <line x1="12" y1="16" x2="12" y2="12" />
+                        <line x1="12" y1="8" x2="12.01" y2="8" />
+                      </svg>
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="tag-mono" style={{ color: '#9D4EDD' }}>COLUMN 02 // DEMAND QUEUE</span>
+                      </div>
+                      <h3 className="text-white font-bold text-lg" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+                        Request Technical Knowledge
+                      </h3>
+                    </div>
+                  </div>
+
+                  <button
+                    id="toggle-request-form-btn"
+                    onClick={() => {
+                      setShowRequestForm((v) => !v)
+                      setShowPublishForm(false)
+                    }}
+                    className="btn-amethyst"
+                    style={{ fontSize: '0.75rem', padding: '0.5rem 0.875rem' }}
+                  >
+                    {showRequestForm ? '✕ Close Form' : '+ Request Topic'}
+                  </button>
+                </div>
+
+                <p className="text-xs sm:text-sm mb-6 leading-relaxed" style={{ color: 'rgba(139,158,199,0.7)' }}>
+                  Looking to learn a complex domain, niche framework, or low-level protocol? Post a request. The community and protocol architects create tutorials and deep dives based on builder demand.
+                </p>
+
+                {/* Inline Collapsible Request Form */}
+                {showRequestForm && (
+                  <form
+                    onSubmit={handleRequestSubmit}
+                    className="mb-8 p-5 rounded-xl animate-fade-in-up"
+                    style={{ background: 'rgba(157,78,221,0.03)', border: '1px solid rgba(157,78,221,0.28)' }}
+                  >
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="label-mono font-bold" style={{ color: '#9D4EDD' }}>// POST KNOWLEDGE BOUNTY / REQUEST</span>
+                      <span className="label-mono" style={{ color: 'rgba(255,255,255,0.3)' }}>Community Demand</span>
+                    </div>
+
+                    <div className="space-y-3.5">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                          <label className="label-mono block mb-1" style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.65rem' }}>Your Name</label>
+                          <input
+                            type="text"
+                            required
+                            placeholder="e.g. Elena Rostova"
+                            value={newRequest.requesterName}
+                            onChange={(e) => setNewRequest({ ...newRequest, requesterName: e.target.value })}
+                            className="input-field"
+                            style={{ fontSize: '0.8rem', padding: '0.5rem 0.75rem' }}
+                          />
+                        </div>
+                        <div>
+                          <label className="label-mono block mb-1" style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.65rem' }}>Handle / Tag</label>
+                          <input
+                            type="text"
+                            placeholder="e.g. @elena_dev"
+                            value={newRequest.requesterHandle}
+                            onChange={(e) => setNewRequest({ ...newRequest, requesterHandle: e.target.value })}
+                            className="input-field"
+                            style={{ fontSize: '0.8rem', padding: '0.5rem 0.75rem' }}
+                          />
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <div className="sm:col-span-2">
+                          <label className="label-mono block mb-1" style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.65rem' }}>Target Technology / Protocol</label>
+                          <input
+                            type="text"
+                            required
+                            placeholder="e.g. CUDA Kernels for FlashAttention"
+                            value={newRequest.targetTech}
+                            onChange={(e) => setNewRequest({ ...newRequest, targetTech: e.target.value })}
+                            className="input-field"
+                            style={{ fontSize: '0.8rem', padding: '0.5rem 0.75rem' }}
+                          />
+                        </div>
+                        <div>
+                          <label className="label-mono block mb-1" style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.65rem' }}>Depth / Level</label>
+                          <select
+                            value={newRequest.difficulty}
+                            onChange={(e) => setNewRequest({ ...newRequest, difficulty: e.target.value })}
+                            className="input-field"
+                            style={{ fontSize: '0.8rem', padding: '0.5rem 0.75rem', background: '#0D1120', color: 'white' }}
+                          >
+                            <option value="Hardcore">Hardcore</option>
+                            <option value="Advanced">Advanced</option>
+                            <option value="Intermediate">Intermediate</option>
+                            <option value="Beginner">Beginner</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="label-mono block mb-1" style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.65rem' }}>Topic Title / What do you want to learn?</label>
+                        <input
+                          type="text"
+                          required
+                          placeholder="e.g. Step-by-step masterclass on writing custom Triton kernels and profiling on H100s"
+                          value={newRequest.title}
+                          onChange={(e) => setNewRequest({ ...newRequest, title: e.target.value })}
+                          className="input-field"
+                          style={{ fontSize: '0.8rem', padding: '0.5rem 0.75rem' }}
+                        />
+                      </div>
+
+                      <div>
+                        <label className="label-mono block mb-1" style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.65rem' }}>Detailed Problem Description &amp; Use Case</label>
+                        <textarea
+                          rows="3"
+                          required
+                          placeholder="What specific roadblocks are you hitting? What concepts should the author explain? (e.g. memory tiling, thread sync, benchmark comparisons)..."
+                          value={newRequest.description}
+                          onChange={(e) => setNewRequest({ ...newRequest, description: e.target.value })}
+                          className="input-field"
+                          style={{ fontSize: '0.8rem', padding: '0.5rem 0.75rem', resize: 'vertical' }}
+                        />
+                      </div>
+
+                      <div className="flex gap-2 justify-end pt-2">
+                        <button
+                          type="button"
+                          onClick={() => setShowRequestForm(false)}
+                          className="btn-secondary"
+                          style={{ fontSize: '0.75rem', padding: '0.5rem 1rem' }}
+                        >
+                          Cancel
+                        </button>
+                        <button
+                          type="submit"
+                          className="btn-amethyst"
+                          style={{ fontSize: '0.75rem', padding: '0.5rem 1.25rem' }}
+                        >
+                          Broadcast Request to Community →
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                )}
+
+                {/* Filter tags for Requests */}
+                <div className="flex flex-wrap gap-1.5 mb-5">
+                  {['ALL', 'Hardcore', 'Advanced', 'Intermediate'].map((diff) => (
+                    <button
+                      key={diff}
+                      onClick={() => setActiveDifficultyFilter(diff)}
+                      className="px-2.5 py-1 rounded-md text-xs font-mono transition-all duration-200"
+                      style={{
+                        background: activeDifficultyFilter === diff ? 'rgba(157,78,221,0.2)' : 'rgba(255,255,255,0.03)',
+                        border: `1px solid ${activeDifficultyFilter === diff ? 'rgba(157,78,221,0.5)' : 'rgba(255,255,255,0.06)'}`,
+                        color: activeDifficultyFilter === diff ? '#9D4EDD' : 'rgba(255,255,255,0.5)',
+                      }}
+                    >
+                      {diff}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Requested Topics Feed */}
+                <div className="space-y-4">
+                  {knowledgeRequests
+                    .filter((r) => {
+                      const matchesDiff = activeDifficultyFilter === 'ALL' || r.difficulty === activeDifficultyFilter
+                      const matchesSearch =
+                        !exchangeSearch ||
+                        r.title.toLowerCase().includes(exchangeSearch.toLowerCase()) ||
+                        r.targetTech.toLowerCase().includes(exchangeSearch.toLowerCase()) ||
+                        r.description.toLowerCase().includes(exchangeSearch.toLowerCase())
+                      return matchesDiff && matchesSearch
+                    })
+                    .map((req) => {
+                      const isClaimedByMe = claimedRequestIds.includes(req.id)
+                      return (
+                        <div
+                          key={req.id}
+                          className="p-5 rounded-xl transition-all duration-200"
+                          style={{
+                            background: 'rgba(255,255,255,0.02)',
+                            border: '1px solid rgba(255,255,255,0.06)',
+                          }}
+                        >
+                          {/* Top row */}
+                          <div className="flex items-center justify-between gap-3 mb-3">
+                            <div className="flex items-center gap-2">
+                              <span className="font-mono text-xs font-semibold" style={{ color: '#9D4EDD' }}>
+                                {req.requesterHandle}
+                              </span>
+                              <span className="font-mono text-[10px]" style={{ color: 'rgba(255,255,255,0.3)' }}>· {req.timeAgo}</span>
+                            </div>
+
+                            <div className="flex items-center gap-1.5">
+                              <span
+                                className="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase"
+                                style={{
+                                  background: req.difficulty === 'Hardcore' ? 'rgba(255,80,80,0.15)' : 'rgba(157,78,221,0.15)',
+                                  color: req.difficulty === 'Hardcore' ? '#FF6B6B' : '#C084FC',
+                                  border: `1px solid ${req.difficulty === 'Hardcore' ? 'rgba(255,80,80,0.3)' : 'rgba(157,78,221,0.3)'}`,
+                                }}
+                              >
+                                {req.difficulty}
+                              </span>
+                              <span className={`badge ${req.statusBadge}`} style={{ fontSize: '0.6rem' }}>
+                                {req.status}
+                              </span>
+                            </div>
+                          </div>
+
+                          {/* Title */}
+                          <h4 className="text-white font-bold text-base mb-1.5 leading-snug" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+                            {req.title}
+                          </h4>
+
+                          {/* Target Tech */}
+                          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md mb-3" style={{ background: 'rgba(157,78,221,0.06)', border: '1px solid rgba(157,78,221,0.2)' }}>
+                            <span className="font-mono text-xs font-semibold" style={{ color: '#C084FC' }}>
+                              🎯 Target Tech: {req.targetTech}
+                            </span>
+                          </div>
+
+                          {/* Description */}
+                          <p className="text-xs sm:text-sm leading-relaxed mb-4" style={{ color: 'rgba(139,158,199,0.85)' }}>
+                            {req.description}
+                          </p>
+
+                          {/* Community Status note */}
+                          <div className="flex items-center gap-2 mb-4 text-xs font-mono" style={{ color: 'rgba(139,158,199,0.55)' }}>
+                            <span className="w-1.5 h-1.5 rounded-full" style={{ background: req.status === 'CLAIMED BY YOU' ? '#00FF80' : '#9D4EDD' }} />
+                            <span>Status: {req.contributorStatus}</span>
+                          </div>
+
+                          <div className="divider mb-3" />
+
+                          {/* Footer Actions */}
+                          <div className="flex items-center justify-between gap-3">
+                            <button
+                              onClick={() => handleUpvoteRequest(req.id)}
+                              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-mono font-semibold transition-all"
+                              style={{
+                                background: req.userRequested ? 'rgba(157,78,221,0.2)' : 'rgba(255,255,255,0.04)',
+                                border: `1px solid ${req.userRequested ? 'rgba(157,78,221,0.55)' : 'rgba(255,255,255,0.08)'}`,
+                                color: req.userRequested ? '#C084FC' : 'rgba(255,255,255,0.7)',
+                              }}
+                            >
+                              <span>🔥</span>
+                              <span>{req.bountyVotes} {req.userRequested ? 'Demanded' : '+1 Request'}</span>
+                            </button>
+
+                            <button
+                              onClick={() => handleClaimRequest(req.id, req.title)}
+                              disabled={isClaimedByMe}
+                              className="px-3 py-1.5 rounded-lg text-xs font-mono font-semibold transition-all"
+                              style={{
+                                background: isClaimedByMe ? 'rgba(0,255,128,0.1)' : 'rgba(157,78,221,0.1)',
+                                border: `1px solid ${isClaimedByMe ? 'rgba(0,255,128,0.3)' : 'rgba(157,78,221,0.25)'}`,
+                                color: isClaimedByMe ? '#00FF80' : '#C084FC',
+                                cursor: isClaimedByMe ? 'default' : 'pointer',
+                              }}
+                            >
+                              {isClaimedByMe ? '✓ Assigned to You' : 'I Can Teach This →'}
+                            </button>
+                          </div>
+                        </div>
+                      )
+                    })}
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* Toast Notification */}
+      {toast.visible && (
+        <div
+          className="fixed bottom-6 right-6 z-50 flex items-center gap-3 px-4 py-3 rounded-xl shadow-2xl animate-fade-in-up"
+          style={{
+            background: '#0D1120',
+            border: `1px solid ${toast.type === 'green' ? '#00FF80' : toast.type === 'amethyst' ? '#9D4EDD' : '#00F0FF'}`,
+            boxShadow: `0 10px 40px rgba(0,0,0,0.8), 0 0 20px ${toast.type === 'green' ? 'rgba(0,255,128,0.2)' : toast.type === 'amethyst' ? 'rgba(157,78,221,0.2)' : 'rgba(0,240,255,0.2)'}`,
+          }}
+        >
+          <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: toast.type === 'green' ? '#00FF80' : toast.type === 'amethyst' ? '#9D4EDD' : '#00F0FF' }} />
+          <span className="font-mono text-xs text-white tracking-wide">{toast.message}</span>
+        </div>
+      )}
+
+      {/* Divider */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-4">
+        <div className="divider-cyan" />
+      </div>
+
       {/* ─── QUIZ ──────────────────────────────────────────── */}
       <section id="quiz" className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto">
 
           <div className="section-header mb-10">
-            <span className="label-mono" style={{ color: 'rgba(0,240,255,0.7)' }}>// 002</span>
+            <span className="label-mono" style={{ color: 'rgba(0,240,255,0.7)' }}>// 003</span>
             <h2 className="display-md text-white">Protocol Quiz</h2>
             <div className="section-header-line" />
           </div>
@@ -642,7 +1703,7 @@ export default function App() {
         <div className="max-w-2xl mx-auto">
 
           <div className="section-header mb-10">
-            <span className="label-mono" style={{ color: 'rgba(0,240,255,0.7)' }}>// 003</span>
+            <span className="label-mono" style={{ color: 'rgba(0,240,255,0.7)' }}>// 004</span>
             <h2 className="display-md text-white">Certificate</h2>
             <div className="section-header-line" />
           </div>
@@ -797,8 +1858,21 @@ export default function App() {
           </div>
 
           <nav className="flex flex-wrap justify-center gap-6">
-            {['Curriculum', 'Tracks', 'Quiz', 'Certificate'].map((link) => (
-              <a key={link} href="#" className="footer-link" style={{ fontSize: '0.75rem' }}>{link}</a>
+            {[
+              { id: 'curriculum', label: 'Curriculum' },
+              { id: 'tracks', label: 'Tracks' },
+              { id: 'exchange', label: 'Exchange' },
+              { id: 'quiz', label: 'Quiz' },
+              { id: 'certificate', label: 'Certificate' },
+            ].map((link) => (
+              <button
+                key={link.id}
+                onClick={() => scrollTo(link.id)}
+                className="footer-link bg-transparent border-0 cursor-pointer"
+                style={{ fontSize: '0.75rem' }}
+              >
+                {link.label}
+              </button>
             ))}
             <a href="https://thebuilderprotocol.me" target="_blank" rel="noopener noreferrer" className="footer-link" style={{ fontSize: '0.75rem', color: 'rgba(0,240,255,0.5)' }}>
               thebuilderprotocol.me ↗
