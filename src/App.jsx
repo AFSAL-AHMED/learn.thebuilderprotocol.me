@@ -2061,7 +2061,7 @@ export default function App() {
                   type="text"
                   required
                   autoFocus
-                  placeholder="afsal"
+                  autoComplete="off"
                   value={adminInputUser}
                   onChange={(e) => setAdminInputUser(e.target.value)}
                   className="input-field"
@@ -2076,7 +2076,7 @@ export default function App() {
                 <input
                   type="password"
                   required
-                  placeholder="••••••••••••"
+                  autoComplete="off"
                   value={adminInputPass}
                   onChange={(e) => setAdminInputPass(e.target.value)}
                   className="input-field"
