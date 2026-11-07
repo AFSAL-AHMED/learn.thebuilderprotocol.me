@@ -402,6 +402,11 @@ export default function App() {
 
   // Course Builder Form Helpers
   const handleOpenAddCourse = () => {
+    if (!isAdmin) {
+      triggerToast('Admin authorization required to create or architect courses.', 'warning')
+      setShowAdminModal(true)
+      return
+    }
     setEditingCourseId(null)
     setCourseForm({
       title: '',
@@ -410,7 +415,7 @@ export default function App() {
       level: 'Intermediate',
       hours: 20,
       accentColor: '#00F0FF',
-      status: 'COMMUNITY TRACK',
+      status: 'PROTOCOL TRACK',
       tags: 'Architecture, Systems, Production',
       modules: [
         {
@@ -425,6 +430,11 @@ export default function App() {
   }
 
   const handleOpenEditCourse = (course) => {
+    if (!isAdmin) {
+      triggerToast('Admin authorization required to edit course curriculum.', 'warning')
+      setShowAdminModal(true)
+      return
+    }
     setEditingCourseId(course.id)
     setCourseForm({
       title: course.title,
@@ -491,6 +501,10 @@ export default function App() {
 
   const handleSaveCourse = (e) => {
     e.preventDefault()
+    if (!isAdmin) {
+      triggerToast('Unauthorized: Only Admin can publish or modify courses.', 'warning')
+      return
+    }
     if (!courseForm.title.trim() || !courseForm.description.trim()) {
       triggerToast('Please provide a course title and description.', 'warning')
       return
@@ -565,6 +579,10 @@ export default function App() {
   }
 
   const handleDeleteCourse = (id, title) => {
+    if (!isAdmin) {
+      triggerToast('Unauthorized: Only Admin can delete courses.', 'warning')
+      return
+    }
     if (!window.confirm(`Delete course "${title}" and its complete syllabus?\nThis cannot be undone.`)) return
     setCourses((prev) => prev.filter((c) => c.id !== id))
     if (activeCourseViewer && activeCourseViewer.id === id) {
@@ -976,16 +994,16 @@ export default function App() {
 
             {/* Desktop CTAs */}
             <div className="hidden md:flex items-center gap-2">
-              <button
-                onClick={handleOpenAddCourse}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-mono font-semibold transition-all cursor-pointer"
-                style={{ background: 'rgba(0,240,255,0.08)', border: '1px solid rgba(0,240,255,0.3)', color: '#00F0FF' }}
-              >
-                <span>+</span>
-                <span>Add Course</span>
-              </button>
               {isAdmin ? (
                 <div className="flex items-center gap-2">
+                  <button
+                    onClick={handleOpenAddCourse}
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-mono font-bold transition-all cursor-pointer"
+                    style={{ background: 'rgba(0,240,255,0.12)', border: '1px solid rgba(0,240,255,0.4)', color: '#00F0FF' }}
+                  >
+                    <span>+</span>
+                    <span>Create Course</span>
+                  </button>
                   <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-mono font-bold" style={{ background: 'rgba(0,255,128,0.12)', border: '1px solid rgba(0,255,128,0.3)', color: '#00FF80' }}>
                     <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: '#00FF80' }} />
                     ADMIN: AFSAL
@@ -1016,7 +1034,7 @@ export default function App() {
                     <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
                     <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                   </svg>
-                  Admin
+                  Admin Login
                 </button>
               )}
               <button id="nav-student-portal" onClick={() => scrollTo('tracks')} className="btn-primary" style={{ fontSize: '0.75rem', padding: '0.5rem 1rem' }}>
@@ -1053,9 +1071,11 @@ export default function App() {
                 ))}
               </div>
               <div className="flex gap-2">
-                <button onClick={() => { setMobileMenuOpen(false); handleOpenAddCourse() }} className="btn-secondary flex-1 justify-center" style={{ fontSize: '0.75rem', color: '#00F0FF' }}>+ Course</button>
                 {isAdmin ? (
-                  <button onClick={handleAdminLogout} className="btn-secondary flex-1 justify-center" style={{ fontSize: '0.75rem', color: '#FF6B6B' }}>Logout Admin</button>
+                  <>
+                    <button onClick={() => { setMobileMenuOpen(false); handleOpenAddCourse() }} className="btn-secondary flex-1 justify-center" style={{ fontSize: '0.75rem', color: '#00F0FF' }}>+ Course</button>
+                    <button onClick={handleAdminLogout} className="btn-secondary flex-1 justify-center" style={{ fontSize: '0.75rem', color: '#FF6B6B' }}>Logout Admin</button>
+                  </>
                 ) : (
                   <button onClick={() => { setMobileMenuOpen(false); setShowAdminModal(true) }} className="btn-secondary flex-1 justify-center" style={{ fontSize: '0.75rem' }}>Admin</button>
                 )}
@@ -1170,15 +1190,21 @@ export default function App() {
               </p>
             </div>
 
-            {/* Add Course Button */}
-            <button
-              onClick={handleOpenAddCourse}
-              className="btn-primary flex items-center gap-2 self-start sm:self-auto cursor-pointer"
-              style={{ fontSize: '0.8rem', padding: '0.625rem 1.25rem' }}
-            >
-              <span>+</span>
-              <span>Create Custom Course</span>
-            </button>
+            {/* Add Course Button - Visible only to Admin */}
+            {isAdmin ? (
+              <button
+                onClick={handleOpenAddCourse}
+                className="btn-primary flex items-center gap-2 self-start sm:self-auto cursor-pointer"
+                style={{ fontSize: '0.8rem', padding: '0.625rem 1.25rem' }}
+              >
+                <span>+</span>
+                <span>Create New Track (Admin)</span>
+              </button>
+            ) : (
+              <span className="font-mono text-xs px-3 py-1.5 rounded-lg" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', color: 'rgba(255,255,255,0.4)' }}>
+                Curriculum Verified by Protocol
+              </span>
+            )}
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
@@ -1218,12 +1244,12 @@ export default function App() {
                         <span className="tag-mono" style={{ color: track.accentColor, fontSize: '0.55rem' }}>{track.status}</span>
                       </div>
 
-                      {/* Edit / Delete for custom or admin */}
-                      {(isAdmin || track.isCustom) && (
+                      {/* Edit / Delete strictly for admin */}
+                      {isAdmin && (
                         <div className="flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
                           <button
                             onClick={() => handleOpenEditCourse(track)}
-                            title="Edit Course & Content"
+                            title="Edit Course & Content (Admin)"
                             className="p-1 px-2 rounded text-[10px] font-mono transition-colors"
                             style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.15)', color: 'rgba(255,255,255,0.8)' }}
                           >
@@ -1231,7 +1257,7 @@ export default function App() {
                           </button>
                           <button
                             onClick={() => handleDeleteCourse(track.id, track.title)}
-                            title="Delete Course"
+                            title="Delete Course (Admin)"
                             className="p-1 px-2 rounded text-[10px] font-mono transition-colors"
                             style={{ background: 'rgba(255,80,80,0.12)', border: '1px solid rgba(255,80,80,0.3)', color: '#FF6B6B' }}
                           >
@@ -2391,7 +2417,7 @@ export default function App() {
               </div>
 
               <div className="flex items-center gap-2">
-                {(isAdmin || activeCourseViewer.isCustom) && (
+                {isAdmin && (
                   <button
                     onClick={() => {
                       const c = activeCourseViewer
@@ -2401,7 +2427,7 @@ export default function App() {
                     className="px-3 py-1.5 rounded-lg text-xs font-mono font-semibold transition-all cursor-pointer hidden sm:block"
                     style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.15)', color: 'rgba(255,255,255,0.85)' }}
                   >
-                    ✎ Edit Syllabus
+                    ✎ Edit Syllabus (Admin)
                   </button>
                 )}
                 <button
