@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 import './index.css'
+import { LEARNING_TRACKS } from './data/content.js'
 
-
-/* ─── COURSE TRACKS DATA ──────────────────────────────── */
-const TRACKS = [
+/* ─── INITIAL COURSE TRACKS DATA ───────────────────────── */
+const INITIAL_TRACKS = [
   {
     id: 'ai-agentic',
     accentColor: '#00F0FF',
@@ -16,9 +16,10 @@ const TRACKS = [
     description: 'Engineer production-grade autonomous agents with stateful multi-step reasoning. Master LangGraph StateGraph, tool-calling loops, human-in-the-loop checkpoints, and multi-agent supervisor patterns.',
     tags: ['LangGraph', 'StateGraph', 'Tool Calling', 'RAG Pipelines', 'Agent Memory'],
     tagVariant: 'badge-cyan',
-    modules: 14,
+    modules: 4,
     hours: 38,
     level: 'Advanced',
+    curriculum: LEARNING_TRACKS[0]?.modules || [],
   },
   {
     id: 'edge-arch',
@@ -27,14 +28,15 @@ const TRACKS = [
     accentBorder: 'rgba(157,78,221,0.18)',
     iconPath: 'M13 2 3 14 12 14 11 22 21 10 12 10 13 2',
     status: 'TRENDING',
-    title: 'Edge Architectures',
-    subtitle: 'Next.js 15 · Bun · Cloudflare',
-    description: 'Build sub-50ms globally distributed apps using Next.js 15 App Router, React Server Components, streaming SSR, and Bun native TypeScript runtime at the edge layer.',
-    tags: ['Next.js 15', 'Bun Runtime', 'RSC', 'Streaming SSR', 'Edge Functions'],
+    title: 'Edge Architectures & Linux Systems',
+    subtitle: 'Next.js 15 · Bun · Linux Internals',
+    description: 'Build sub-50ms globally distributed apps using Next.js 15 App Router, React Server Components, POSIX syscalls, virtual memory, and Linux cgroup containers.',
+    tags: ['Next.js 15', 'Linux MMU', 'io_uring', 'Namespaces', 'Edge Functions'],
     tagVariant: 'badge-amethyst',
-    modules: 12,
+    modules: 3,
     hours: 31,
     level: 'Intermediate',
+    curriculum: LEARNING_TRACKS[1]?.modules || [],
   },
   {
     id: 'serverless-infra',
@@ -43,14 +45,101 @@ const TRACKS = [
     accentBorder: 'rgba(0,255,128,0.15)',
     iconPath: 'M3 5v14 M21 5v14 M3 12h18',
     status: 'NEW BATCH',
-    title: 'Serverless Infrastructure',
-    subtitle: 'Supabase · Neon · Drizzle ORM',
-    description: 'Design zero-ops data layers with branching Postgres databases, realtime subscriptions, row-level security, and type-safe query builders that scale from prototype to production overnight.',
-    tags: ['Supabase', 'Neon Postgres', 'Drizzle ORM', 'RLS Policies', 'Realtime'],
+    title: 'High-Throughput Distributed Systems',
+    subtitle: 'B+ Trees · Raft · Redis Token Bucket',
+    description: 'Design zero-ops distributed data layers with B+ Trees, append-only WAL storage engines, Raft quorum leader elections, and atomic Lua rate limiters.',
+    tags: ['Raft Consensus', 'B+ Trees', 'LSM Storage', 'Redis Lua', 'Realtime'],
     tagVariant: 'badge-green',
-    modules: 10,
+    modules: 3,
     hours: 26,
     level: 'Intermediate',
+    curriculum: LEARNING_TRACKS[2]?.modules || [],
+  },
+  {
+    id: 'devops-scale',
+    accentColor: '#4F46E5',
+    accentBg: 'rgba(79,70,229,0.06)',
+    accentBorder: 'rgba(79,70,229,0.22)',
+    iconPath: 'M12 2L2 7l10 5 10-5-10-5z M2 17l10 5 10-5 M2 12l10 5 10-5',
+    status: 'HOT TRACK',
+    title: 'DevOps & Architecture of Scale',
+    subtitle: 'Distributed Tracing · Load Balancing · Circuit Breakers',
+    description: 'Master the core systems intelligence required to solve production incidents: distributed latency tracing, NGINX reverse proxies, PgBouncer pool sizing, and resilience4j fault tolerance.',
+    tags: ['OpenTelemetry', 'NGINX Proxy', 'PgBouncer', 'Circuit Breakers', 'Kubernetes'],
+    tagVariant: 'badge-cyan',
+    modules: 5,
+    hours: 34,
+    level: 'Advanced',
+    curriculum: [
+      {
+        id: 'devops-mental-models',
+        title: '01. Core Mental Models: Understanding Servers & Traffic',
+        readTime: '15 min',
+        summary: 'Servers as kitchen stations — CPU, memory, and I/O explained simply. Request lifecycle demystified.',
+        sections: [
+          {
+            heading: '1.1 The Restaurant Analogy of Infrastructure',
+            text: 'Why "scaling" is just managing a busy restaurant: The queue, the waiter (reverse proxy), and the chef (compute). Throughput vs. Latency vs. Availability.',
+          },
+          {
+            heading: '1.2 Architecture Floor Plans',
+            text: 'How to map microservice request flows and trace where single points of failure cascade into outages.',
+          },
+        ],
+      },
+      {
+        id: 'devops-distributed-tracing',
+        title: '02. The Crash Anatomy: Distributed Tracing & Latency',
+        readTime: '18 min',
+        summary: 'OpenTelemetry, Jaeger, and flame graphs. Understanding why P99 latency tells the real story.',
+        sections: [
+          {
+            heading: '2.1 Tracing a Request Across 5 Microservices',
+            text: 'Trace IDs, span contexts, and parent-child causal relationships across distributed asynchronous boundaries.',
+          },
+          {
+            heading: '2.2 Reading Flame Graphs Without the PhD',
+            text: 'Identifying blocking synchronous locks and identifying database roundtrips hiding in API loops.',
+          },
+        ],
+      },
+      {
+        id: 'devops-traffic-control',
+        title: '03. Traffic Control: Load Balancing & Reverse Proxies',
+        readTime: '20 min',
+        summary: 'Round-robin, least connections, IP hashing, NGINX edge gateway architecture, and TLS termination.',
+        sections: [
+          {
+            heading: '3.1 Reverse Proxy Gateway Pattern',
+            text: 'Configuring active health checks, sticky sessions, TLS termination at edge, and dynamic upstream routing.',
+          },
+        ],
+      },
+      {
+        id: 'devops-connection-pools',
+        title: '04. Resource Bottlenecks: Connection Pools & Thread Starvation',
+        readTime: '16 min',
+        summary: 'Database connection exhaustions, PgBouncer pooling modes, and thread pool deadlocks.',
+        sections: [
+          {
+            heading: '4.1 PgBouncer Session vs Transaction Pooling',
+            text: 'Why unpooled PostgreSQL connections crash under 500 concurrent connections, and how multiplexing fixes it.',
+          },
+        ],
+      },
+      {
+        id: 'devops-circuit-breakers',
+        title: '05. High Availability: Circuit Breakers & Graceful Degradation',
+        readTime: '22 min',
+        summary: 'Netflix resilience patterns: closed, open, and half-open state machines with exponential jitter.',
+        sections: [
+          {
+            heading: '5.1 The Circuit Breaker State Machine',
+            text: 'Failing fast beats hanging threads. Fallback caches, bulkhead isolation, and automated self-healing.',
+          },
+        ],
+      },
+    ],
   },
 ]
 
@@ -265,6 +354,224 @@ export default function App() {
   const [activeNav, setActiveNav] = useState('curriculum')
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
+
+  // ─── COURSE TRACKS STATE ──────────────────────────────
+  const [courses, setCourses] = useState(() => {
+    try {
+      const saved = localStorage.getItem('tbp_courses')
+      return saved ? JSON.parse(saved) : INITIAL_TRACKS
+    } catch {
+      return INITIAL_TRACKS
+    }
+  })
+
+  // Selected course for syllabus & content viewer modal
+  const [activeCourseViewer, setActiveCourseViewer] = useState(null)
+  const [activeModuleIndex, setActiveModuleIndex] = useState(0)
+
+  // Course Builder / Editor Modal State
+  const [showCourseEditor, setShowCourseEditor] = useState(false)
+  const [editingCourseId, setEditingCourseId] = useState(null)
+  const [courseForm, setCourseForm] = useState({
+    title: '',
+    subtitle: '',
+    description: '',
+    level: 'Intermediate',
+    hours: 20,
+    accentColor: '#00F0FF',
+    status: 'COMMUNITY TRACK',
+    tags: '',
+    modules: [
+      {
+        title: 'Module 01: Core Mental Models & Architecture',
+        readTime: '15 min',
+        summary: 'Fundamental concepts, system constraints, and mental models from first principles.',
+        content: `// Architectural Overview:\n1. Deconstruct the problem space into clear functional domains.\n2. Design fail-safe boundary checkpoints.\n3. Verify throughput, latency, and memory requirements under peak load.`,
+      },
+    ],
+  })
+
+  // Synchronize courses to localStorage
+  useEffect(() => {
+    try {
+      localStorage.setItem('tbp_courses', JSON.stringify(courses))
+    } catch (e) {
+      console.warn('Storage sync error', e)
+    }
+  }, [courses])
+
+  // Course Builder Form Helpers
+  const handleOpenAddCourse = () => {
+    setEditingCourseId(null)
+    setCourseForm({
+      title: '',
+      subtitle: '',
+      description: '',
+      level: 'Intermediate',
+      hours: 20,
+      accentColor: '#00F0FF',
+      status: 'COMMUNITY TRACK',
+      tags: 'Architecture, Systems, Production',
+      modules: [
+        {
+          title: 'Module 01: Core Architecture & Foundations',
+          readTime: '15 min',
+          summary: 'Overview of core system constraints and first principles.',
+          content: '### Welcome to this module\n\nExplain your first principle concepts, equations, and code architecture here.',
+        },
+      ],
+    })
+    setShowCourseEditor(true)
+  }
+
+  const handleOpenEditCourse = (course) => {
+    setEditingCourseId(course.id)
+    setCourseForm({
+      title: course.title,
+      subtitle: course.subtitle,
+      description: course.description,
+      level: course.level || 'Intermediate',
+      hours: course.hours || 20,
+      accentColor: course.accentColor || '#00F0FF',
+      status: course.status || 'COMMUNITY TRACK',
+      tags: Array.isArray(course.tags) ? course.tags.join(', ') : '',
+      modules: (course.curriculum && course.curriculum.length > 0)
+        ? course.curriculum.map((m) => ({
+            title: m.title,
+            readTime: m.readTime || '15 min',
+            summary: m.summary || '',
+            content: (m.sections && m.sections.length > 0)
+              ? m.sections.map((s) => `### ${s.heading}\n\n${s.text}`).join('\n\n')
+              : (m.content || ''),
+          }))
+        : [
+            {
+              title: 'Module 01: Architecture Overview',
+              readTime: '15 min',
+              summary: 'System architecture breakdown.',
+              content: 'Add technical documentation, code snippets, or system instructions.',
+            },
+          ],
+    })
+    setShowCourseEditor(true)
+  }
+
+  const handleAddModuleRow = () => {
+    setCourseForm((prev) => ({
+      ...prev,
+      modules: [
+        ...prev.modules,
+        {
+          title: `Module 0${prev.modules.length + 1}: Implementation & Deep Dive`,
+          readTime: '15 min',
+          summary: 'Detailed system breakdown and execution patterns.',
+          content: 'Provide architectural breakdown, configuration examples, and test benchmarks.',
+        },
+      ],
+    }))
+  }
+
+  const handleRemoveModuleRow = (index) => {
+    if (courseForm.modules.length <= 1) {
+      triggerToast('A course must contain at least one module.', 'warning')
+      return
+    }
+    setCourseForm((prev) => ({
+      ...prev,
+      modules: prev.modules.filter((_, i) => i !== index),
+    }))
+  }
+
+  const handleModuleFieldChange = (index, field, value) => {
+    setCourseForm((prev) => ({
+      ...prev,
+      modules: prev.modules.map((m, i) => (i === index ? { ...m, [field]: value } : m)),
+    }))
+  }
+
+  const handleSaveCourse = (e) => {
+    e.preventDefault()
+    if (!courseForm.title.trim() || !courseForm.description.trim()) {
+      triggerToast('Please provide a course title and description.', 'warning')
+      return
+    }
+
+    const tagList = courseForm.tags
+      ? courseForm.tags.split(',').map((t) => t.trim()).filter(Boolean)
+      : ['Systems', 'Architecture']
+
+    const formattedCurriculum = courseForm.modules.map((mod, i) => ({
+      id: `mod-${Date.now()}-${i}`,
+      title: mod.title.trim() || `Module 0${i + 1}`,
+      readTime: mod.readTime.trim() || '15 min',
+      summary: mod.summary.trim() || 'Module breakdown.',
+      content: mod.content.trim(),
+      sections: [
+        {
+          heading: 'Core Architecture & Concepts',
+          text: mod.content.trim() || 'No additional content provided.',
+        },
+      ],
+    }))
+
+    if (editingCourseId) {
+      // Update existing course
+      setCourses((prev) =>
+        prev.map((c) =>
+          c.id === editingCourseId
+            ? {
+                ...c,
+                title: courseForm.title.trim(),
+                subtitle: courseForm.subtitle.trim() || 'Production Engineering Curriculum',
+                description: courseForm.description.trim(),
+                level: courseForm.level,
+                hours: Number(courseForm.hours) || 20,
+                accentColor: courseForm.accentColor,
+                status: courseForm.status.trim() || 'UPDATED',
+                tags: tagList,
+                modules: formattedCurriculum.length,
+                curriculum: formattedCurriculum,
+              }
+            : c
+        )
+      )
+      triggerToast('Course & syllabus updated successfully!', 'cyan')
+    } else {
+      // Create new course
+      const newCourseId = `course-${Date.now()}`
+      const newCourseObj = {
+        id: newCourseId,
+        accentColor: courseForm.accentColor,
+        accentBg: `${courseForm.accentColor}12`,
+        accentBorder: `${courseForm.accentColor}35`,
+        iconPath: 'M12 2L2 7l10 5 10-5-10-5z M2 17l10 5 10-5 M2 12l10 5 10-5',
+        status: courseForm.status.trim() || 'COMMUNITY TRACK',
+        title: courseForm.title.trim(),
+        subtitle: courseForm.subtitle.trim() || 'Community Architect Track',
+        description: courseForm.description.trim(),
+        tags: tagList,
+        tagVariant: 'badge-cyan',
+        modules: formattedCurriculum.length,
+        hours: Number(courseForm.hours) || 20,
+        level: courseForm.level,
+        isCustom: true,
+        curriculum: formattedCurriculum,
+      }
+      setCourses((prev) => [newCourseObj, ...prev])
+      triggerToast('New Course published to protocol academy!', 'green')
+    }
+
+    setShowCourseEditor(false)
+  }
+
+  const handleDeleteCourse = (id, title) => {
+    if (!window.confirm(`Delete course "${title}" and its complete syllabus?\nThis cannot be undone.`)) return
+    setCourses((prev) => prev.filter((c) => c.id !== id))
+    if (activeCourseViewer && activeCourseViewer.id === id) {
+      setActiveCourseViewer(null)
+    }
+    triggerToast('Course removed from academy.', 'warning')
+  }
 
   // ─── COMMUNITY EXCHANGE STATE ──────────────────────────
   const [techDrops, setTechDrops] = useState(() => {
@@ -669,6 +976,14 @@ export default function App() {
 
             {/* Desktop CTAs */}
             <div className="hidden md:flex items-center gap-2">
+              <button
+                onClick={handleOpenAddCourse}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-mono font-semibold transition-all cursor-pointer"
+                style={{ background: 'rgba(0,240,255,0.08)', border: '1px solid rgba(0,240,255,0.3)', color: '#00F0FF' }}
+              >
+                <span>+</span>
+                <span>Add Course</span>
+              </button>
               {isAdmin ? (
                 <div className="flex items-center gap-2">
                   <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-mono font-bold" style={{ background: 'rgba(0,255,128,0.12)', border: '1px solid rgba(0,255,128,0.3)', color: '#00FF80' }}>
@@ -704,8 +1019,8 @@ export default function App() {
                   Admin
                 </button>
               )}
-              <button id="nav-student-portal" onClick={() => scrollTo('curriculum')} className="btn-primary" style={{ fontSize: '0.75rem', padding: '0.5rem 1rem' }}>
-                Student Portal
+              <button id="nav-student-portal" onClick={() => scrollTo('tracks')} className="btn-primary" style={{ fontSize: '0.75rem', padding: '0.5rem 1rem' }}>
+                Curriculum
               </button>
             </div>
 
@@ -738,12 +1053,13 @@ export default function App() {
                 ))}
               </div>
               <div className="flex gap-2">
+                <button onClick={() => { setMobileMenuOpen(false); handleOpenAddCourse() }} className="btn-secondary flex-1 justify-center" style={{ fontSize: '0.75rem', color: '#00F0FF' }}>+ Course</button>
                 {isAdmin ? (
                   <button onClick={handleAdminLogout} className="btn-secondary flex-1 justify-center" style={{ fontSize: '0.75rem', color: '#FF6B6B' }}>Logout Admin</button>
                 ) : (
                   <button onClick={() => { setMobileMenuOpen(false); setShowAdminModal(true) }} className="btn-secondary flex-1 justify-center" style={{ fontSize: '0.75rem' }}>Admin</button>
                 )}
-                <button onClick={() => scrollTo('curriculum')} className="btn-primary flex-1 justify-center" style={{ fontSize: '0.75rem' }}>Portal</button>
+                <button onClick={() => scrollTo('tracks')} className="btn-primary flex-1 justify-center" style={{ fontSize: '0.75rem' }}>Tracks</button>
               </div>
             </div>
           )}
@@ -842,52 +1158,87 @@ export default function App() {
       <section id="tracks" className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
 
-          <div className="section-header mb-12">
-            <span className="label-mono" style={{ color: 'rgba(0,240,255,0.7)' }}>// 001</span>
-            <h2 className="display-md text-white">Core Tracks</h2>
-            <div className="section-header-line" />
-            <span className="label-mono hidden sm:block" style={{ color: 'rgba(255,255,255,0.2)' }}>TRENDING_PROTOCOLS</span>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-12">
+            <div>
+              <div className="flex items-center gap-2 mb-2">
+                <span className="label-mono" style={{ color: 'rgba(0,240,255,0.7)' }}>// 001</span>
+                <span className="label-mono" style={{ color: 'rgba(255,255,255,0.3)' }}>CURRICULUM DIRECTORY</span>
+              </div>
+              <h2 className="display-md text-white">Engineering Masterclass Tracks</h2>
+              <p className="text-sm mt-1" style={{ color: 'rgba(139,158,199,0.75)' }}>
+                Click any track to inspect its full syllabus and technical breakdown. You can also build &amp; publish custom curriculum.
+              </p>
+            </div>
+
+            {/* Add Course Button */}
+            <button
+              onClick={handleOpenAddCourse}
+              className="btn-primary flex items-center gap-2 self-start sm:self-auto cursor-pointer"
+              style={{ fontSize: '0.8rem', padding: '0.625rem 1.25rem' }}
+            >
+              <span>+</span>
+              <span>Create Custom Course</span>
+            </button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {TRACKS.map((track) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+            {courses.map((track) => (
               <article
                 key={track.id}
                 id={`track-${track.id}`}
-                className="card-base group relative flex flex-col overflow-hidden"
-                style={{ padding: 0, cursor: 'default' }}
+                className="card-base group relative flex flex-col overflow-hidden transition-all duration-300"
+                style={{ padding: 0, cursor: 'pointer' }}
+                onClick={() => {
+                  setActiveCourseViewer(track)
+                  setActiveModuleIndex(0)
+                }}
               >
                 {/* Accent top line */}
-                <div className="h-[2px] w-full transition-opacity duration-300" style={{ background: track.accentColor, opacity: 0.75 }} />
+                <div className="h-[2px] w-full transition-opacity duration-300" style={{ background: track.accentColor, opacity: 0.85 }} />
 
                 <div className="flex flex-col flex-1 p-6">
-                  {/* Icon + status */}
+                  {/* Icon + status + Admin/Author Controls */}
                   <div className="flex items-start justify-between mb-5">
                     <div
                       className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:scale-110"
-                      style={{ background: track.accentBg, border: `1px solid ${track.accentBorder}`, color: track.accentColor }}
+                      style={{ background: track.accentBg || 'rgba(0,240,255,0.06)', border: `1px solid ${track.accentBorder || 'rgba(0,240,255,0.2)'}`, color: track.accentColor }}
                     >
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-                        {track.id === 'ai-agentic' && (
-                          <>
-                            <circle cx="12" cy="12" r="3" />
-                            <path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.93 4.93l2.12 2.12M16.95 16.95l2.12 2.12M4.93 19.07l2.12-2.12M16.95 7.05l2.12-2.12" />
-                          </>
-                        )}
-                        {track.id === 'edge-arch' && <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />}
-                        {track.id === 'serverless-infra' && (
-                          <>
-                            <ellipse cx="12" cy="5" rx="9" ry="3" />
-                            <path d="M3 5v5c0 1.66 4 3 9 3s9-1.34 9-3V5" />
-                            <path d="M3 10v5c0 1.66 4 3 9 3s9-1.34 9-3v-5" />
-                            <path d="M3 15v4c0 1.66 4 3 9 3s9-1.34 9-3v-4" />
-                          </>
+                        {track.iconPath ? (
+                          <path d={track.iconPath} />
+                        ) : (
+                          <polygon points="12 2 2 7 12 12 22 7 12 2" />
                         )}
                       </svg>
                     </div>
-                    <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full" style={{ background: `${track.accentColor}12`, border: `1px solid ${track.accentColor}30` }}>
-                      <span className="animate-pulse-dot w-1.5 h-1.5 rounded-full" style={{ background: track.accentColor }} />
-                      <span className="tag-mono" style={{ color: track.accentColor, fontSize: '0.55rem' }}>{track.status}</span>
+
+                    <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full" style={{ background: `${track.accentColor}12`, border: `1px solid ${track.accentColor}30` }}>
+                        <span className="animate-pulse-dot w-1.5 h-1.5 rounded-full" style={{ background: track.accentColor }} />
+                        <span className="tag-mono" style={{ color: track.accentColor, fontSize: '0.55rem' }}>{track.status}</span>
+                      </div>
+
+                      {/* Edit / Delete for custom or admin */}
+                      {(isAdmin || track.isCustom) && (
+                        <div className="flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
+                          <button
+                            onClick={() => handleOpenEditCourse(track)}
+                            title="Edit Course & Content"
+                            className="p-1 px-2 rounded text-[10px] font-mono transition-colors"
+                            style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.15)', color: 'rgba(255,255,255,0.8)' }}
+                          >
+                            ✎ Edit
+                          </button>
+                          <button
+                            onClick={() => handleDeleteCourse(track.id, track.title)}
+                            title="Delete Course"
+                            className="p-1 px-2 rounded text-[10px] font-mono transition-colors"
+                            style={{ background: 'rgba(255,80,80,0.12)', border: '1px solid rgba(255,80,80,0.3)', color: '#FF6B6B' }}
+                          >
+                            ✕
+                          </button>
+                        </div>
+                      )}
                     </div>
                   </div>
 
@@ -895,7 +1246,7 @@ export default function App() {
                   <h3 className="text-white font-bold text-lg leading-tight mb-1" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", letterSpacing: '-0.01em' }}>
                     {track.title}
                   </h3>
-                  <p className="label-mono mb-4" style={{ color: track.accentColor, opacity: 0.7 }}>{track.subtitle}</p>
+                  <p className="label-mono mb-4" style={{ color: track.accentColor, opacity: 0.85 }}>{track.subtitle}</p>
 
                   {/* Description */}
                   <p className="text-sm leading-relaxed mb-5 flex-1" style={{ color: 'rgba(139,158,199,0.8)' }}>
@@ -904,38 +1255,29 @@ export default function App() {
 
                   {/* Tags */}
                   <div className="flex flex-wrap gap-1.5 mb-5">
-                    {track.tags.map((tag) => (
-                      <span key={tag} className={`badge ${track.tagVariant}`}>{tag}</span>
+                    {Array.isArray(track.tags) && track.tags.map((tag) => (
+                      <span key={tag} className="badge badge-slate" style={{ fontSize: '0.62rem' }}>#{tag}</span>
                     ))}
                   </div>
 
                   <div className="divider mb-4" />
 
-                  {/* Meta */}
+                  {/* Meta & Trigger */}
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-4">
-                      <span className="label-mono" style={{ color: 'rgba(139,158,199,0.55)' }}>{track.modules} modules</span>
-                      <span className="label-mono" style={{ color: 'rgba(139,158,199,0.55)' }}>{track.hours}h content</span>
+                      <span className="label-mono" style={{ color: 'rgba(139,158,199,0.7)' }}>
+                        {track.curriculum ? track.curriculum.length : track.modules} Modules
+                      </span>
+                      <span className="label-mono" style={{ color: 'rgba(139,158,199,0.7)' }}>{track.hours}h Syllabus</span>
                     </div>
                     <span className="badge badge-slate">{track.level}</span>
                   </div>
 
-                  {/* Hover CTA */}
-                  <button
-                    id={`enroll-${track.id}`}
-                    className="mt-4 w-full py-2.5 rounded-lg text-sm font-semibold transition-all duration-300"
-                    style={{
-                      background: `${track.accentColor}12`,
-                      border: `1px solid ${track.accentColor}30`,
-                      color: track.accentColor,
-                      fontFamily: "'Plus Jakarta Sans', sans-serif",
-                      opacity: 0,
-                    }}
-                    onMouseEnter={(e) => { e.currentTarget.style.opacity = '1' }}
-                    onMouseLeave={(e) => { e.currentTarget.style.opacity = '0' }}
-                  >
-                    Enroll in Track →
-                  </button>
+                  {/* Action pill */}
+                  <div className="mt-4 pt-3 flex items-center justify-between text-xs font-mono" style={{ borderTop: '1px solid rgba(255,255,255,0.05)', color: track.accentColor }}>
+                    <span>Explore Syllabus &amp; Content</span>
+                    <span>View Curriculum →</span>
+                  </div>
                 </div>
               </article>
             ))}
@@ -2015,7 +2357,498 @@ export default function App() {
         </div>
       </footer>
 
-      {/* ─── ADMIN LOGIN MODAL ──────────────────────────────── */}
+      {/* ─── COURSE VIEWER & SYLLABUS READER MODAL ──────── */}
+      {activeCourseViewer && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6" style={{ background: 'rgba(5,7,11,0.88)', backdropFilter: 'blur(16px)' }}>
+          <div
+            className="w-full max-w-5xl h-[88vh] rounded-2xl flex flex-col overflow-hidden relative animate-fade-in-up"
+            style={{
+              background: '#0D1120',
+              border: `1px solid ${activeCourseViewer.accentColor || '#00F0FF'}40`,
+              boxShadow: `0 24px 80px rgba(0,0,0,0.85), 0 0 40px ${activeCourseViewer.accentColor || '#00F0FF'}15`,
+            }}
+          >
+            {/* Top Modal Header */}
+            <div className="p-5 sm:px-8 flex items-center justify-between border-b" style={{ borderColor: 'rgba(255,255,255,0.08)', background: 'rgba(255,255,255,0.02)' }}>
+              <div className="flex items-center gap-3">
+                <div
+                  className="w-10 h-10 rounded-xl flex items-center justify-center font-mono font-bold"
+                  style={{ background: `${activeCourseViewer.accentColor}18`, color: activeCourseViewer.accentColor, border: `1px solid ${activeCourseViewer.accentColor}40` }}
+                >
+                  ⚡
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="label-mono" style={{ color: activeCourseViewer.accentColor }}>
+                      {activeCourseViewer.status || 'CURRICULUM'}
+                    </span>
+                    <span className="font-mono text-xs" style={{ color: 'rgba(255,255,255,0.3)' }}>• {activeCourseViewer.level}</span>
+                  </div>
+                  <h2 className="text-white font-bold text-lg sm:text-xl" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+                    {activeCourseViewer.title}
+                  </h2>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2">
+                {(isAdmin || activeCourseViewer.isCustom) && (
+                  <button
+                    onClick={() => {
+                      const c = activeCourseViewer
+                      setActiveCourseViewer(null)
+                      handleOpenEditCourse(c)
+                    }}
+                    className="px-3 py-1.5 rounded-lg text-xs font-mono font-semibold transition-all cursor-pointer hidden sm:block"
+                    style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.15)', color: 'rgba(255,255,255,0.85)' }}
+                  >
+                    ✎ Edit Syllabus
+                  </button>
+                )}
+                <button
+                  onClick={() => setActiveCourseViewer(null)}
+                  className="w-9 h-9 rounded-lg flex items-center justify-center text-sm font-mono font-bold transition-colors cursor-pointer"
+                  style={{ background: 'rgba(255,255,255,0.05)', color: 'rgba(255,255,255,0.6)' }}
+                >
+                  ✕
+                </button>
+              </div>
+            </div>
+
+            {/* Modal Body: Left Sidebar (Modules) + Right Content Panel */}
+            <div className="flex-1 flex flex-col md:flex-row overflow-hidden">
+              {/* Left Module Navigation */}
+              <div
+                className="w-full md:w-80 border-b md:border-b-0 md:border-r overflow-y-auto p-4 flex flex-col gap-2 shrink-0"
+                style={{ borderColor: 'rgba(255,255,255,0.08)', background: 'rgba(0,0,0,0.2)' }}
+              >
+                <div className="flex items-center justify-between mb-2 px-2">
+                  <span className="label-mono" style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.65rem' }}>
+                    SYLLABUS MODULES ({activeCourseViewer.curriculum?.length || 0})
+                  </span>
+                  <span className="font-mono text-[10px]" style={{ color: activeCourseViewer.accentColor }}>
+                    Interactive Read
+                  </span>
+                </div>
+
+                {(!activeCourseViewer.curriculum || activeCourseViewer.curriculum.length === 0) ? (
+                  <div className="p-4 text-center text-xs font-mono" style={{ color: 'rgba(255,255,255,0.4)' }}>
+                    No syllabus modules configured yet.
+                  </div>
+                ) : (
+                  activeCourseViewer.curriculum.map((mod, index) => {
+                    const isSelected = activeModuleIndex === index
+                    return (
+                      <button
+                        key={mod.id || index}
+                        onClick={() => setActiveModuleIndex(index)}
+                        className="text-left p-3.5 rounded-xl transition-all duration-200 cursor-pointer flex flex-col gap-1"
+                        style={{
+                          background: isSelected ? `${activeCourseViewer.accentColor}18` : 'rgba(255,255,255,0.02)',
+                          border: `1px solid ${isSelected ? `${activeCourseViewer.accentColor}60` : 'rgba(255,255,255,0.05)'}`,
+                        }}
+                      >
+                        <div className="flex items-center justify-between">
+                          <span className="label-mono font-bold" style={{ color: isSelected ? activeCourseViewer.accentColor : 'rgba(255,255,255,0.5)', fontSize: '0.62rem' }}>
+                            MODULE 0{index + 1}
+                          </span>
+                          <span className="font-mono text-[10px]" style={{ color: 'rgba(255,255,255,0.4)' }}>
+                            {mod.readTime || '15 min'}
+                          </span>
+                        </div>
+                        <h4 className="text-white text-xs font-semibold leading-snug line-clamp-2">
+                          {mod.title}
+                        </h4>
+                        {mod.summary && (
+                          <p className="text-[11px] leading-relaxed line-clamp-1" style={{ color: 'rgba(139,158,199,0.7)' }}>
+                            {mod.summary}
+                          </p>
+                        )}
+                      </button>
+                    )
+                  })
+                )}
+              </div>
+
+              {/* Right Content Reader Area */}
+              <div className="flex-1 overflow-y-auto p-6 sm:p-10 flex flex-col">
+                {(!activeCourseViewer.curriculum || activeCourseViewer.curriculum.length === 0) ? (
+                  <div className="m-auto text-center p-8 max-w-md">
+                    <span className="text-4xl block mb-3">📖</span>
+                    <h3 className="text-white font-bold text-lg mb-2">No Content in this Track</h3>
+                    <p className="text-sm mb-4" style={{ color: 'rgba(139,158,199,0.75)' }}>
+                      Click "Edit Syllabus" to write lessons, architectures, or system notes for this track.
+                    </p>
+                    <button
+                      onClick={() => {
+                        const c = activeCourseViewer
+                        setActiveCourseViewer(null)
+                        handleOpenEditCourse(c)
+                      }}
+                      className="btn-primary"
+                      style={{ fontSize: '0.8rem' }}
+                    >
+                      + Add Course Content Now
+                    </button>
+                  </div>
+                ) : (
+                  (() => {
+                    const currentMod = activeCourseViewer.curriculum[activeModuleIndex] || activeCourseViewer.curriculum[0]
+                    return (
+                      <div className="max-w-3xl space-y-6">
+                        {/* Module Top Meta */}
+                        <div className="space-y-2 pb-6 border-b" style={{ borderColor: 'rgba(255,255,255,0.08)' }}>
+                          <div className="flex items-center gap-3">
+                            <span className="label-mono font-bold px-2.5 py-1 rounded" style={{ background: `${activeCourseViewer.accentColor}15`, color: activeCourseViewer.accentColor }}>
+                              MODULE 0{activeModuleIndex + 1}
+                            </span>
+                            <span className="label-mono" style={{ color: 'rgba(255,255,255,0.4)' }}>
+                              Estimated Time: {currentMod.readTime || '15 min'}
+                            </span>
+                          </div>
+                          <h2 className="text-white font-extrabold text-2xl sm:text-3xl" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+                            {currentMod.title}
+                          </h2>
+                          {currentMod.summary && (
+                            <p className="text-sm sm:text-base leading-relaxed" style={{ color: 'rgba(139,158,199,0.85)' }}>
+                              {currentMod.summary}
+                            </p>
+                          )}
+                        </div>
+
+                        {/* Section Content */}
+                        {currentMod.sections && currentMod.sections.length > 0 ? (
+                          <div className="space-y-6">
+                            {currentMod.sections.map((sec, sIdx) => (
+                              <div
+                                key={sIdx}
+                                className="p-6 rounded-xl space-y-3"
+                                style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}
+                              >
+                                <h3 className="text-white font-bold text-lg" style={{ color: activeCourseViewer.accentColor }}>
+                                  {sec.heading}
+                                </h3>
+                                <div className="text-sm leading-relaxed whitespace-pre-line font-mono" style={{ color: 'rgba(255,255,255,0.85)' }}>
+                                  {sec.text}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        ) : (
+                          <div
+                            className="p-6 rounded-xl space-y-3"
+                            style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}
+                          >
+                            <h3 className="text-white font-bold text-lg" style={{ color: activeCourseViewer.accentColor }}>
+                              Core Architecture &amp; Execution Breakdown
+                            </h3>
+                            <div className="text-sm leading-relaxed whitespace-pre-line font-mono" style={{ color: 'rgba(255,255,255,0.85)' }}>
+                              {currentMod.content || 'No details written for this section yet.'}
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Navigation Footer */}
+                        <div className="pt-8 flex items-center justify-between border-t" style={{ borderColor: 'rgba(255,255,255,0.08)' }}>
+                          <button
+                            disabled={activeModuleIndex <= 0}
+                            onClick={() => setActiveModuleIndex((i) => Math.max(0, i - 1))}
+                            className="px-4 py-2 rounded-lg text-xs font-mono font-semibold transition-all cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
+                            style={{ background: 'rgba(255,255,255,0.05)', color: 'rgba(255,255,255,0.7)' }}
+                          >
+                            ← Previous Module
+                          </button>
+                          <span className="font-mono text-xs" style={{ color: 'rgba(255,255,255,0.3)' }}>
+                            {activeModuleIndex + 1} of {activeCourseViewer.curriculum.length}
+                          </span>
+                          <button
+                            disabled={activeModuleIndex >= activeCourseViewer.curriculum.length - 1}
+                            onClick={() => setActiveModuleIndex((i) => Math.min(activeCourseViewer.curriculum.length - 1, i + 1))}
+                            className="px-4 py-2 rounded-lg text-xs font-mono font-semibold transition-all cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
+                            style={{ background: activeCourseViewer.accentColor, color: '#05070B' }}
+                          >
+                            Next Module →
+                          </button>
+                        </div>
+                      </div>
+                    )
+                  })()
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ─── COURSE CREATOR & SYLLABUS BUILDER MODAL ───────── */}
+      {showCourseEditor && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6" style={{ background: 'rgba(5,7,11,0.9)', backdropFilter: 'blur(16px)' }}>
+          <div
+            className="w-full max-w-4xl h-[90vh] rounded-2xl flex flex-col overflow-hidden relative animate-fade-in-up"
+            style={{
+              background: '#0D1120',
+              border: '1px solid rgba(0,240,255,0.35)',
+              boxShadow: '0 24px 80px rgba(0,0,0,0.9), 0 0 40px rgba(0,240,255,0.15)',
+            }}
+          >
+            {/* Modal Header */}
+            <div className="p-5 sm:px-8 flex items-center justify-between border-b" style={{ borderColor: 'rgba(255,255,255,0.08)', background: 'rgba(255,255,255,0.02)' }}>
+              <div>
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="w-2 h-2 rounded-full" style={{ background: '#00F0FF' }} />
+                  <span className="label-mono" style={{ color: '#00F0FF' }}>
+                    {editingCourseId ? 'COURSE ARCHITECT // EDIT TRACK' : 'COURSE ARCHITECT // CREATE NEW TRACK'}
+                  </span>
+                </div>
+                <h3 className="text-white font-bold text-xl" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+                  {editingCourseId ? 'Edit Course & Structure' : 'Author New Engineering Course'}
+                </h3>
+              </div>
+              <button
+                onClick={() => setShowCourseEditor(false)}
+                className="w-8 h-8 rounded-lg flex items-center justify-center text-sm font-mono transition-colors cursor-pointer"
+                style={{ background: 'rgba(255,255,255,0.05)', color: 'rgba(255,255,255,0.5)' }}
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Scrollable Form Body */}
+            <form onSubmit={handleSaveCourse} className="flex-1 overflow-y-auto p-6 sm:p-8 space-y-6">
+              {/* Basic Course Info */}
+              <div className="p-5 rounded-xl space-y-4" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}>
+                <span className="label-mono block" style={{ color: '#00F0FF', fontSize: '0.65rem' }}>
+                  STEP 1: COURSE METADATA &amp; TARGETS
+                </span>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="label-mono block mb-1" style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.65rem' }}>Course Title *</label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="e.g. Distributed Consensus in Rust"
+                      value={courseForm.title}
+                      onChange={(e) => setCourseForm({ ...courseForm, title: e.target.value })}
+                      className="input-field"
+                      style={{ fontSize: '0.85rem' }}
+                    />
+                  </div>
+                  <div>
+                    <label className="label-mono block mb-1" style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.65rem' }}>Subtitle / Tech Highlights</label>
+                    <input
+                      type="text"
+                      placeholder="e.g. Raft · Tokio · Memory Arenas · Zero-Copy"
+                      value={courseForm.subtitle}
+                      onChange={(e) => setCourseForm({ ...courseForm, subtitle: e.target.value })}
+                      className="input-field"
+                      style={{ fontSize: '0.85rem' }}
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="label-mono block mb-1" style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.65rem' }}>Course Overview / Description *</label>
+                  <textarea
+                    required
+                    rows={3}
+                    placeholder="Describe what learners will engineer and master from first principles..."
+                    value={courseForm.description}
+                    onChange={(e) => setCourseForm({ ...courseForm, description: e.target.value })}
+                    className="input-field"
+                    style={{ fontSize: '0.85rem', minHeight: '80px' }}
+                  />
+                </div>
+
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                  <div>
+                    <label className="label-mono block mb-1" style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.65rem' }}>Difficulty</label>
+                    <select
+                      value={courseForm.level}
+                      onChange={(e) => setCourseForm({ ...courseForm, level: e.target.value })}
+                      className="input-field"
+                      style={{ fontSize: '0.8rem', background: '#0D1120' }}
+                    >
+                      <option value="Beginner">Beginner</option>
+                      <option value="Intermediate">Intermediate</option>
+                      <option value="Advanced">Advanced</option>
+                      <option value="Hardcore">Hardcore</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="label-mono block mb-1" style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.65rem' }}>Est. Hours</label>
+                    <input
+                      type="number"
+                      min={1}
+                      max={120}
+                      value={courseForm.hours}
+                      onChange={(e) => setCourseForm({ ...courseForm, hours: e.target.value })}
+                      className="input-field"
+                      style={{ fontSize: '0.8rem' }}
+                    />
+                  </div>
+
+                  <div>
+                    <label className="label-mono block mb-1" style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.65rem' }}>Theme Accent</label>
+                    <select
+                      value={courseForm.accentColor}
+                      onChange={(e) => setCourseForm({ ...courseForm, accentColor: e.target.value })}
+                      className="input-field"
+                      style={{ fontSize: '0.8rem', background: '#0D1120' }}
+                    >
+                      <option value="#00F0FF">Cyan Neon</option>
+                      <option value="#9D4EDD">Amethyst Purple</option>
+                      <option value="#00FF80">Emerald Green</option>
+                      <option value="#4F46E5">Deep Indigo</option>
+                      <option value="#F48024">Stack Orange</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="label-mono block mb-1" style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.65rem' }}>Badge Label</label>
+                    <input
+                      type="text"
+                      placeholder="e.g. NEW TRACK"
+                      value={courseForm.status}
+                      onChange={(e) => setCourseForm({ ...courseForm, status: e.target.value })}
+                      className="input-field"
+                      style={{ fontSize: '0.8rem' }}
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="label-mono block mb-1" style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.65rem' }}>Comma-Separated Tags</label>
+                  <input
+                    type="text"
+                    placeholder="e.g. Distributed, Raft, Rust, Low-Latency"
+                    value={courseForm.tags}
+                    onChange={(e) => setCourseForm({ ...courseForm, tags: e.target.value })}
+                    className="input-field"
+                    style={{ fontSize: '0.85rem' }}
+                  />
+                </div>
+              </div>
+
+              {/* Module Structure & Content Builder */}
+              <div className="p-5 rounded-xl space-y-5" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <span className="label-mono block" style={{ color: '#00F0FF', fontSize: '0.65rem' }}>
+                      STEP 2: COURSE MODULE STRUCTURE &amp; CONTENT
+                    </span>
+                    <p className="text-xs text-white/60 mt-0.5">
+                      Write lesson topics, code breakdowns, or markdown system notes for each module.
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={handleAddModuleRow}
+                    className="px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer"
+                    style={{ background: 'rgba(0,240,255,0.1)', border: '1px solid rgba(0,240,255,0.3)', color: '#00F0FF' }}
+                  >
+                    + Add Next Module
+                  </button>
+                </div>
+
+                <div className="space-y-4">
+                  {courseForm.modules.map((mod, idx) => (
+                    <div
+                      key={idx}
+                      className="p-4 rounded-xl space-y-3 transition-all"
+                      style={{ background: 'rgba(255,255,255,0.015)', border: '1px solid rgba(255,255,255,0.08)' }}
+                    >
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="label-mono font-bold" style={{ color: '#00F0FF' }}>
+                          MODULE {idx + 1}
+                        </span>
+                        {courseForm.modules.length > 1 && (
+                          <button
+                            type="button"
+                            onClick={() => handleRemoveModuleRow(idx)}
+                            className="text-xs font-mono px-2 py-0.5 rounded text-red-400 hover:bg-red-500/10 transition-colors"
+                          >
+                            ✕ Remove
+                          </button>
+                        )}
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <div className="sm:col-span-2">
+                          <label className="label-mono block mb-1" style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.6rem' }}>Module Title</label>
+                          <input
+                            type="text"
+                            required
+                            placeholder="e.g. 01. Memory Arenas and Cache Lines"
+                            value={mod.title}
+                            onChange={(e) => handleModuleFieldChange(idx, 'title', e.target.value)}
+                            className="input-field"
+                            style={{ fontSize: '0.8rem' }}
+                          />
+                        </div>
+                        <div>
+                          <label className="label-mono block mb-1" style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.6rem' }}>Read / Lab Time</label>
+                          <input
+                            type="text"
+                            placeholder="e.g. 20 min"
+                            value={mod.readTime}
+                            onChange={(e) => handleModuleFieldChange(idx, 'readTime', e.target.value)}
+                            className="input-field"
+                            style={{ fontSize: '0.8rem' }}
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="label-mono block mb-1" style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.6rem' }}>Quick Summary</label>
+                        <input
+                          type="text"
+                          placeholder="Short 1-line key takeaway for this module"
+                          value={mod.summary}
+                          onChange={(e) => handleModuleFieldChange(idx, 'summary', e.target.value)}
+                          className="input-field"
+                          style={{ fontSize: '0.8rem' }}
+                        />
+                      </div>
+
+                      <div>
+                        <label className="label-mono block mb-1" style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.6rem' }}>Lesson Content / Technical Breakdown (Supports Code &amp; Text)</label>
+                        <textarea
+                          rows={4}
+                          placeholder="Provide the core mental models, code architecture, pseudocode, or steps for this module..."
+                          value={mod.content}
+                          onChange={(e) => handleModuleFieldChange(idx, 'content', e.target.value)}
+                          className="input-field font-mono"
+                          style={{ fontSize: '0.8rem', minHeight: '100px' }}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Form Action Controls */}
+              <div className="pt-4 flex items-center justify-end gap-3 border-t" style={{ borderColor: 'rgba(255,255,255,0.08)' }}>
+                <button
+                  type="button"
+                  onClick={() => setShowCourseEditor(false)}
+                  className="btn-secondary"
+                  style={{ fontSize: '0.8rem', padding: '0.625rem 1.25rem' }}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="btn-primary"
+                  style={{ fontSize: '0.8rem', padding: '0.625rem 1.75rem' }}
+                >
+                  {editingCourseId ? 'Save & Update Course →' : 'Publish Course Track →'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
       {showAdminModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ background: 'rgba(5,7,11,0.85)', backdropFilter: 'blur(12px)' }}>
           <div
