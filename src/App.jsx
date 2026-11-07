@@ -62,6 +62,12 @@ const STATS = [
   { value: '4.9/5', label: 'Builder Rating' },
 ]
 
+/* ─── ADMIN CREDENTIALS ───────────────────────────────── */
+const ADMIN_CREDENTIALS = {
+  username: 'afsal',
+  password: 'itsmeadmin',
+}
+
 /* ─── INITIAL TECH DROPS (COLUMN 1: PUBLISH KNOWLEDGE) ── */
 const INITIAL_TECH_DROPS = [
   {
@@ -287,6 +293,76 @@ export default function App() {
   const [expandedDropId, setExpandedDropId] = useState(null)
   const [claimedRequestIds, setClaimedRequestIds] = useState([])
   const [toast, setToast] = useState({ message: '', visible: false, type: 'cyan' })
+
+  // Admin authentication state
+  const [isAdmin, setIsAdmin] = useState(() => {
+    try {
+      return localStorage.getItem('tbp_admin_session') === 'afsal_authenticated'
+    } catch {
+      return false
+    }
+  })
+  const [showAdminModal, setShowAdminModal] = useState(false)
+  const [adminInputUser, setAdminInputUser] = useState('')
+  const [adminInputPass, setAdminInputPass] = useState('')
+  const [adminError, setAdminError] = useState('')
+
+  const handleAdminLogin = (e) => {
+    e.preventDefault()
+    setAdminError('')
+    if (
+      adminInputUser.trim() === ADMIN_CREDENTIALS.username &&
+      adminInputPass === ADMIN_CREDENTIALS.password
+    ) {
+      setIsAdmin(true)
+      try {
+        localStorage.setItem('tbp_admin_session', 'afsal_authenticated')
+      } catch (err) {
+        console.warn('Storage sync error', err)
+      }
+      setShowAdminModal(false)
+      setAdminInputUser('')
+      setAdminInputPass('')
+      triggerToast('Welcome Afsal. Admin Command Mode Active.', 'green')
+    } else {
+      setAdminError('Invalid credentials. Access denied.')
+    }
+  }
+
+  const handleAdminLogout = () => {
+    setIsAdmin(false)
+    try {
+      localStorage.removeItem('tbp_admin_session')
+    } catch (err) {
+      console.warn('Storage sync error', err)
+    }
+    triggerToast('Logged out of Admin Mode', 'cyan')
+  }
+
+  const handleDeleteDrop = (id, title) => {
+    if (!window.confirm(`[ADMIN] Delete Tech Drop: "${title}"?\nThis action cannot be undone.`)) return
+    setTechDrops((prev) => prev.filter((d) => d.id !== id))
+    triggerToast('Tech Drop purged by Admin', 'warning')
+  }
+
+  const handleDeleteRequest = (id, title) => {
+    if (!window.confirm(`[ADMIN] Delete Knowledge Request: "${title}"?\nThis action cannot be undone.`)) return
+    setKnowledgeRequests((prev) => prev.filter((r) => r.id !== id))
+    triggerToast('Knowledge Request purged by Admin', 'warning')
+  }
+
+  const handleResetBoard = () => {
+    if (!window.confirm('[ADMIN] Reset all community drops and requests back to default seeds?')) return
+    setTechDrops(INITIAL_TECH_DROPS)
+    setKnowledgeRequests(INITIAL_REQUESTS)
+    try {
+      localStorage.removeItem('tbp_tech_drops')
+      localStorage.removeItem('tbp_knowledge_requests')
+    } catch (err) {
+      console.warn(err)
+    }
+    triggerToast('Community board reset to factory seeds', 'cyan')
+  }
 
   // Form states
   const [newDrop, setNewDrop] = useState({
@@ -593,6 +669,41 @@ export default function App() {
 
             {/* Desktop CTAs */}
             <div className="hidden md:flex items-center gap-2">
+              {isAdmin ? (
+                <div className="flex items-center gap-2">
+                  <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-mono font-bold" style={{ background: 'rgba(0,255,128,0.12)', border: '1px solid rgba(0,255,128,0.3)', color: '#00FF80' }}>
+                    <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: '#00FF80' }} />
+                    ADMIN: AFSAL
+                  </span>
+                  <button
+                    onClick={handleResetBoard}
+                    title="Reset Board to Default Seeds"
+                    className="px-2.5 py-1 rounded-md text-xs font-mono font-semibold transition-all cursor-pointer"
+                    style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.15)', color: 'rgba(255,255,255,0.7)' }}
+                  >
+                    Reset Seeds
+                  </button>
+                  <button
+                    onClick={handleAdminLogout}
+                    className="px-2.5 py-1 rounded-md text-xs font-mono font-semibold transition-all cursor-pointer"
+                    style={{ background: 'rgba(255,80,80,0.12)', border: '1px solid rgba(255,80,80,0.3)', color: '#FF6B6B' }}
+                  >
+                    Logout
+                  </button>
+                </div>
+              ) : (
+                <button
+                  onClick={() => setShowAdminModal(true)}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-mono font-semibold transition-all cursor-pointer"
+                  style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.12)', color: 'rgba(255,255,255,0.65)' }}
+                >
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                  </svg>
+                  Admin
+                </button>
+              )}
               <button id="nav-student-portal" onClick={() => scrollTo('curriculum')} className="btn-primary" style={{ fontSize: '0.75rem', padding: '0.5rem 1rem' }}>
                 Student Portal
               </button>
@@ -627,6 +738,11 @@ export default function App() {
                 ))}
               </div>
               <div className="flex gap-2">
+                {isAdmin ? (
+                  <button onClick={handleAdminLogout} className="btn-secondary flex-1 justify-center" style={{ fontSize: '0.75rem', color: '#FF6B6B' }}>Logout Admin</button>
+                ) : (
+                  <button onClick={() => { setMobileMenuOpen(false); setShowAdminModal(true) }} className="btn-secondary flex-1 justify-center" style={{ fontSize: '0.75rem' }}>Admin</button>
+                )}
                 <button onClick={() => scrollTo('curriculum')} className="btn-primary flex-1 justify-center" style={{ fontSize: '0.75rem' }}>Portal</button>
               </div>
             </div>
@@ -1491,18 +1607,30 @@ export default function App() {
                               <span>{drop.upvotes} {drop.userUpvoted ? 'Endorsed' : 'Endorse Stack'}</span>
                             </button>
 
-                            {drop.link && (
-                              <a
-                                href={drop.link}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1 font-mono text-xs transition-opacity hover:opacity-100"
-                                style={{ color: 'rgba(0,240,255,0.75)' }}
-                              >
-                                <span>Repo / Spec</span>
-                                <span>↗</span>
-                              </a>
-                            )}
+                            <div className="flex items-center gap-2">
+                              {isAdmin && (
+                                <button
+                                  onClick={() => handleDeleteDrop(drop.id, drop.title)}
+                                  className="px-2 py-1 rounded text-xs font-mono font-semibold transition-all cursor-pointer"
+                                  style={{ background: 'rgba(255,80,80,0.15)', border: '1px solid rgba(255,80,80,0.35)', color: '#FF6B6B' }}
+                                  title="Delete Drop as Admin"
+                                >
+                                  Purge ✕
+                                </button>
+                              )}
+                              {drop.link && (
+                                <a
+                                  href={drop.link}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="inline-flex items-center gap-1 font-mono text-xs transition-opacity hover:opacity-100"
+                                  style={{ color: 'rgba(0,240,255,0.75)' }}
+                                >
+                                  <span>Repo / Spec</span>
+                                  <span>↗</span>
+                                </a>
+                              )}
+                            </div>
                           </div>
                         </div>
                       )
@@ -1763,18 +1891,30 @@ export default function App() {
 
                           {/* Footer Actions */}
                           <div className="flex items-center justify-between gap-3">
-                            <button
-                              onClick={() => handleUpvoteRequest(req.id)}
-                              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-mono font-semibold transition-all"
-                              style={{
-                                background: req.userRequested ? 'rgba(157,78,221,0.2)' : 'rgba(255,255,255,0.04)',
-                                border: `1px solid ${req.userRequested ? 'rgba(157,78,221,0.55)' : 'rgba(255,255,255,0.08)'}`,
-                                color: req.userRequested ? '#C084FC' : 'rgba(255,255,255,0.7)',
-                              }}
-                            >
-                              <span>🔥</span>
-                              <span>{req.bountyVotes} {req.userRequested ? 'Demanded' : '+1 Request'}</span>
-                            </button>
+                            <div className="flex items-center gap-2">
+                              <button
+                                onClick={() => handleUpvoteRequest(req.id)}
+                                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-mono font-semibold transition-all"
+                                style={{
+                                  background: req.userRequested ? 'rgba(157,78,221,0.2)' : 'rgba(255,255,255,0.04)',
+                                  border: `1px solid ${req.userRequested ? 'rgba(157,78,221,0.55)' : 'rgba(255,255,255,0.08)'}`,
+                                  color: req.userRequested ? '#C084FC' : 'rgba(255,255,255,0.7)',
+                                }}
+                              >
+                                <span>🔥</span>
+                                <span>{req.bountyVotes} {req.userRequested ? 'Demanded' : '+1 Request'}</span>
+                              </button>
+                              {isAdmin && (
+                                <button
+                                  onClick={() => handleDeleteRequest(req.id, req.title)}
+                                  className="px-2 py-1 rounded text-xs font-mono font-semibold transition-all cursor-pointer"
+                                  style={{ background: 'rgba(255,80,80,0.15)', border: '1px solid rgba(255,80,80,0.35)', color: '#FF6B6B' }}
+                                  title="Delete Request as Admin"
+                                >
+                                  Purge ✕
+                                </button>
+                              )}
+                            </div>
 
                             <button
                               onClick={() => handleClaimRequest(req.id, req.title)}
@@ -1854,6 +1994,19 @@ export default function App() {
             <a href="https://thebuilderprotocol.me" target="_blank" rel="noopener noreferrer" className="footer-link" style={{ fontSize: '0.75rem', color: 'rgba(0,240,255,0.5)' }}>
               thebuilderprotocol.me ↗
             </a>
+            <button
+              onClick={() => {
+                if (isAdmin) {
+                  handleAdminLogout()
+                } else {
+                  setShowAdminModal(true)
+                }
+              }}
+              className="footer-link bg-transparent border-0 cursor-pointer"
+              style={{ fontSize: '0.75rem', color: isAdmin ? '#00FF80' : 'rgba(255,255,255,0.3)' }}
+            >
+              {isAdmin ? '// Admin: Afsal (Active)' : '// Admin Login'}
+            </button>
           </nav>
 
           <p className="label-mono" style={{ color: 'rgba(255,255,255,0.18)', fontSize: '0.6rem' }}>
@@ -1861,6 +2014,97 @@ export default function App() {
           </p>
         </div>
       </footer>
+
+      {/* ─── ADMIN LOGIN MODAL ──────────────────────────────── */}
+      {showAdminModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ background: 'rgba(5,7,11,0.85)', backdropFilter: 'blur(12px)' }}>
+          <div
+            className="w-full max-w-md p-6 rounded-2xl relative animate-fade-in-up"
+            style={{
+              background: '#0D1120',
+              border: '1px solid rgba(0,240,255,0.3)',
+              boxShadow: '0 20px 60px rgba(0,0,0,0.8), 0 0 30px rgba(0,240,255,0.15)',
+            }}
+          >
+            {/* Close button */}
+            <button
+              onClick={() => { setShowAdminModal(false); setAdminError('') }}
+              className="absolute top-4 right-4 text-xs font-mono p-1 rounded transition-colors"
+              style={{ color: 'rgba(255,255,255,0.4)' }}
+            >
+              ✕
+            </button>
+
+            <div className="flex items-center gap-2 mb-2">
+              <span className="w-2 h-2 rounded-full" style={{ background: '#00F0FF' }} />
+              <span className="label-mono" style={{ color: '#00F0FF' }}>ADMIN COMMAND ACCESS</span>
+            </div>
+            <h3 className="text-white font-bold text-xl mb-1" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+              Authenticate Protocol Root
+            </h3>
+            <p className="text-xs leading-relaxed mb-5" style={{ color: 'rgba(139,158,199,0.7)' }}>
+              Sign in to manage and purge community drops, review queue entries, or reset seed state.
+            </p>
+
+            {adminError && (
+              <div className="p-3 rounded-lg mb-4 text-xs font-mono" style={{ background: 'rgba(255,80,80,0.12)', border: '1px solid rgba(255,80,80,0.3)', color: '#FF6B6B' }}>
+                ⚠ {adminError}
+              </div>
+            )}
+
+            <form onSubmit={handleAdminLogin} className="space-y-4">
+              <div>
+                <label className="label-mono block mb-1.5" style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.65rem' }}>
+                  ADMIN USERNAME
+                </label>
+                <input
+                  type="text"
+                  required
+                  autoFocus
+                  placeholder="afsal"
+                  value={adminInputUser}
+                  onChange={(e) => setAdminInputUser(e.target.value)}
+                  className="input-field"
+                  style={{ fontSize: '0.875rem' }}
+                />
+              </div>
+
+              <div>
+                <label className="label-mono block mb-1.5" style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.65rem' }}>
+                  PASSWORD
+                </label>
+                <input
+                  type="password"
+                  required
+                  placeholder="••••••••••••"
+                  value={adminInputPass}
+                  onChange={(e) => setAdminInputPass(e.target.value)}
+                  className="input-field"
+                  style={{ fontSize: '0.875rem' }}
+                />
+              </div>
+
+              <div className="pt-2 flex items-center justify-end gap-3">
+                <button
+                  type="button"
+                  onClick={() => { setShowAdminModal(false); setAdminError('') }}
+                  className="btn-secondary"
+                  style={{ fontSize: '0.75rem', padding: '0.5rem 1rem' }}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="btn-primary"
+                  style={{ fontSize: '0.75rem', padding: '0.5rem 1.25rem' }}
+                >
+                  Verify Access →
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
