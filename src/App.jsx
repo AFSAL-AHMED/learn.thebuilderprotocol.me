@@ -7,8 +7,8 @@ const INITIAL_TRACKS = [
   {
     id: 'ai-agentic',
     accentColor: '#0E6251',
-    accentBg: 'rgba(0,240,255,0.06)',
-    accentBorder: 'rgba(0,240,255,0.18)',
+    accentBg: 'rgba(14,98,81,0.06)',
+    accentBorder: 'rgba(14,98,81,0.18)',
     iconPath: 'M12 2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2 2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z M12 18a2 2 0 0 1 2 2v0a2 2 0 0 1-2 2 2 2 0 0 1-2-2v0a2 2 0 0 1 2-2z M2 12a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2 2 2 0 0 1-2 2H4a2 2 0 0 1-2-2z M16 12a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2z',
     status: 'LIVE NOW',
     title: 'AI & Agentic Systems',
@@ -23,9 +23,9 @@ const INITIAL_TRACKS = [
   },
   {
     id: 'edge-arch',
-    accentColor: '#9D4EDD',
-    accentBg: 'rgba(157,78,221,0.06)',
-    accentBorder: 'rgba(157,78,221,0.18)',
+    accentColor: '#7E22CE',
+    accentBg: 'rgba(126,34,206,0.06)',
+    accentBorder: 'rgba(126,34,206,0.18)',
     iconPath: 'M13 2 3 14 12 14 11 22 21 10 12 10 13 2',
     status: 'TRENDING',
     title: 'Edge Architectures & Linux Systems',
@@ -40,9 +40,9 @@ const INITIAL_TRACKS = [
   },
   {
     id: 'serverless-infra',
-    accentColor: '#00FF80',
-    accentBg: 'rgba(0,255,128,0.05)',
-    accentBorder: 'rgba(0,255,128,0.15)',
+    accentColor: '#15803D',
+    accentBg: 'rgba(21,128,61,0.05)',
+    accentBorder: 'rgba(21,128,61,0.15)',
     iconPath: 'M3 5v14 M21 5v14 M3 12h18',
     status: 'NEW BATCH',
     title: 'High-Throughput Distributed Systems',
@@ -966,10 +966,10 @@ export default function App() {
             {/* Brand */}
             <div className="flex items-center gap-2 flex-shrink-0">
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={{ background: '#00F0FF' }} />
-                <span className="relative inline-flex rounded-full h-2 w-2" style={{ background: '#00F0FF' }} />
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={{ background: '#0E6251' }} />
+                <span className="relative inline-flex rounded-full h-2 w-2" style={{ background: '#0E6251' }} />
               </span>
-              <span className="font-mono font-bold tracking-widest glow-text-cyan hidden sm:block" style={{ color: '#00F0FF', fontSize: '0.65rem', letterSpacing: '0.12em' }}>
+              <span className="font-mono font-bold tracking-widest glow-text-cyan hidden sm:block" style={{ color: '#0E6251', fontSize: '0.65rem', letterSpacing: '0.12em' }}>
                 THE BUILDER PROTOCOL
               </span>
               <span className="font-mono text-xs" style={{ color: 'rgba(255,255,255,0.2)' }}>//</span>
@@ -999,13 +999,13 @@ export default function App() {
                   <button
                     onClick={handleOpenAddCourse}
                     className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-mono font-bold transition-all cursor-pointer"
-                    style={{ background: 'rgba(0,240,255,0.12)', border: '1px solid rgba(0,240,255,0.4)', color: '#00F0FF' }}
+                    style={{ background: 'rgba(14,98,81,0.12)', border: '1px solid rgba(14,98,81,0.4)', color: '#0E6251' }}
                   >
                     <span>+</span>
                     <span>Create Course</span>
                   </button>
-                  <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-mono font-bold" style={{ background: 'rgba(0,255,128,0.12)', border: '1px solid rgba(0,255,128,0.3)', color: '#00FF80' }}>
-                    <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: '#00FF80' }} />
+                  <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-mono font-bold" style={{ background: 'rgba(21,128,61,0.12)', border: '1px solid rgba(21,128,61,0.3)', color: '#15803D' }}>
+                    <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: '#15803D' }} />
                     ADMIN: AFSAL
                   </span>
                   <button
@@ -1073,7 +1073,7 @@ export default function App() {
               <div className="flex gap-2">
                 {isAdmin ? (
                   <>
-                    <button onClick={() => { setMobileMenuOpen(false); handleOpenAddCourse() }} className="btn-secondary flex-1 justify-center" style={{ fontSize: '0.75rem', color: '#00F0FF' }}>+ Course</button>
+                    <button onClick={() => { setMobileMenuOpen(false); handleOpenAddCourse() }} className="btn-secondary flex-1 justify-center" style={{ fontSize: '0.75rem', color: '#0E6251' }}>+ Course</button>
                     <button onClick={handleAdminLogout} className="btn-secondary flex-1 justify-center" style={{ fontSize: '0.75rem', color: '#FF6B6B' }}>Logout Admin</button>
                   </>
                 ) : (
@@ -1095,40 +1095,29 @@ export default function App() {
         <div className="scan-line" />
 
         {/* Corner brackets */}
-        <div className="absolute top-16 left-6 w-14 h-14 pointer-events-none" style={{ opacity: 0.25, borderTop: '1px solid #00F0FF', borderLeft: '1px solid #00F0FF' }} />
-        <div className="absolute top-16 right-6 w-14 h-14 pointer-events-none" style={{ opacity: 0.25, borderTop: '1px solid #9D4EDD', borderRight: '1px solid #9D4EDD' }} />
-        <div className="absolute bottom-6 left-6 w-14 h-14 pointer-events-none" style={{ opacity: 0.2, borderBottom: '1px solid #00F0FF', borderLeft: '1px solid #00F0FF' }} />
-        <div className="absolute bottom-6 right-6 w-14 h-14 pointer-events-none" style={{ opacity: 0.2, borderBottom: '1px solid #9D4EDD', borderRight: '1px solid #9D4EDD' }} />
+        <div className="absolute top-16 left-6 w-14 h-14 pointer-events-none" style={{ opacity: 0.25, borderTop: '1px solid #0E6251', borderLeft: '1px solid #0E6251' }} />
+        <div className="absolute top-16 right-6 w-14 h-14 pointer-events-none" style={{ opacity: 0.25, borderTop: '1px solid #7E22CE', borderRight: '1px solid #7E22CE' }} />
+        <div className="absolute bottom-6 left-6 w-14 h-14 pointer-events-none" style={{ opacity: 0.2, borderBottom: '1px solid #0E6251', borderLeft: '1px solid #0E6251' }} />
+        <div className="absolute bottom-6 right-6 w-14 h-14 pointer-events-none" style={{ opacity: 0.2, borderBottom: '1px solid #7E22CE', borderRight: '1px solid #7E22CE' }} />
 
         <div className="max-w-7xl mx-auto relative">
 
           {/* Status badge */}
           <div className="flex justify-center mb-8 animate-fade-in-up">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full" style={{ background: 'rgba(0,240,255,0.06)', border: '1px solid #E2DCD5' }}>
-              <span className="animate-pulse-dot w-1.5 h-1.5 rounded-full" style={{ background: '#00F0FF' }} />
-              <span className="label-mono" style={{ color: '#00F0FF' }}>Protocol v2.0 // Open Enrollment</span>
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full" style={{ background: 'rgba(14,98,81,0.06)', border: '1px solid #E2DCD5' }}>
+              <span className="animate-pulse-dot w-1.5 h-1.5 rounded-full" style={{ background: '#0E6251' }} />
+              <span className="label-mono" style={{ color: '#0E6251' }}>Protocol v2.0 // Open Enrollment</span>
             </div>
           </div>
 
           {/* Headline */}
-          <div className="text-center mb-6 animate-fade-in-up-delay-1">
-            <h1 className="display-xl mb-5">
-              <span className="block text-white">Master Modern</span>
-              <span
-                className="block"
-                style={{
-                  background: 'linear-gradient(135deg, #00F0FF 0%, #9D4EDD 55%, #00FF80 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
-                }}
-              >
-                Engineering Protocols
-              </span>
+          <div className="text-center mb-6 animate-fade-in-up">
+            <h1 className="display-xl mb-4 text-[#181614] tracking-tight">
+              <span>Master Modern </span>
+              <span className="text-[#0E6251]">Engineering Protocols</span>
             </h1>
-            <p className="text-base sm:text-lg max-w-2xl mx-auto leading-relaxed" className="text-[#57534E]">
-              A structured, project-first curriculum for builders shipping AI agents, edge deployments, and
-              serverless data layers — from mental model to production pull request.
+            <p className="text-base sm:text-lg max-w-2xl mx-auto leading-relaxed text-[#57534E]">
+              A structured, project-first academic curriculum for engineers shipping autonomous AI agents, distributed systems, edge architectures, and resilient high-throughput infrastructure.
             </p>
           </div>
 
@@ -1138,7 +1127,7 @@ export default function App() {
               {['LangGraph', 'Next.js 15', 'Bun', 'Supabase', 'Neon'].map((t, i, arr) => (
                 <span key={t} className="flex items-center gap-3">
                   {t}
-                  {i < arr.length - 1 && <span style={{ color: 'rgba(0,240,255,0.25)' }}>·</span>}
+                  {i < arr.length - 1 && <span style={{ color: 'rgba(14,98,81,0.25)' }}>·</span>}
                 </span>
               ))}
             </div>
@@ -1164,7 +1153,7 @@ export default function App() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 animate-fade-in-up-delay-3">
             {STATS.map((s) => (
               <div key={s.label} className="text-center py-4 px-3 rounded-xl" style={{ background: '#FAF8F5', border: '1px solid rgba(24,22,20,0.08)' }}>
-                <div className="font-extrabold mb-0.5" style={{ color: '#00F0FF', fontSize: 'clamp(1.5rem, 3vw, 2rem)', fontFamily: "'Plus Jakarta Sans', sans-serif", letterSpacing: '-0.02em' }}>
+                <div className="font-extrabold mb-0.5" style={{ color: '#0E6251', fontSize: 'clamp(1.5rem, 3vw, 2rem)', fontFamily: "'Plus Jakarta Sans', sans-serif", letterSpacing: '-0.02em' }}>
                   {s.value}
                 </div>
                 <div className="label-mono" style={{ color: '#78716A' }}>{s.label}</div>
@@ -1181,7 +1170,7 @@ export default function App() {
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-12">
             <div>
               <div className="flex items-center gap-2 mb-2">
-                <span className="label-mono" style={{ color: 'rgba(0,240,255,0.7)' }}>// 001</span>
+                <span className="label-mono" style={{ color: 'rgba(14,98,81,0.7)' }}>// 001</span>
                 <span className="label-mono" style={{ color: '#A8A29E' }}>CURRICULUM DIRECTORY</span>
               </div>
               <h2 className="display-md text-[#181614]">Engineering Masterclass Tracks</h2>
@@ -1227,7 +1216,7 @@ export default function App() {
                   <div className="flex items-start justify-between mb-5">
                     <div
                       className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:scale-110"
-                      style={{ background: track.accentBg || 'rgba(0,240,255,0.06)', border: `1px solid ${track.accentBorder || 'rgba(0,240,255,0.2)'}`, color: track.accentColor }}
+                      style={{ background: track.accentBg || 'rgba(14,98,81,0.06)', border: `1px solid ${track.accentBorder || 'rgba(14,98,81,0.2)'}`, color: track.accentColor }}
                     >
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
                         {track.iconPath ? (
@@ -1323,7 +1312,7 @@ export default function App() {
           {/* Section Header */}
           <div className="section-header mb-6">
             <span className="label-mono text-[#0E6251]">// 002</span>
-            <h2 className="display-md text-white">Community Knowledge Exchange</h2>
+            <h2 className="display-md text-[#181614]">Community Knowledge Exchange</h2>
             <div className="section-header-line" />
             <span className="label-mono hidden sm:block" style={{ color: 'rgba(255,255,255,0.2)' }}>DECENTRALIZED_KNOWLEDGE_BASE</span>
           </div>
@@ -1335,13 +1324,13 @@ export default function App() {
 
             {/* Quick Live Network Stats */}
             <div className="flex items-center gap-3">
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs" style={{ background: 'rgba(0,240,255,0.06)', border: '1px solid #E2DCD5' }}>
-                <span className="w-2 h-2 rounded-full" style={{ background: '#00F0FF' }} />
-                <span className="font-mono" style={{ color: '#00F0FF' }}>{techDrops.length} Drops Published</span>
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs" style={{ background: 'rgba(14,98,81,0.06)', border: '1px solid #E2DCD5' }}>
+                <span className="w-2 h-2 rounded-full" style={{ background: '#0E6251' }} />
+                <span className="font-mono" style={{ color: '#0E6251' }}>{techDrops.length} Drops Published</span>
               </div>
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs" style={{ background: 'rgba(157,78,221,0.06)', border: '1px solid #E2DCD5' }}>
-                <span className="w-2 h-2 rounded-full" style={{ background: '#9D4EDD' }} />
-                <span className="font-mono" style={{ color: '#9D4EDD' }}>{knowledgeRequests.length} Requests Open</span>
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs" style={{ background: 'rgba(126,34,206,0.06)', border: '1px solid #E2DCD5' }}>
+                <span className="w-2 h-2 rounded-full" style={{ background: '#7E22CE' }} />
+                <span className="font-mono" style={{ color: '#7E22CE' }}>{knowledgeRequests.length} Requests Open</span>
               </div>
             </div>
           </div>
@@ -1352,9 +1341,9 @@ export default function App() {
               onClick={() => setExchangeMode('columns')}
               className="flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-mono font-semibold transition-all duration-200 cursor-pointer"
               style={{
-                background: exchangeMode === 'columns' ? 'rgba(0,240,255,0.15)' : 'transparent',
-                border: `1px solid ${exchangeMode === 'columns' ? 'rgba(0,240,255,0.4)' : 'transparent'}`,
-                color: exchangeMode === 'columns' ? '#00F0FF' : 'rgba(255,255,255,0.6)',
+                background: exchangeMode === 'columns' ? 'rgba(14,98,81,0.15)' : 'transparent',
+                border: `1px solid ${exchangeMode === 'columns' ? 'rgba(14,98,81,0.4)' : 'transparent'}`,
+                color: exchangeMode === 'columns' ? '#0E6251' : 'rgba(255,255,255,0.6)',
               }}
             >
               <span>👥</span>
@@ -1370,9 +1359,9 @@ export default function App() {
               }}
               className="flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-mono font-semibold transition-all duration-200 cursor-pointer"
               style={{
-                background: exchangeMode === 'stackoverflow' ? 'rgba(244,128,36,0.15)' : 'transparent',
-                border: `1px solid ${exchangeMode === 'stackoverflow' ? 'rgba(244,128,36,0.5)' : 'transparent'}`,
-                color: exchangeMode === 'stackoverflow' ? '#F48024' : 'rgba(255,255,255,0.6)',
+                background: exchangeMode === 'stackoverflow' ? 'rgba(180,83,9,0.15)' : 'transparent',
+                border: `1px solid ${exchangeMode === 'stackoverflow' ? 'rgba(180,83,9,0.5)' : 'transparent'}`,
+                color: exchangeMode === 'stackoverflow' ? '#B45309' : 'rgba(255,255,255,0.6)',
               }}
             >
               <span>⚡</span>
@@ -1383,20 +1372,20 @@ export default function App() {
           {/* ════ STACK OVERFLOW LIVE INTEL VIEW ═══════════════ */}
           {exchangeMode === 'stackoverflow' && (
             <div className="flex flex-col rounded-2xl overflow-hidden mb-12 animate-fade-in-up" style={{ background: '#FAF8F5', border: '1px solid #E2DCD5' }}>
-              <div className="h-[2px] w-full" style={{ background: 'linear-gradient(90deg, #F48024, rgba(244,128,36,0.3))' }} />
+              <div className="h-[2px] w-full" style={{ background: 'linear-gradient(90deg, #B45309, rgba(180,83,9,0.3))' }} />
 
               <div className="p-6 sm:p-8">
                 {/* Header */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
                   <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(244,128,36,0.12)', border: '1px solid rgba(244,128,36,0.3)', color: '#F48024' }}>
+                    <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(180,83,9,0.12)', border: '1px solid rgba(180,83,9,0.3)', color: '#B45309' }}>
                       <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M18.986 21.865v-6.408h2.134V24H2.98v-8.543h2.134v6.408h13.872zM6.911 17.595h9.992v-2.134H6.911v2.134zm.276-5.112 9.71 2.338.483-2.078-9.71-2.338-.483 2.078zm1.536-4.832 8.784 4.793.996-1.89-8.784-4.793-.996 1.89zm3.504-4.52 7.218 6.94 1.488-1.54-7.218-6.94-1.488 1.54zM16.598 0l-1.864 1.05 5.568 9.878 1.864-1.05L16.598 0z" />
                       </svg>
                     </div>
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="tag-mono" style={{ color: '#F48024' }}>LIVE INTEGRATION // STACK EXCHANGE API v2.3</span>
+                        <span className="tag-mono" style={{ color: '#B45309' }}>LIVE INTEGRATION // STACK EXCHANGE API v2.3</span>
                         <span className="badge badge-cyan" style={{ fontSize: '0.55rem' }}>OFFICIAL API</span>
                       </div>
                       <h3 className="text-[#181614] font-bold text-xl" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
@@ -1425,7 +1414,7 @@ export default function App() {
                       className="input-field pl-10"
                       style={{ width: '100%', fontSize: '0.85rem' }}
                     />
-                    <svg className="absolute left-3.5 top-1/2 -translate-y-1/2" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(244,128,36,0.7)" strokeWidth="2">
+                    <svg className="absolute left-3.5 top-1/2 -translate-y-1/2" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(180,83,9,0.7)" strokeWidth="2">
                       <circle cx="11" cy="11" r="8" />
                       <line x1="21" y1="21" x2="16.65" y2="16.65" />
                     </svg>
@@ -1435,7 +1424,7 @@ export default function App() {
                     disabled={soLoading}
                     className="px-5 py-2.5 rounded-lg text-xs font-mono font-bold transition-all duration-200 cursor-pointer flex items-center justify-center gap-2"
                     style={{
-                      background: '#F48024',
+                      background: '#B45309',
                       color: '#FFFFFF',
                       opacity: soLoading ? 0.7 : 1,
                     }}
@@ -1465,9 +1454,9 @@ export default function App() {
                       }}
                       className="px-3 py-1.5 rounded-md text-xs font-mono transition-all duration-200 cursor-pointer"
                       style={{
-                        background: soTag === t.tag && !soQuery ? 'rgba(244,128,36,0.2)' : 'rgba(255,255,255,0.03)',
-                        border: `1px solid ${soTag === t.tag && !soQuery ? 'rgba(244,128,36,0.5)' : 'rgba(255,255,255,0.06)'}`,
-                        color: soTag === t.tag && !soQuery ? '#F48024' : 'rgba(255,255,255,0.6)',
+                        background: soTag === t.tag && !soQuery ? 'rgba(180,83,9,0.2)' : 'rgba(255,255,255,0.03)',
+                        border: `1px solid ${soTag === t.tag && !soQuery ? 'rgba(180,83,9,0.5)' : 'rgba(255,255,255,0.06)'}`,
+                        color: soTag === t.tag && !soQuery ? '#B45309' : 'rgba(255,255,255,0.6)',
                       }}
                     >
                       #{t.label}
@@ -1477,7 +1466,7 @@ export default function App() {
 
                 {/* Error Notice */}
                 {soError && (
-                  <div className="p-3.5 rounded-xl mb-6 flex items-center gap-3 text-xs font-mono" style={{ background: 'rgba(244,128,36,0.08)', border: '1px solid #E2DCD5', color: '#F48024' }}>
+                  <div className="p-3.5 rounded-xl mb-6 flex items-center gap-3 text-xs font-mono" style={{ background: 'rgba(180,83,9,0.08)', border: '1px solid #E2DCD5', color: '#B45309' }}>
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <circle cx="12" cy="12" r="10" />
                       <line x1="12" y1="8" x2="12" y2="12" />
@@ -1494,7 +1483,7 @@ export default function App() {
                       <div key={n} className="p-5 rounded-xl animate-pulse" style={{ background: '#FAF8F5', border: '1px solid rgba(255,255,255,0.05)' }}>
                         <div className="h-4 w-3/4 rounded mb-3" style={{ background: 'rgba(255,255,255,0.08)' }} />
                         <div className="h-3 w-1/2 rounded mb-4" style={{ background: '#FAF8F5' }} />
-                        <div className="h-3 w-1/4 rounded" style={{ background: 'rgba(244,128,36,0.1)' }} />
+                        <div className="h-3 w-1/4 rounded" style={{ background: 'rgba(180,83,9,0.1)' }} />
                       </div>
                     ))}
                   </div>
@@ -1520,9 +1509,9 @@ export default function App() {
                               <span
                                 className="px-2 py-0.5 rounded text-xs font-mono font-bold"
                                 style={{
-                                  background: 'rgba(244,128,36,0.12)',
-                                  border: '1px solid rgba(244,128,36,0.3)',
-                                  color: '#F48024',
+                                  background: 'rgba(180,83,9,0.12)',
+                                  border: '1px solid rgba(180,83,9,0.3)',
+                                  color: '#B45309',
                                 }}
                               >
                                 ▲ {q.score} votes
@@ -1530,9 +1519,9 @@ export default function App() {
                               <span
                                 className="px-2 py-0.5 rounded text-xs font-mono font-semibold"
                                 style={{
-                                  background: q.is_answered ? 'rgba(0,255,128,0.1)' : 'rgba(255,255,255,0.04)',
-                                  border: `1px solid ${q.is_answered ? 'rgba(0,255,128,0.3)' : 'rgba(255,255,255,0.08)'}`,
-                                  color: q.is_answered ? '#00FF80' : 'rgba(255,255,255,0.6)',
+                                  background: q.is_answered ? 'rgba(21,128,61,0.1)' : 'rgba(255,255,255,0.04)',
+                                  border: `1px solid ${q.is_answered ? 'rgba(21,128,61,0.3)' : 'rgba(255,255,255,0.08)'}`,
+                                  color: q.is_answered ? '#15803D' : 'rgba(255,255,255,0.6)',
                                 }}
                               >
                                 {q.is_answered ? `✓ ${q.answer_count} answers` : `${q.answer_count} answers`}
@@ -1557,7 +1546,7 @@ export default function App() {
                             href={q.link}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="block text-white font-bold text-sm sm:text-base leading-snug mb-3 group-hover:text-[#F48024] transition-colors"
+                            className="block text-[#181614] font-bold text-sm sm:text-base leading-snug mb-3 group-hover:text-[#B45309] transition-colors"
                             style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
                           >
                             {decodeHtmlEntities(q.title)}
@@ -1583,7 +1572,7 @@ export default function App() {
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-1 font-mono text-xs font-semibold"
-                            style={{ color: '#F48024' }}
+                            style={{ color: '#B45309' }}
                           >
                             <span>Open on Stack Overflow</span>
                             <span>↗</span>
@@ -1597,7 +1586,7 @@ export default function App() {
                 {/* Legal & Attribution Footer */}
                 <div className="mt-8 pt-5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono" style={{ borderTop: '1px solid rgba(255,255,255,0.06)', color: '#A8A29E' }}>
                   <div className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full" style={{ background: '#F48024' }} />
+                    <span className="w-1.5 h-1.5 rounded-full" style={{ background: '#B45309' }} />
                     <span>Data provided by Stack Exchange API v2.3</span>
                   </div>
                   <div className="text-center sm:text-right">
@@ -1659,7 +1648,7 @@ export default function App() {
                     </div>
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="tag-mono" style={{ color: '#00F0FF' }}>COLUMN 01 // KNOWLEDGE DROPS</span>
+                        <span className="tag-mono" style={{ color: '#0E6251' }}>COLUMN 01 // KNOWLEDGE DROPS</span>
                       </div>
                       <h3 className="text-[#181614] font-bold text-lg" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
                         Publish Tech &amp; Stacks
@@ -1689,10 +1678,10 @@ export default function App() {
                   <form
                     onSubmit={handlePublishSubmit}
                     className="mb-8 p-5 rounded-xl animate-fade-in-up"
-                    style={{ background: 'rgba(0,240,255,0.03)', border: '1px solid #E2DCD5' }}
+                    style={{ background: 'rgba(14,98,81,0.03)', border: '1px solid #E2DCD5' }}
                   >
                     <div className="flex items-center justify-between mb-4">
-                      <span className="label-mono font-bold" style={{ color: '#00F0FF' }}>// NEW PROTOCOL KNOWLEDGE DROP</span>
+                      <span className="label-mono font-bold" style={{ color: '#0E6251' }}>// NEW PROTOCOL KNOWLEDGE DROP</span>
                       <span className="label-mono" style={{ color: '#A8A29E' }}>Instant Publish</span>
                     </div>
 
@@ -1845,9 +1834,9 @@ export default function App() {
                       onClick={() => setActiveCategoryFilter(cat)}
                       className="px-2.5 py-1 rounded-md text-xs font-mono transition-all duration-200"
                       style={{
-                        background: activeCategoryFilter === cat ? 'rgba(0,240,255,0.15)' : 'rgba(255,255,255,0.03)',
-                        border: `1px solid ${activeCategoryFilter === cat ? 'rgba(0,240,255,0.4)' : 'rgba(255,255,255,0.06)'}`,
-                        color: activeCategoryFilter === cat ? '#00F0FF' : 'rgba(255,255,255,0.5)',
+                        background: activeCategoryFilter === cat ? 'rgba(14,98,81,0.15)' : 'rgba(255,255,255,0.03)',
+                        border: `1px solid ${activeCategoryFilter === cat ? 'rgba(14,98,81,0.4)' : 'rgba(255,255,255,0.06)'}`,
+                        color: activeCategoryFilter === cat ? '#0E6251' : 'rgba(255,255,255,0.5)',
                       }}
                     >
                       {cat}
@@ -1884,9 +1873,9 @@ export default function App() {
                               <div
                                 className="w-8 h-8 rounded-lg flex items-center justify-center font-mono font-bold text-xs"
                                 style={{
-                                  background: 'linear-gradient(135deg, rgba(0,240,255,0.2), rgba(157,78,221,0.2))',
+                                  background: 'linear-gradient(135deg, rgba(14,98,81,0.2), rgba(126,34,206,0.2))',
                                   border: '1px solid #E2DCD5',
-                                  color: '#00F0FF',
+                                  color: '#0E6251',
                                 }}
                               >
                                 {drop.authorAvatar}
@@ -1894,7 +1883,7 @@ export default function App() {
                               <div>
                                 <div className="flex items-center gap-1.5">
                                   <span className="text-[#181614] font-semibold text-xs leading-none">{drop.authorName}</span>
-                                  <span className="font-mono text-[10px]" style={{ color: 'rgba(0,240,255,0.8)' }}>{drop.authorHandle}</span>
+                                  <span className="font-mono text-[10px]" style={{ color: 'rgba(14,98,81,0.8)' }}>{drop.authorHandle}</span>
                                 </div>
                                 <span className="font-mono text-[10px]" style={{ color: '#A8A29E' }}>{drop.timeAgo}</span>
                               </div>
@@ -1911,8 +1900,8 @@ export default function App() {
                           </h4>
 
                           {/* Tech Stack Banner */}
-                          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md mb-3" style={{ background: 'rgba(0,240,255,0.05)', border: '1px solid rgba(0,240,255,0.15)' }}>
-                            <span className="font-mono text-xs font-semibold" style={{ color: '#00F0FF' }}>
+                          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md mb-3" style={{ background: 'rgba(14,98,81,0.05)', border: '1px solid rgba(14,98,81,0.15)' }}>
+                            <span className="font-mono text-xs font-semibold" style={{ color: '#0E6251' }}>
                               ⚡ {drop.techStack}
                             </span>
                           </div>
@@ -1928,7 +1917,7 @@ export default function App() {
                               <button
                                 onClick={() => setExpandedDropId(isExpanded ? null : drop.id)}
                                 className="inline-flex items-center gap-1.5 font-mono text-xs transition-colors"
-                                style={{ color: isExpanded ? '#00F0FF' : 'rgba(0,240,255,0.7)' }}
+                                style={{ color: isExpanded ? '#0E6251' : 'rgba(14,98,81,0.7)' }}
                               >
                                 <span>{isExpanded ? '▼ Hide Architecture Blueprint' : '▶ View Architecture Blueprint & Code'}</span>
                               </button>
@@ -1939,7 +1928,7 @@ export default function App() {
                                   style={{
                                     background: '#FAF8F5',
                                     border: '1px solid #E2DCD5',
-                                    color: '#A5F3FC',
+                                    color: '#181614',
                                     whiteSpace: 'pre-wrap',
                                   }}
                                 >
@@ -1966,9 +1955,9 @@ export default function App() {
                               onClick={() => handleUpvoteDrop(drop.id)}
                               className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-mono font-semibold transition-all"
                               style={{
-                                background: drop.userUpvoted ? 'rgba(0,240,255,0.18)' : 'rgba(255,255,255,0.04)',
-                                border: `1px solid ${drop.userUpvoted ? 'rgba(0,240,255,0.5)' : 'rgba(255,255,255,0.08)'}`,
-                                color: drop.userUpvoted ? '#00F0FF' : 'rgba(255,255,255,0.7)',
+                                background: drop.userUpvoted ? 'rgba(14,98,81,0.18)' : 'rgba(255,255,255,0.04)',
+                                border: `1px solid ${drop.userUpvoted ? 'rgba(14,98,81,0.5)' : 'rgba(255,255,255,0.08)'}`,
+                                color: drop.userUpvoted ? '#0E6251' : 'rgba(255,255,255,0.7)',
                               }}
                             >
                               <span>▲</span>
@@ -1992,7 +1981,7 @@ export default function App() {
                                   target="_blank"
                                   rel="noopener noreferrer"
                                   className="inline-flex items-center gap-1 font-mono text-xs transition-opacity hover:opacity-100"
-                                  style={{ color: 'rgba(0,240,255,0.75)' }}
+                                  style={{ color: 'rgba(14,98,81,0.75)' }}
                                 >
                                   <span>Repo / Spec</span>
                                   <span>↗</span>
@@ -2025,7 +2014,7 @@ export default function App() {
                     </div>
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="tag-mono" style={{ color: '#9D4EDD' }}>COLUMN 02 // DEMAND QUEUE</span>
+                        <span className="tag-mono" style={{ color: '#7E22CE' }}>COLUMN 02 // DEMAND QUEUE</span>
                       </div>
                       <h3 className="text-[#181614] font-bold text-lg" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
                         Request Technical Knowledge
@@ -2039,7 +2028,7 @@ export default function App() {
                       setShowRequestForm((v) => !v)
                       setShowPublishForm(false)
                     }}
-                    className="btn-amethyst"
+                    className="btn-secondary"
                     style={{ fontSize: '0.75rem', padding: '0.5rem 0.875rem' }}
                   >
                     {showRequestForm ? '✕ Close Form' : '+ Request Topic'}
@@ -2055,10 +2044,10 @@ export default function App() {
                   <form
                     onSubmit={handleRequestSubmit}
                     className="mb-8 p-5 rounded-xl animate-fade-in-up"
-                    style={{ background: 'rgba(157,78,221,0.03)', border: '1px solid #E2DCD5' }}
+                    style={{ background: 'rgba(126,34,206,0.03)', border: '1px solid #E2DCD5' }}
                   >
                     <div className="flex items-center justify-between mb-4">
-                      <span className="label-mono font-bold" style={{ color: '#9D4EDD' }}>// POST KNOWLEDGE BOUNTY / REQUEST</span>
+                      <span className="label-mono font-bold" style={{ color: '#7E22CE' }}>// POST KNOWLEDGE BOUNTY / REQUEST</span>
                       <span className="label-mono" style={{ color: '#A8A29E' }}>Community Demand</span>
                     </div>
 
@@ -2155,7 +2144,7 @@ export default function App() {
                         </button>
                         <button
                           type="submit"
-                          className="btn-amethyst"
+                          className="btn-secondary"
                           style={{ fontSize: '0.75rem', padding: '0.5rem 1.25rem' }}
                         >
                           Broadcast Request to Community →
@@ -2173,9 +2162,9 @@ export default function App() {
                       onClick={() => setActiveDifficultyFilter(diff)}
                       className="px-2.5 py-1 rounded-md text-xs font-mono transition-all duration-200"
                       style={{
-                        background: activeDifficultyFilter === diff ? 'rgba(157,78,221,0.2)' : 'rgba(255,255,255,0.03)',
-                        border: `1px solid ${activeDifficultyFilter === diff ? 'rgba(157,78,221,0.5)' : 'rgba(255,255,255,0.06)'}`,
-                        color: activeDifficultyFilter === diff ? '#9D4EDD' : 'rgba(255,255,255,0.5)',
+                        background: activeDifficultyFilter === diff ? 'rgba(126,34,206,0.2)' : 'rgba(255,255,255,0.03)',
+                        border: `1px solid ${activeDifficultyFilter === diff ? 'rgba(126,34,206,0.5)' : 'rgba(255,255,255,0.06)'}`,
+                        color: activeDifficultyFilter === diff ? '#7E22CE' : 'rgba(255,255,255,0.5)',
                       }}
                     >
                       {diff}
@@ -2209,7 +2198,7 @@ export default function App() {
                           {/* Top row */}
                           <div className="flex items-center justify-between gap-3 mb-3">
                             <div className="flex items-center gap-2">
-                              <span className="font-mono text-xs font-semibold" style={{ color: '#9D4EDD' }}>
+                              <span className="font-mono text-xs font-semibold" style={{ color: '#7E22CE' }}>
                                 {req.requesterHandle}
                               </span>
                               <span className="font-mono text-[10px]" style={{ color: '#A8A29E' }}>· {req.timeAgo}</span>
@@ -2219,9 +2208,9 @@ export default function App() {
                               <span
                                 className="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase"
                                 style={{
-                                  background: req.difficulty === 'Hardcore' ? 'rgba(255,80,80,0.15)' : 'rgba(157,78,221,0.15)',
-                                  color: req.difficulty === 'Hardcore' ? '#FF6B6B' : '#C084FC',
-                                  border: `1px solid ${req.difficulty === 'Hardcore' ? 'rgba(255,80,80,0.3)' : 'rgba(157,78,221,0.3)'}`,
+                                  background: req.difficulty === 'Hardcore' ? 'rgba(255,80,80,0.15)' : 'rgba(126,34,206,0.15)',
+                                  color: req.difficulty === 'Hardcore' ? '#FF6B6B' : '#7E22CE',
+                                  border: `1px solid ${req.difficulty === 'Hardcore' ? 'rgba(255,80,80,0.3)' : 'rgba(126,34,206,0.3)'}`,
                                 }}
                               >
                                 {req.difficulty}
@@ -2238,8 +2227,8 @@ export default function App() {
                           </h4>
 
                           {/* Target Tech */}
-                          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md mb-3" style={{ background: 'rgba(157,78,221,0.06)', border: '1px solid #E2DCD5' }}>
-                            <span className="font-mono text-xs font-semibold" style={{ color: '#C084FC' }}>
+                          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md mb-3" style={{ background: 'rgba(126,34,206,0.06)', border: '1px solid #E2DCD5' }}>
+                            <span className="font-mono text-xs font-semibold" style={{ color: '#7E22CE' }}>
                               🎯 Target Tech: {req.targetTech}
                             </span>
                           </div>
@@ -2251,7 +2240,7 @@ export default function App() {
 
                           {/* Community Status note */}
                           <div className="flex items-center gap-2 mb-4 text-xs font-mono" style={{ color: '#78716A' }}>
-                            <span className="w-1.5 h-1.5 rounded-full" style={{ background: req.status === 'CLAIMED BY YOU' ? '#00FF80' : '#9D4EDD' }} />
+                            <span className="w-1.5 h-1.5 rounded-full" style={{ background: req.status === 'CLAIMED BY YOU' ? '#15803D' : '#7E22CE' }} />
                             <span>Status: {req.contributorStatus}</span>
                           </div>
 
@@ -2264,9 +2253,9 @@ export default function App() {
                                 onClick={() => handleUpvoteRequest(req.id)}
                                 className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-mono font-semibold transition-all"
                                 style={{
-                                  background: req.userRequested ? 'rgba(157,78,221,0.2)' : 'rgba(255,255,255,0.04)',
-                                  border: `1px solid ${req.userRequested ? 'rgba(157,78,221,0.55)' : 'rgba(255,255,255,0.08)'}`,
-                                  color: req.userRequested ? '#C084FC' : 'rgba(255,255,255,0.7)',
+                                  background: req.userRequested ? 'rgba(126,34,206,0.2)' : 'rgba(255,255,255,0.04)',
+                                  border: `1px solid ${req.userRequested ? 'rgba(126,34,206,0.55)' : 'rgba(255,255,255,0.08)'}`,
+                                  color: req.userRequested ? '#7E22CE' : 'rgba(255,255,255,0.7)',
                                 }}
                               >
                                 <span>🔥</span>
@@ -2289,9 +2278,9 @@ export default function App() {
                               disabled={isClaimedByMe}
                               className="px-3 py-1.5 rounded-lg text-xs font-mono font-semibold transition-all"
                               style={{
-                                background: isClaimedByMe ? 'rgba(0,255,128,0.1)' : 'rgba(157,78,221,0.1)',
-                                border: `1px solid ${isClaimedByMe ? 'rgba(0,255,128,0.3)' : 'rgba(157,78,221,0.25)'}`,
-                                color: isClaimedByMe ? '#00FF80' : '#C084FC',
+                                background: isClaimedByMe ? 'rgba(21,128,61,0.1)' : 'rgba(126,34,206,0.1)',
+                                border: `1px solid ${isClaimedByMe ? 'rgba(21,128,61,0.3)' : 'rgba(126,34,206,0.25)'}`,
+                                color: isClaimedByMe ? '#15803D' : '#7E22CE',
                                 cursor: isClaimedByMe ? 'default' : 'pointer',
                               }}
                             >
@@ -2317,11 +2306,11 @@ export default function App() {
           className="fixed bottom-6 right-6 z-50 flex items-center gap-3 px-4 py-3 rounded-xl shadow-2xl animate-fade-in-up"
           style={{
             background: '#FFFFFF',
-            border: `1px solid ${toast.type === 'green' ? '#00FF80' : toast.type === 'amethyst' ? '#9D4EDD' : '#00F0FF'}`,
-            boxShadow: `0 10px 40px rgba(0,0,0,0.8), 0 0 20px ${toast.type === 'green' ? 'rgba(0,255,128,0.2)' : toast.type === 'amethyst' ? 'rgba(157,78,221,0.2)' : 'rgba(0,240,255,0.2)'}`,
+            border: `1px solid ${toast.type === 'green' ? '#15803D' : toast.type === 'amethyst' ? '#7E22CE' : '#0E6251'}`,
+            boxShadow: `0 10px 40px rgba(0,0,0,0.8), 0 0 20px ${toast.type === 'green' ? 'rgba(21,128,61,0.2)' : toast.type === 'amethyst' ? 'rgba(126,34,206,0.2)' : 'rgba(14,98,81,0.2)'}`,
           }}
         >
-          <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: toast.type === 'green' ? '#00FF80' : toast.type === 'amethyst' ? '#9D4EDD' : '#00F0FF' }} />
+          <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: toast.type === 'green' ? '#15803D' : toast.type === 'amethyst' ? '#7E22CE' : '#0E6251' }} />
           <span className="font-mono text-xs text-white tracking-wide">{toast.message}</span>
         </div>
       )}
@@ -2336,8 +2325,8 @@ export default function App() {
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-2">
             <span className="relative flex h-1.5 w-1.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-60" style={{ background: '#00F0FF' }} />
-              <span className="relative inline-flex rounded-full h-1.5 w-1.5" style={{ background: '#00F0FF' }} />
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-60" style={{ background: '#0E6251' }} />
+              <span className="relative inline-flex rounded-full h-1.5 w-1.5" style={{ background: '#0E6251' }} />
             </span>
             <span className="font-mono font-bold tracking-widest" style={{ color: '#A8A29E', fontSize: '0.62rem' }}>
               THE BUILDER PROTOCOL // LEARN
@@ -2359,7 +2348,7 @@ export default function App() {
                 {link.label}
               </button>
             ))}
-            <a href="https://thebuilderprotocol.me" target="_blank" rel="noopener noreferrer" className="footer-link" style={{ fontSize: '0.75rem', color: 'rgba(0,240,255,0.5)' }}>
+            <a href="https://thebuilderprotocol.me" target="_blank" rel="noopener noreferrer" className="footer-link" style={{ fontSize: '0.75rem', color: 'rgba(14,98,81,0.5)' }}>
               thebuilderprotocol.me ↗
             </a>
             <button
@@ -2371,7 +2360,7 @@ export default function App() {
                 }
               }}
               className="footer-link bg-transparent border-0 cursor-pointer"
-              style={{ fontSize: '0.75rem', color: isAdmin ? '#00FF80' : 'rgba(255,255,255,0.3)' }}
+              style={{ fontSize: '0.75rem', color: isAdmin ? '#15803D' : 'rgba(255,255,255,0.3)' }}
             >
               {isAdmin ? '// Admin: Afsal (Active)' : '// Admin Login'}
             </button>
@@ -2481,7 +2470,7 @@ export default function App() {
                             {mod.readTime || '15 min'}
                           </span>
                         </div>
-                        <h4 className="text-white text-xs font-semibold leading-snug line-clamp-2">
+                        <h4 className="text-[#181614] text-xs font-semibold leading-snug line-clamp-2">
                           {mod.title}
                         </h4>
                         {mod.summary && (
@@ -2620,8 +2609,8 @@ export default function App() {
             <div className="p-5 sm:px-8 flex items-center justify-between border-b" style={{ borderColor: 'rgba(24,22,20,0.08)', background: '#FAF8F5' }}>
               <div>
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="w-2 h-2 rounded-full" style={{ background: '#00F0FF' }} />
-                  <span className="label-mono" style={{ color: '#00F0FF' }}>
+                  <span className="w-2 h-2 rounded-full" style={{ background: '#0E6251' }} />
+                  <span className="label-mono" style={{ color: '#0E6251' }}>
                     {editingCourseId ? 'COURSE ARCHITECT // EDIT TRACK' : 'COURSE ARCHITECT // CREATE NEW TRACK'}
                   </span>
                 </div>
@@ -2642,7 +2631,7 @@ export default function App() {
             <form onSubmit={handleSaveCourse} className="flex-1 overflow-y-auto p-6 sm:p-8 space-y-6">
               {/* Basic Course Info */}
               <div className="p-5 rounded-xl space-y-4" style={{ background: '#FAF8F5', border: '1px solid rgba(24,22,20,0.08)' }}>
-                <span className="label-mono block" style={{ color: '#00F0FF', fontSize: '0.65rem' }}>
+                <span className="label-mono block" style={{ color: '#0E6251', fontSize: '0.65rem' }}>
                   STEP 1: COURSE METADATA &amp; TARGETS
                 </span>
 
@@ -2722,11 +2711,11 @@ export default function App() {
                       className="input-field"
                       style={{ fontSize: '0.8rem', background: '#FFFFFF' }}
                     >
-                      <option value="#00F0FF">Cyan Neon</option>
-                      <option value="#9D4EDD">Amethyst Purple</option>
-                      <option value="#00FF80">Emerald Green</option>
+                      <option value="#0E6251">Cyan Neon</option>
+                      <option value="#7E22CE">Amethyst Purple</option>
+                      <option value="#15803D">Emerald Green</option>
                       <option value="#4F46E5">Deep Indigo</option>
-                      <option value="#F48024">Stack Orange</option>
+                      <option value="#B45309">Stack Orange</option>
                     </select>
                   </div>
 
@@ -2760,10 +2749,10 @@ export default function App() {
               <div className="p-5 rounded-xl space-y-5" style={{ background: '#FAF8F5', border: '1px solid rgba(24,22,20,0.08)' }}>
                 <div className="flex items-center justify-between">
                   <div>
-                    <span className="label-mono block" style={{ color: '#00F0FF', fontSize: '0.65rem' }}>
+                    <span className="label-mono block" style={{ color: '#0E6251', fontSize: '0.65rem' }}>
                       STEP 2: COURSE MODULE STRUCTURE &amp; CONTENT
                     </span>
-                    <p className="text-xs text-white/60 mt-0.5">
+                    <p className="text-xs text-[#57534E] mt-0.5">
                       Write lesson topics, code breakdowns, or markdown system notes for each module.
                     </p>
                   </div>
@@ -2771,7 +2760,7 @@ export default function App() {
                     type="button"
                     onClick={handleAddModuleRow}
                     className="px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer"
-                    style={{ background: 'rgba(0,240,255,0.1)', border: '1px solid #E2DCD5', color: '#00F0FF' }}
+                    style={{ background: 'rgba(14,98,81,0.1)', border: '1px solid #E2DCD5', color: '#0E6251' }}
                   >
                     + Add Next Module
                   </button>
@@ -2785,7 +2774,7 @@ export default function App() {
                       style={{ background: '#FAF8F5', border: '1px solid rgba(24,22,20,0.08)' }}
                     >
                       <div className="flex items-center justify-between gap-2">
-                        <span className="label-mono font-bold" style={{ color: '#00F0FF' }}>
+                        <span className="label-mono font-bold" style={{ color: '#0E6251' }}>
                           MODULE {idx + 1}
                         </span>
                         {courseForm.modules.length > 1 && (
@@ -2895,8 +2884,8 @@ export default function App() {
             </button>
 
             <div className="flex items-center gap-2 mb-2">
-              <span className="w-2 h-2 rounded-full" style={{ background: '#00F0FF' }} />
-              <span className="label-mono" style={{ color: '#00F0FF' }}>ADMIN COMMAND ACCESS</span>
+              <span className="w-2 h-2 rounded-full" style={{ background: '#0E6251' }} />
+              <span className="label-mono" style={{ color: '#0E6251' }}>ADMIN COMMAND ACCESS</span>
             </div>
             <h3 className="text-[#181614] font-bold text-xl mb-1" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
               Authenticate Protocol Root
