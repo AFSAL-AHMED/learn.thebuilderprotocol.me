@@ -6,7 +6,7 @@ import { LEARNING_TRACKS } from './data/content.js'
 const INITIAL_TRACKS = [
   {
     id: 'ai-agentic',
-    accentColor: '#00F0FF',
+    accentColor: '#0E6251',
     accentBg: 'rgba(0,240,255,0.06)',
     accentBorder: 'rgba(0,240,255,0.18)',
     iconPath: 'M12 2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2 2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z M12 18a2 2 0 0 1 2 2v0a2 2 0 0 1-2 2 2 2 0 0 1-2-2v0a2 2 0 0 1 2-2z M2 12a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2 2 2 0 0 1-2 2H4a2 2 0 0 1-2-2z M16 12a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2z',
@@ -378,7 +378,7 @@ export default function App() {
     description: '',
     level: 'Intermediate',
     hours: 20,
-    accentColor: '#00F0FF',
+    accentColor: '#0E6251',
     status: 'COMMUNITY TRACK',
     tags: '',
     modules: [
@@ -414,7 +414,7 @@ export default function App() {
       description: '',
       level: 'Intermediate',
       hours: 20,
-      accentColor: '#00F0FF',
+      accentColor: '#0E6251',
       status: 'PROTOCOL TRACK',
       tags: 'Architecture, Systems, Production',
       modules: [
@@ -442,7 +442,7 @@ export default function App() {
       description: course.description,
       level: course.level || 'Intermediate',
       hours: course.hours || 20,
-      accentColor: course.accentColor || '#00F0FF',
+      accentColor: course.accentColor || '#0E6251',
       status: course.status || 'COMMUNITY TRACK',
       tags: Array.isArray(course.tags) ? course.tags.join(', ') : '',
       modules: (course.curriculum && course.curriculum.length > 0)
@@ -956,7 +956,7 @@ export default function App() {
   ]
 
   return (
-    <div className="min-h-screen" style={{ background: '#05070B' }}>
+    <div className="min-h-screen" style={{ background: '#FAF8F5', color: '#181614' }}>
 
       {/* ─── NAV ──────────────────────────────────────────── */}
       <header className="glass-nav fixed top-0 left-0 right-0 z-50">
@@ -1012,7 +1012,7 @@ export default function App() {
                     onClick={handleResetBoard}
                     title="Reset Board to Default Seeds"
                     className="px-2.5 py-1 rounded-md text-xs font-mono font-semibold transition-all cursor-pointer"
-                    style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.15)', color: 'rgba(255,255,255,0.7)' }}
+                    style={{ background: '#FAF8F5', border: '1px solid rgba(24,22,20,0.15)', color: '#44403C' }}
                   >
                     Reset Seeds
                   </button>
@@ -1028,7 +1028,7 @@ export default function App() {
                 <button
                   onClick={() => setShowAdminModal(true)}
                   className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-mono font-semibold transition-all cursor-pointer"
-                  style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.12)', color: 'rgba(255,255,255,0.65)' }}
+                  style={{ background: '#FAF8F5', border: '1px solid rgba(255,255,255,0.12)', color: 'rgba(255,255,255,0.65)' }}
                 >
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
@@ -1047,7 +1047,7 @@ export default function App() {
               id="mobile-menu-toggle"
               onClick={() => setMobileMenuOpen((o) => !o)}
               className="md:hidden p-2 rounded-md"
-              style={{ color: 'rgba(255,255,255,0.6)' }}
+              style={{ color: '#181614' }}
               aria-label="Toggle menu"
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -1058,7 +1058,7 @@ export default function App() {
 
           {/* Mobile menu */}
           {mobileMenuOpen && (
-            <div className="md:hidden pb-4 pt-3" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+            <div className="md:hidden pb-4 pt-3" style={{ borderTop: '1px solid rgba(24,22,20,0.08)' }}>
               <div className="flex flex-col gap-1 mb-3">
                 {navLinks.map((link) => (
                   <button
@@ -1104,7 +1104,7 @@ export default function App() {
 
           {/* Status badge */}
           <div className="flex justify-center mb-8 animate-fade-in-up">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full" style={{ background: 'rgba(0,240,255,0.06)', border: '1px solid rgba(0,240,255,0.2)' }}>
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full" style={{ background: 'rgba(0,240,255,0.06)', border: '1px solid #E2DCD5' }}>
               <span className="animate-pulse-dot w-1.5 h-1.5 rounded-full" style={{ background: '#00F0FF' }} />
               <span className="label-mono" style={{ color: '#00F0FF' }}>Protocol v2.0 // Open Enrollment</span>
             </div>
@@ -1126,7 +1126,7 @@ export default function App() {
                 Engineering Protocols
               </span>
             </h1>
-            <p className="text-base sm:text-lg max-w-2xl mx-auto leading-relaxed" style={{ color: 'rgba(139,158,199,0.85)' }}>
+            <p className="text-base sm:text-lg max-w-2xl mx-auto leading-relaxed" className="text-[#57534E]">
               A structured, project-first curriculum for builders shipping AI agents, edge deployments, and
               serverless data layers — from mental model to production pull request.
             </p>
@@ -1163,11 +1163,11 @@ export default function App() {
           {/* Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 animate-fade-in-up-delay-3">
             {STATS.map((s) => (
-              <div key={s.label} className="text-center py-4 px-3 rounded-xl" style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.06)' }}>
+              <div key={s.label} className="text-center py-4 px-3 rounded-xl" style={{ background: '#FAF8F5', border: '1px solid rgba(24,22,20,0.08)' }}>
                 <div className="font-extrabold mb-0.5" style={{ color: '#00F0FF', fontSize: 'clamp(1.5rem, 3vw, 2rem)', fontFamily: "'Plus Jakarta Sans', sans-serif", letterSpacing: '-0.02em' }}>
                   {s.value}
                 </div>
-                <div className="label-mono" style={{ color: 'rgba(139,158,199,0.65)' }}>{s.label}</div>
+                <div className="label-mono" style={{ color: '#78716A' }}>{s.label}</div>
               </div>
             ))}
           </div>
@@ -1182,10 +1182,10 @@ export default function App() {
             <div>
               <div className="flex items-center gap-2 mb-2">
                 <span className="label-mono" style={{ color: 'rgba(0,240,255,0.7)' }}>// 001</span>
-                <span className="label-mono" style={{ color: 'rgba(255,255,255,0.3)' }}>CURRICULUM DIRECTORY</span>
+                <span className="label-mono" style={{ color: '#A8A29E' }}>CURRICULUM DIRECTORY</span>
               </div>
-              <h2 className="display-md text-white">Engineering Masterclass Tracks</h2>
-              <p className="text-sm mt-1" style={{ color: 'rgba(139,158,199,0.75)' }}>
+              <h2 className="display-md text-[#181614]">Engineering Masterclass Tracks</h2>
+              <p className="text-sm mt-1" className="text-[#57534E]">
                 Click any track to inspect its full syllabus and technical breakdown. You can also build &amp; publish custom curriculum.
               </p>
             </div>
@@ -1201,7 +1201,7 @@ export default function App() {
                 <span>Create New Track (Admin)</span>
               </button>
             ) : (
-              <span className="font-mono text-xs px-3 py-1.5 rounded-lg" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', color: 'rgba(255,255,255,0.4)' }}>
+              <span className="font-mono text-xs px-3 py-1.5 rounded-lg" style={{ background: '#FAF8F5', border: '1px solid rgba(24,22,20,0.08)', color: '#78716A' }}>
                 Curriculum Verified by Protocol
               </span>
             )}
@@ -1251,7 +1251,7 @@ export default function App() {
                             onClick={() => handleOpenEditCourse(track)}
                             title="Edit Course & Content (Admin)"
                             className="p-1 px-2 rounded text-[10px] font-mono transition-colors"
-                            style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.15)', color: 'rgba(255,255,255,0.8)' }}
+                            style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(24,22,20,0.15)', color: '#292524' }}
                           >
                             ✎ Edit
                           </button>
@@ -1269,13 +1269,13 @@ export default function App() {
                   </div>
 
                   {/* Title */}
-                  <h3 className="text-white font-bold text-lg leading-tight mb-1" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", letterSpacing: '-0.01em' }}>
+                  <h3 className="text-[#181614] font-bold text-lg leading-tight mb-1" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", letterSpacing: '-0.01em' }}>
                     {track.title}
                   </h3>
                   <p className="label-mono mb-4" style={{ color: track.accentColor, opacity: 0.85 }}>{track.subtitle}</p>
 
                   {/* Description */}
-                  <p className="text-sm leading-relaxed mb-5 flex-1" style={{ color: 'rgba(139,158,199,0.8)' }}>
+                  <p className="text-sm leading-relaxed mb-5 flex-1 text-[#57534E]">
                     {track.description}
                   </p>
 
@@ -1291,16 +1291,16 @@ export default function App() {
                   {/* Meta & Trigger */}
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-4">
-                      <span className="label-mono" style={{ color: 'rgba(139,158,199,0.7)' }}>
+                      <span className="label-mono" style={{ color: '#57534E' }}>
                         {track.curriculum ? track.curriculum.length : track.modules} Modules
                       </span>
-                      <span className="label-mono" style={{ color: 'rgba(139,158,199,0.7)' }}>{track.hours}h Syllabus</span>
+                      <span className="label-mono" style={{ color: '#57534E' }}>{track.hours}h Syllabus</span>
                     </div>
                     <span className="badge badge-slate">{track.level}</span>
                   </div>
 
                   {/* Action pill */}
-                  <div className="mt-4 pt-3 flex items-center justify-between text-xs font-mono" style={{ borderTop: '1px solid rgba(255,255,255,0.05)', color: track.accentColor }}>
+                  <div className="mt-4 pt-3 flex items-center justify-between text-xs font-mono" style={{ borderTop: '1px solid rgba(24,22,20,0.06)', color: track.accentColor }}>
                     <span>Explore Syllabus &amp; Content</span>
                     <span>View Curriculum →</span>
                   </div>
@@ -1322,24 +1322,24 @@ export default function App() {
 
           {/* Section Header */}
           <div className="section-header mb-6">
-            <span className="label-mono" style={{ color: 'rgba(0,240,255,0.7)' }}>// 002</span>
+            <span className="label-mono text-[#0E6251]">// 002</span>
             <h2 className="display-md text-white">Community Knowledge Exchange</h2>
             <div className="section-header-line" />
             <span className="label-mono hidden sm:block" style={{ color: 'rgba(255,255,255,0.2)' }}>DECENTRALIZED_KNOWLEDGE_BASE</span>
           </div>
 
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
-            <p className="text-sm sm:text-base max-w-2xl" style={{ color: 'rgba(139,158,199,0.85)' }}>
+            <p className="text-sm sm:text-base max-w-2xl" style={{ color: '#44403C' }}>
               A peer-to-peer engineering exchange. Builders who master new tech can publish architectures &amp; stacks, while engineers looking to level up can request on-demand guides from the community.
             </p>
 
             {/* Quick Live Network Stats */}
             <div className="flex items-center gap-3">
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs" style={{ background: 'rgba(0,240,255,0.06)', border: '1px solid rgba(0,240,255,0.2)' }}>
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs" style={{ background: 'rgba(0,240,255,0.06)', border: '1px solid #E2DCD5' }}>
                 <span className="w-2 h-2 rounded-full" style={{ background: '#00F0FF' }} />
                 <span className="font-mono" style={{ color: '#00F0FF' }}>{techDrops.length} Drops Published</span>
               </div>
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs" style={{ background: 'rgba(157,78,221,0.06)', border: '1px solid rgba(157,78,221,0.2)' }}>
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs" style={{ background: 'rgba(157,78,221,0.06)', border: '1px solid #E2DCD5' }}>
                 <span className="w-2 h-2 rounded-full" style={{ background: '#9D4EDD' }} />
                 <span className="font-mono" style={{ color: '#9D4EDD' }}>{knowledgeRequests.length} Requests Open</span>
               </div>
@@ -1347,7 +1347,7 @@ export default function App() {
           </div>
 
           {/* Mode Switcher Tabs */}
-          <div className="flex flex-wrap items-center gap-2 mb-8 p-1.5 rounded-xl w-fit" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)' }}>
+          <div className="flex flex-wrap items-center gap-2 mb-8 p-1.5 rounded-xl w-fit" className="bg-[#EFEAE2] border border-[#DDD5C7]">
             <button
               onClick={() => setExchangeMode('columns')}
               className="flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-mono font-semibold transition-all duration-200 cursor-pointer"
@@ -1382,7 +1382,7 @@ export default function App() {
 
           {/* ════ STACK OVERFLOW LIVE INTEL VIEW ═══════════════ */}
           {exchangeMode === 'stackoverflow' && (
-            <div className="flex flex-col rounded-2xl overflow-hidden mb-12 animate-fade-in-up" style={{ background: 'rgba(255,255,255,0.015)', border: '1px solid rgba(244,128,36,0.25)' }}>
+            <div className="flex flex-col rounded-2xl overflow-hidden mb-12 animate-fade-in-up" style={{ background: '#FAF8F5', border: '1px solid #E2DCD5' }}>
               <div className="h-[2px] w-full" style={{ background: 'linear-gradient(90deg, #F48024, rgba(244,128,36,0.3))' }} />
 
               <div className="p-6 sm:p-8">
@@ -1399,18 +1399,18 @@ export default function App() {
                         <span className="tag-mono" style={{ color: '#F48024' }}>LIVE INTEGRATION // STACK EXCHANGE API v2.3</span>
                         <span className="badge badge-cyan" style={{ fontSize: '0.55rem' }}>OFFICIAL API</span>
                       </div>
-                      <h3 className="text-white font-bold text-xl" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+                      <h3 className="text-[#181614] font-bold text-xl" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
                         Stack Overflow Developer Intelligence
                       </h3>
                     </div>
                   </div>
 
-                  <span className="label-mono" style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.65rem' }}>
+                  <span className="label-mono" style={{ color: '#78716A', fontSize: '0.65rem' }}>
                     CC BY-SA 4.0 ATTRIBUTION COMPLIANT
                   </span>
                 </div>
 
-                <p className="text-sm leading-relaxed mb-6" style={{ color: 'rgba(139,158,199,0.85)' }}>
+                <p className="text-sm leading-relaxed mb-6" style={{ color: '#44403C' }}>
                   Live developer Q&amp;A queried directly from the official Stack Exchange API. Search real-world debugging solutions, top-voted answers, and syntax fixes across frameworks.
                 </p>
 
@@ -1436,7 +1436,7 @@ export default function App() {
                     className="px-5 py-2.5 rounded-lg text-xs font-mono font-bold transition-all duration-200 cursor-pointer flex items-center justify-center gap-2"
                     style={{
                       background: '#F48024',
-                      color: '#05070B',
+                      color: '#FFFFFF',
                       opacity: soLoading ? 0.7 : 1,
                     }}
                   >
@@ -1446,7 +1446,7 @@ export default function App() {
 
                 {/* Quick Tech Tag Filters */}
                 <div className="flex flex-wrap items-center gap-2 mb-8">
-                  <span className="label-mono" style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.65rem' }}>Protocol Stacks:</span>
+                  <span className="label-mono" style={{ color: '#78716A', fontSize: '0.65rem' }}>Protocol Stacks:</span>
                   {[
                     { label: 'Next.js 15', tag: 'next.js' },
                     { label: 'LangChain & AI', tag: 'langchain' },
@@ -1477,7 +1477,7 @@ export default function App() {
 
                 {/* Error Notice */}
                 {soError && (
-                  <div className="p-3.5 rounded-xl mb-6 flex items-center gap-3 text-xs font-mono" style={{ background: 'rgba(244,128,36,0.08)', border: '1px solid rgba(244,128,36,0.25)', color: '#F48024' }}>
+                  <div className="p-3.5 rounded-xl mb-6 flex items-center gap-3 text-xs font-mono" style={{ background: 'rgba(244,128,36,0.08)', border: '1px solid #E2DCD5', color: '#F48024' }}>
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <circle cx="12" cy="12" r="10" />
                       <line x1="12" y1="8" x2="12" y2="12" />
@@ -1491,16 +1491,16 @@ export default function App() {
                 {soLoading ? (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {[1, 2, 3, 4].map((n) => (
-                      <div key={n} className="p-5 rounded-xl animate-pulse" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)' }}>
+                      <div key={n} className="p-5 rounded-xl animate-pulse" style={{ background: '#FAF8F5', border: '1px solid rgba(255,255,255,0.05)' }}>
                         <div className="h-4 w-3/4 rounded mb-3" style={{ background: 'rgba(255,255,255,0.08)' }} />
-                        <div className="h-3 w-1/2 rounded mb-4" style={{ background: 'rgba(255,255,255,0.05)' }} />
+                        <div className="h-3 w-1/2 rounded mb-4" style={{ background: '#FAF8F5' }} />
                         <div className="h-3 w-1/4 rounded" style={{ background: 'rgba(244,128,36,0.1)' }} />
                       </div>
                     ))}
                   </div>
                 ) : soQuestions.length === 0 ? (
-                  <div className="text-center py-12 rounded-xl" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}>
-                    <p className="text-sm" style={{ color: 'rgba(255,255,255,0.5)' }}>No Stack Overflow discussions found matching your query.</p>
+                  <div className="text-center py-12 rounded-xl" style={{ background: '#FAF8F5', border: '1px solid rgba(24,22,20,0.08)' }}>
+                    <p className="text-sm" style={{ color: '#78716A' }}>No Stack Overflow discussions found matching your query.</p>
                   </div>
                 ) : (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -1509,8 +1509,8 @@ export default function App() {
                         key={q.question_id}
                         className="p-5 rounded-xl flex flex-col justify-between transition-all duration-200 group"
                         style={{
-                          background: 'rgba(255,255,255,0.02)',
-                          border: '1px solid rgba(255,255,255,0.06)',
+                          background: '#FAF8F5',
+                          border: '1px solid rgba(24,22,20,0.08)',
                         }}
                       >
                         <div>
@@ -1575,7 +1575,7 @@ export default function App() {
 
                         {/* Link to Stack Overflow */}
                         <div className="pt-3 flex items-center justify-between" style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}>
-                          <span className="font-mono text-[10px]" style={{ color: 'rgba(255,255,255,0.3)' }}>
+                          <span className="font-mono text-[10px]" style={{ color: '#A8A29E' }}>
                             ID: {q.question_id}
                           </span>
                           <a
@@ -1595,7 +1595,7 @@ export default function App() {
                 )}
 
                 {/* Legal & Attribution Footer */}
-                <div className="mt-8 pt-5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono" style={{ borderTop: '1px solid rgba(255,255,255,0.06)', color: 'rgba(139,158,199,0.5)' }}>
+                <div className="mt-8 pt-5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono" style={{ borderTop: '1px solid rgba(255,255,255,0.06)', color: '#A8A29E' }}>
                   <div className="flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full" style={{ background: '#F48024' }} />
                     <span>Data provided by Stack Exchange API v2.3</span>
@@ -1642,15 +1642,15 @@ export default function App() {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
 
             {/* ════ COLUMN 1: PUBLISH KNOWLEDGE & TECH STACKS ═══ */}
-            <div className="flex flex-col rounded-2xl overflow-hidden" style={{ background: 'rgba(255,255,255,0.015)', border: '1px solid rgba(0,240,255,0.18)' }}>
+            <div className="flex flex-col rounded-2xl overflow-hidden" className="bg-white border border-[#E7E2DA] shadow-xs">
               {/* Column Top Accent Line */}
-              <div className="h-[2px] w-full" style={{ background: 'linear-gradient(90deg, #00F0FF, rgba(0,240,255,0.2))' }} />
+              <div className="h-[2px] w-full" style={{ background: '#0E6251' }} />
 
               <div className="p-6">
                 {/* Column Header */}
                 <div className="flex items-start justify-between gap-4 mb-4">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(0,240,255,0.1)', border: '1px solid rgba(0,240,255,0.25)', color: '#00F0FF' }}>
+                    <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: '#EAF4F2', border: '1px solid #B9DDD6', color: '#0E6251' }}>
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242" />
                         <path d="M12 12v9" />
@@ -1661,7 +1661,7 @@ export default function App() {
                       <div className="flex items-center gap-2">
                         <span className="tag-mono" style={{ color: '#00F0FF' }}>COLUMN 01 // KNOWLEDGE DROPS</span>
                       </div>
-                      <h3 className="text-white font-bold text-lg" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+                      <h3 className="text-[#181614] font-bold text-lg" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
                         Publish Tech &amp; Stacks
                       </h3>
                     </div>
@@ -1680,7 +1680,7 @@ export default function App() {
                   </button>
                 </div>
 
-                <p className="text-xs sm:text-sm mb-6 leading-relaxed" style={{ color: 'rgba(139,158,199,0.7)' }}>
+                <p className="text-xs sm:text-sm mb-6 leading-relaxed" style={{ color: '#57534E' }}>
                   Have you built something new or mastered an advanced architecture? Publish your tech stack, benchmarks, and knowledge breakdown to establish your protocol reputation.
                 </p>
 
@@ -1689,17 +1689,17 @@ export default function App() {
                   <form
                     onSubmit={handlePublishSubmit}
                     className="mb-8 p-5 rounded-xl animate-fade-in-up"
-                    style={{ background: 'rgba(0,240,255,0.03)', border: '1px solid rgba(0,240,255,0.25)' }}
+                    style={{ background: 'rgba(0,240,255,0.03)', border: '1px solid #E2DCD5' }}
                   >
                     <div className="flex items-center justify-between mb-4">
                       <span className="label-mono font-bold" style={{ color: '#00F0FF' }}>// NEW PROTOCOL KNOWLEDGE DROP</span>
-                      <span className="label-mono" style={{ color: 'rgba(255,255,255,0.3)' }}>Instant Publish</span>
+                      <span className="label-mono" style={{ color: '#A8A29E' }}>Instant Publish</span>
                     </div>
 
                     <div className="space-y-3.5">
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
-                          <label className="label-mono block mb-1" style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.65rem' }}>Your Name</label>
+                          <label className="label-mono block mb-1" style={{ color: '#78716A', fontSize: '0.65rem' }}>Your Name</label>
                           <input
                             type="text"
                             required
@@ -1711,7 +1711,7 @@ export default function App() {
                           />
                         </div>
                         <div>
-                          <label className="label-mono block mb-1" style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.65rem' }}>Handle / Tag</label>
+                          <label className="label-mono block mb-1" style={{ color: '#78716A', fontSize: '0.65rem' }}>Handle / Tag</label>
                           <input
                             type="text"
                             placeholder="e.g. @afsal_dev"
@@ -1725,7 +1725,7 @@ export default function App() {
 
                       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                         <div className="sm:col-span-2">
-                          <label className="label-mono block mb-1" style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.65rem' }}>Tech Stack / Tooling</label>
+                          <label className="label-mono block mb-1" style={{ color: '#78716A', fontSize: '0.65rem' }}>Tech Stack / Tooling</label>
                           <input
                             type="text"
                             required
@@ -1737,12 +1737,12 @@ export default function App() {
                           />
                         </div>
                         <div>
-                          <label className="label-mono block mb-1" style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.65rem' }}>Category</label>
+                          <label className="label-mono block mb-1" style={{ color: '#78716A', fontSize: '0.65rem' }}>Category</label>
                           <select
                             value={newDrop.category}
                             onChange={(e) => setNewDrop({ ...newDrop, category: e.target.value })}
                             className="input-field"
-                            style={{ fontSize: '0.8rem', padding: '0.5rem 0.75rem', background: '#0D1120', color: 'white' }}
+                            style={{ fontSize: '0.8rem', padding: '0.5rem 0.75rem', background: '#FFFFFF', color: '#181614' }}
                           >
                             <option value="AI & Agentic">AI &amp; Agentic</option>
                             <option value="Edge & WASM">Edge &amp; WASM</option>
@@ -1754,7 +1754,7 @@ export default function App() {
                       </div>
 
                       <div>
-                        <label className="label-mono block mb-1" style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.65rem' }}>Drop Title / Breakthrough</label>
+                        <label className="label-mono block mb-1" style={{ color: '#78716A', fontSize: '0.65rem' }}>Drop Title / Breakthrough</label>
                         <input
                           type="text"
                           required
@@ -1767,7 +1767,7 @@ export default function App() {
                       </div>
 
                       <div>
-                        <label className="label-mono block mb-1" style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.65rem' }}>Knowledge Summary &amp; Takeaways</label>
+                        <label className="label-mono block mb-1" style={{ color: '#78716A', fontSize: '0.65rem' }}>Knowledge Summary &amp; Takeaways</label>
                         <textarea
                           rows="3"
                           required
@@ -1780,7 +1780,7 @@ export default function App() {
                       </div>
 
                       <div>
-                        <label className="label-mono block mb-1" style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.65rem' }}>Architecture Blueprint / Code Snippet (Optional)</label>
+                        <label className="label-mono block mb-1" style={{ color: '#78716A', fontSize: '0.65rem' }}>Architecture Blueprint / Code Snippet (Optional)</label>
                         <textarea
                           rows="3"
                           placeholder="// Paste architecture flow, config, or pseudo-code..."
@@ -1793,7 +1793,7 @@ export default function App() {
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
-                          <label className="label-mono block mb-1" style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.65rem' }}>GitHub / Spec URL (Optional)</label>
+                          <label className="label-mono block mb-1" style={{ color: '#78716A', fontSize: '0.65rem' }}>GitHub / Spec URL (Optional)</label>
                           <input
                             type="url"
                             placeholder="https://github.com/..."
@@ -1804,7 +1804,7 @@ export default function App() {
                           />
                         </div>
                         <div>
-                          <label className="label-mono block mb-1" style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.65rem' }}>Tags (Comma-separated)</label>
+                          <label className="label-mono block mb-1" style={{ color: '#78716A', fontSize: '0.65rem' }}>Tags (Comma-separated)</label>
                           <input
                             type="text"
                             placeholder="Bun, Edge, CRDT, Drizzle"
@@ -1874,8 +1874,8 @@ export default function App() {
                           key={drop.id}
                           className="p-5 rounded-xl transition-all duration-200"
                           style={{
-                            background: 'rgba(255,255,255,0.02)',
-                            border: '1px solid rgba(255,255,255,0.06)',
+                            background: '#FAF8F5',
+                            border: '1px solid rgba(24,22,20,0.08)',
                           }}
                         >
                           {/* Header row: Author + Meta */}
@@ -1885,7 +1885,7 @@ export default function App() {
                                 className="w-8 h-8 rounded-lg flex items-center justify-center font-mono font-bold text-xs"
                                 style={{
                                   background: 'linear-gradient(135deg, rgba(0,240,255,0.2), rgba(157,78,221,0.2))',
-                                  border: '1px solid rgba(0,240,255,0.3)',
+                                  border: '1px solid #E2DCD5',
                                   color: '#00F0FF',
                                 }}
                               >
@@ -1893,10 +1893,10 @@ export default function App() {
                               </div>
                               <div>
                                 <div className="flex items-center gap-1.5">
-                                  <span className="text-white font-semibold text-xs leading-none">{drop.authorName}</span>
+                                  <span className="text-[#181614] font-semibold text-xs leading-none">{drop.authorName}</span>
                                   <span className="font-mono text-[10px]" style={{ color: 'rgba(0,240,255,0.8)' }}>{drop.authorHandle}</span>
                                 </div>
-                                <span className="font-mono text-[10px]" style={{ color: 'rgba(255,255,255,0.3)' }}>{drop.timeAgo}</span>
+                                <span className="font-mono text-[10px]" style={{ color: '#A8A29E' }}>{drop.timeAgo}</span>
                               </div>
                             </div>
 
@@ -1906,7 +1906,7 @@ export default function App() {
                           </div>
 
                           {/* Title */}
-                          <h4 className="text-white font-bold text-base mb-1.5 leading-snug" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+                          <h4 className="text-[#181614] font-bold text-base mb-1.5 leading-snug" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
                             {drop.title}
                           </h4>
 
@@ -1918,7 +1918,7 @@ export default function App() {
                           </div>
 
                           {/* Description */}
-                          <p className="text-xs sm:text-sm leading-relaxed mb-4" style={{ color: 'rgba(139,158,199,0.85)' }}>
+                          <p className="text-xs sm:text-sm leading-relaxed mb-4" style={{ color: '#44403C' }}>
                             {drop.description}
                           </p>
 
@@ -1937,8 +1937,8 @@ export default function App() {
                                 <pre
                                   className="mt-2.5 p-3.5 rounded-lg overflow-x-auto font-mono text-xs leading-relaxed"
                                   style={{
-                                    background: '#090D18',
-                                    border: '1px solid rgba(0,240,255,0.2)',
+                                    background: '#FAF8F5',
+                                    border: '1px solid #E2DCD5',
                                     color: '#A5F3FC',
                                     whiteSpace: 'pre-wrap',
                                   }}
@@ -2008,15 +2008,15 @@ export default function App() {
             </div>
 
             {/* ════ COLUMN 2: REQUEST TECHNICAL KNOWLEDGE ═══════ */}
-            <div className="flex flex-col rounded-2xl overflow-hidden" style={{ background: 'rgba(255,255,255,0.015)', border: '1px solid rgba(157,78,221,0.2)' }}>
+            <div className="flex flex-col rounded-2xl overflow-hidden" className="bg-white border border-[#E7E2DA] shadow-xs">
               {/* Column Top Accent Line */}
-              <div className="h-[2px] w-full" style={{ background: 'linear-gradient(90deg, #9D4EDD, rgba(157,78,221,0.2))' }} />
+              <div className="h-[2px] w-full" style={{ background: '#92400E' }} />
 
               <div className="p-6">
                 {/* Column Header */}
                 <div className="flex items-start justify-between gap-4 mb-4">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(157,78,221,0.12)', border: '1px solid rgba(157,78,221,0.28)', color: '#9D4EDD' }}>
+                    <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: '#FEF3C7', border: '1px solid #FDE68A', color: '#92400E' }}>
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <circle cx="12" cy="12" r="10" />
                         <line x1="12" y1="16" x2="12" y2="12" />
@@ -2027,7 +2027,7 @@ export default function App() {
                       <div className="flex items-center gap-2">
                         <span className="tag-mono" style={{ color: '#9D4EDD' }}>COLUMN 02 // DEMAND QUEUE</span>
                       </div>
-                      <h3 className="text-white font-bold text-lg" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+                      <h3 className="text-[#181614] font-bold text-lg" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
                         Request Technical Knowledge
                       </h3>
                     </div>
@@ -2046,7 +2046,7 @@ export default function App() {
                   </button>
                 </div>
 
-                <p className="text-xs sm:text-sm mb-6 leading-relaxed" style={{ color: 'rgba(139,158,199,0.7)' }}>
+                <p className="text-xs sm:text-sm mb-6 leading-relaxed" style={{ color: '#57534E' }}>
                   Looking to learn a complex domain, niche framework, or low-level protocol? Post a request. The community and protocol architects create tutorials and deep dives based on builder demand.
                 </p>
 
@@ -2055,17 +2055,17 @@ export default function App() {
                   <form
                     onSubmit={handleRequestSubmit}
                     className="mb-8 p-5 rounded-xl animate-fade-in-up"
-                    style={{ background: 'rgba(157,78,221,0.03)', border: '1px solid rgba(157,78,221,0.28)' }}
+                    style={{ background: 'rgba(157,78,221,0.03)', border: '1px solid #E2DCD5' }}
                   >
                     <div className="flex items-center justify-between mb-4">
                       <span className="label-mono font-bold" style={{ color: '#9D4EDD' }}>// POST KNOWLEDGE BOUNTY / REQUEST</span>
-                      <span className="label-mono" style={{ color: 'rgba(255,255,255,0.3)' }}>Community Demand</span>
+                      <span className="label-mono" style={{ color: '#A8A29E' }}>Community Demand</span>
                     </div>
 
                     <div className="space-y-3.5">
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
-                          <label className="label-mono block mb-1" style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.65rem' }}>Your Name</label>
+                          <label className="label-mono block mb-1" style={{ color: '#78716A', fontSize: '0.65rem' }}>Your Name</label>
                           <input
                             type="text"
                             required
@@ -2077,7 +2077,7 @@ export default function App() {
                           />
                         </div>
                         <div>
-                          <label className="label-mono block mb-1" style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.65rem' }}>Handle / Tag</label>
+                          <label className="label-mono block mb-1" style={{ color: '#78716A', fontSize: '0.65rem' }}>Handle / Tag</label>
                           <input
                             type="text"
                             placeholder="e.g. @elena_dev"
@@ -2091,7 +2091,7 @@ export default function App() {
 
                       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                         <div className="sm:col-span-2">
-                          <label className="label-mono block mb-1" style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.65rem' }}>Target Technology / Protocol</label>
+                          <label className="label-mono block mb-1" style={{ color: '#78716A', fontSize: '0.65rem' }}>Target Technology / Protocol</label>
                           <input
                             type="text"
                             required
@@ -2103,12 +2103,12 @@ export default function App() {
                           />
                         </div>
                         <div>
-                          <label className="label-mono block mb-1" style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.65rem' }}>Depth / Level</label>
+                          <label className="label-mono block mb-1" style={{ color: '#78716A', fontSize: '0.65rem' }}>Depth / Level</label>
                           <select
                             value={newRequest.difficulty}
                             onChange={(e) => setNewRequest({ ...newRequest, difficulty: e.target.value })}
                             className="input-field"
-                            style={{ fontSize: '0.8rem', padding: '0.5rem 0.75rem', background: '#0D1120', color: 'white' }}
+                            style={{ fontSize: '0.8rem', padding: '0.5rem 0.75rem', background: '#FFFFFF', color: '#181614' }}
                           >
                             <option value="Hardcore">Hardcore</option>
                             <option value="Advanced">Advanced</option>
@@ -2119,7 +2119,7 @@ export default function App() {
                       </div>
 
                       <div>
-                        <label className="label-mono block mb-1" style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.65rem' }}>Topic Title / What do you want to learn?</label>
+                        <label className="label-mono block mb-1" style={{ color: '#78716A', fontSize: '0.65rem' }}>Topic Title / What do you want to learn?</label>
                         <input
                           type="text"
                           required
@@ -2132,7 +2132,7 @@ export default function App() {
                       </div>
 
                       <div>
-                        <label className="label-mono block mb-1" style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.65rem' }}>Detailed Problem Description &amp; Use Case</label>
+                        <label className="label-mono block mb-1" style={{ color: '#78716A', fontSize: '0.65rem' }}>Detailed Problem Description &amp; Use Case</label>
                         <textarea
                           rows="3"
                           required
@@ -2202,8 +2202,8 @@ export default function App() {
                           key={req.id}
                           className="p-5 rounded-xl transition-all duration-200"
                           style={{
-                            background: 'rgba(255,255,255,0.02)',
-                            border: '1px solid rgba(255,255,255,0.06)',
+                            background: '#FAF8F5',
+                            border: '1px solid rgba(24,22,20,0.08)',
                           }}
                         >
                           {/* Top row */}
@@ -2212,7 +2212,7 @@ export default function App() {
                               <span className="font-mono text-xs font-semibold" style={{ color: '#9D4EDD' }}>
                                 {req.requesterHandle}
                               </span>
-                              <span className="font-mono text-[10px]" style={{ color: 'rgba(255,255,255,0.3)' }}>· {req.timeAgo}</span>
+                              <span className="font-mono text-[10px]" style={{ color: '#A8A29E' }}>· {req.timeAgo}</span>
                             </div>
 
                             <div className="flex items-center gap-1.5">
@@ -2233,24 +2233,24 @@ export default function App() {
                           </div>
 
                           {/* Title */}
-                          <h4 className="text-white font-bold text-base mb-1.5 leading-snug" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+                          <h4 className="text-[#181614] font-bold text-base mb-1.5 leading-snug" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
                             {req.title}
                           </h4>
 
                           {/* Target Tech */}
-                          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md mb-3" style={{ background: 'rgba(157,78,221,0.06)', border: '1px solid rgba(157,78,221,0.2)' }}>
+                          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md mb-3" style={{ background: 'rgba(157,78,221,0.06)', border: '1px solid #E2DCD5' }}>
                             <span className="font-mono text-xs font-semibold" style={{ color: '#C084FC' }}>
                               🎯 Target Tech: {req.targetTech}
                             </span>
                           </div>
 
                           {/* Description */}
-                          <p className="text-xs sm:text-sm leading-relaxed mb-4" style={{ color: 'rgba(139,158,199,0.85)' }}>
+                          <p className="text-xs sm:text-sm leading-relaxed mb-4" style={{ color: '#44403C' }}>
                             {req.description}
                           </p>
 
                           {/* Community Status note */}
-                          <div className="flex items-center gap-2 mb-4 text-xs font-mono" style={{ color: 'rgba(139,158,199,0.55)' }}>
+                          <div className="flex items-center gap-2 mb-4 text-xs font-mono" style={{ color: '#78716A' }}>
                             <span className="w-1.5 h-1.5 rounded-full" style={{ background: req.status === 'CLAIMED BY YOU' ? '#00FF80' : '#9D4EDD' }} />
                             <span>Status: {req.contributorStatus}</span>
                           </div>
@@ -2316,7 +2316,7 @@ export default function App() {
         <div
           className="fixed bottom-6 right-6 z-50 flex items-center gap-3 px-4 py-3 rounded-xl shadow-2xl animate-fade-in-up"
           style={{
-            background: '#0D1120',
+            background: '#FFFFFF',
             border: `1px solid ${toast.type === 'green' ? '#00FF80' : toast.type === 'amethyst' ? '#9D4EDD' : '#00F0FF'}`,
             boxShadow: `0 10px 40px rgba(0,0,0,0.8), 0 0 20px ${toast.type === 'green' ? 'rgba(0,255,128,0.2)' : toast.type === 'amethyst' ? 'rgba(157,78,221,0.2)' : 'rgba(0,240,255,0.2)'}`,
           }}
@@ -2339,7 +2339,7 @@ export default function App() {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-60" style={{ background: '#00F0FF' }} />
               <span className="relative inline-flex rounded-full h-1.5 w-1.5" style={{ background: '#00F0FF' }} />
             </span>
-            <span className="font-mono font-bold tracking-widest" style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.62rem' }}>
+            <span className="font-mono font-bold tracking-widest" style={{ color: '#A8A29E', fontSize: '0.62rem' }}>
               THE BUILDER PROTOCOL // LEARN
             </span>
           </div>
@@ -2385,17 +2385,17 @@ export default function App() {
 
       {/* ─── COURSE VIEWER & SYLLABUS READER MODAL ──────── */}
       {activeCourseViewer && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6" style={{ background: 'rgba(5,7,11,0.88)', backdropFilter: 'blur(16px)' }}>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6" style={{ background: 'rgba(24,22,20,0.5)', backdropFilter: 'blur(8px)' }}>
           <div
             className="w-full max-w-5xl h-[88vh] rounded-2xl flex flex-col overflow-hidden relative animate-fade-in-up"
             style={{
-              background: '#0D1120',
-              border: `1px solid ${activeCourseViewer.accentColor || '#00F0FF'}40`,
-              boxShadow: `0 24px 80px rgba(0,0,0,0.85), 0 0 40px ${activeCourseViewer.accentColor || '#00F0FF'}15`,
+              background: '#FFFFFF',
+              border: `1px solid ${activeCourseViewer.accentColor || '#0E6251'}40`,
+              boxShadow: `0 20px 50px rgba(24,22,20,0.12), 0 0 40px ${activeCourseViewer.accentColor || '#0E6251'}15`,
             }}
           >
             {/* Top Modal Header */}
-            <div className="p-5 sm:px-8 flex items-center justify-between border-b" style={{ borderColor: 'rgba(255,255,255,0.08)', background: 'rgba(255,255,255,0.02)' }}>
+            <div className="p-5 sm:px-8 flex items-center justify-between border-b" style={{ borderColor: 'rgba(24,22,20,0.08)', background: '#FAF8F5' }}>
               <div className="flex items-center gap-3">
                 <div
                   className="w-10 h-10 rounded-xl flex items-center justify-center font-mono font-bold"
@@ -2408,9 +2408,9 @@ export default function App() {
                     <span className="label-mono" style={{ color: activeCourseViewer.accentColor }}>
                       {activeCourseViewer.status || 'CURRICULUM'}
                     </span>
-                    <span className="font-mono text-xs" style={{ color: 'rgba(255,255,255,0.3)' }}>• {activeCourseViewer.level}</span>
+                    <span className="font-mono text-xs" style={{ color: '#A8A29E' }}>• {activeCourseViewer.level}</span>
                   </div>
-                  <h2 className="text-white font-bold text-lg sm:text-xl" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+                  <h2 className="text-[#181614] font-bold text-lg sm:text-xl" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
                     {activeCourseViewer.title}
                   </h2>
                 </div>
@@ -2425,7 +2425,7 @@ export default function App() {
                       handleOpenEditCourse(c)
                     }}
                     className="px-3 py-1.5 rounded-lg text-xs font-mono font-semibold transition-all cursor-pointer hidden sm:block"
-                    style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.15)', color: 'rgba(255,255,255,0.85)' }}
+                    style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(24,22,20,0.15)', color: '#181614' }}
                   >
                     ✎ Edit Syllabus (Admin)
                   </button>
@@ -2433,7 +2433,7 @@ export default function App() {
                 <button
                   onClick={() => setActiveCourseViewer(null)}
                   className="w-9 h-9 rounded-lg flex items-center justify-center text-sm font-mono font-bold transition-colors cursor-pointer"
-                  style={{ background: 'rgba(255,255,255,0.05)', color: 'rgba(255,255,255,0.6)' }}
+                  style={{ background: '#FAF8F5', color: '#57534E' }}
                 >
                   ✕
                 </button>
@@ -2445,10 +2445,10 @@ export default function App() {
               {/* Left Module Navigation */}
               <div
                 className="w-full md:w-80 border-b md:border-b-0 md:border-r overflow-y-auto p-4 flex flex-col gap-2 shrink-0"
-                style={{ borderColor: 'rgba(255,255,255,0.08)', background: 'rgba(0,0,0,0.2)' }}
+                style={{ borderColor: 'rgba(24,22,20,0.08)', background: '#FDFBF7' }}
               >
                 <div className="flex items-center justify-between mb-2 px-2">
-                  <span className="label-mono" style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.65rem' }}>
+                  <span className="label-mono" style={{ color: '#78716A', fontSize: '0.65rem' }}>
                     SYLLABUS MODULES ({activeCourseViewer.curriculum?.length || 0})
                   </span>
                   <span className="font-mono text-[10px]" style={{ color: activeCourseViewer.accentColor }}>
@@ -2457,7 +2457,7 @@ export default function App() {
                 </div>
 
                 {(!activeCourseViewer.curriculum || activeCourseViewer.curriculum.length === 0) ? (
-                  <div className="p-4 text-center text-xs font-mono" style={{ color: 'rgba(255,255,255,0.4)' }}>
+                  <div className="p-4 text-center text-xs font-mono" style={{ color: '#78716A' }}>
                     No syllabus modules configured yet.
                   </div>
                 ) : (
@@ -2477,7 +2477,7 @@ export default function App() {
                           <span className="label-mono font-bold" style={{ color: isSelected ? activeCourseViewer.accentColor : 'rgba(255,255,255,0.5)', fontSize: '0.62rem' }}>
                             MODULE 0{index + 1}
                           </span>
-                          <span className="font-mono text-[10px]" style={{ color: 'rgba(255,255,255,0.4)' }}>
+                          <span className="font-mono text-[10px]" style={{ color: '#78716A' }}>
                             {mod.readTime || '15 min'}
                           </span>
                         </div>
@@ -2485,7 +2485,7 @@ export default function App() {
                           {mod.title}
                         </h4>
                         {mod.summary && (
-                          <p className="text-[11px] leading-relaxed line-clamp-1" style={{ color: 'rgba(139,158,199,0.7)' }}>
+                          <p className="text-[11px] leading-relaxed line-clamp-1" style={{ color: '#57534E' }}>
                             {mod.summary}
                           </p>
                         )}
@@ -2500,7 +2500,7 @@ export default function App() {
                 {(!activeCourseViewer.curriculum || activeCourseViewer.curriculum.length === 0) ? (
                   <div className="m-auto text-center p-8 max-w-md">
                     <span className="text-4xl block mb-3">📖</span>
-                    <h3 className="text-white font-bold text-lg mb-2">No Content in this Track</h3>
+                    <h3 className="text-[#181614] font-bold text-lg mb-2">No Content in this Track</h3>
                     <p className="text-sm mb-4" style={{ color: 'rgba(139,158,199,0.75)' }}>
                       Click "Edit Syllabus" to write lessons, architectures, or system notes for this track.
                     </p>
@@ -2522,20 +2522,20 @@ export default function App() {
                     return (
                       <div className="max-w-3xl space-y-6">
                         {/* Module Top Meta */}
-                        <div className="space-y-2 pb-6 border-b" style={{ borderColor: 'rgba(255,255,255,0.08)' }}>
+                        <div className="space-y-2 pb-6 border-b" style={{ borderColor: 'rgba(24,22,20,0.08)' }}>
                           <div className="flex items-center gap-3">
                             <span className="label-mono font-bold px-2.5 py-1 rounded" style={{ background: `${activeCourseViewer.accentColor}15`, color: activeCourseViewer.accentColor }}>
                               MODULE 0{activeModuleIndex + 1}
                             </span>
-                            <span className="label-mono" style={{ color: 'rgba(255,255,255,0.4)' }}>
+                            <span className="label-mono" style={{ color: '#78716A' }}>
                               Estimated Time: {currentMod.readTime || '15 min'}
                             </span>
                           </div>
-                          <h2 className="text-white font-extrabold text-2xl sm:text-3xl" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+                          <h2 className="text-[#181614] font-extrabold text-2xl sm:text-3xl" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
                             {currentMod.title}
                           </h2>
                           {currentMod.summary && (
-                            <p className="text-sm sm:text-base leading-relaxed" style={{ color: 'rgba(139,158,199,0.85)' }}>
+                            <p className="text-sm sm:text-base leading-relaxed" style={{ color: '#44403C' }}>
                               {currentMod.summary}
                             </p>
                           )}
@@ -2548,12 +2548,12 @@ export default function App() {
                               <div
                                 key={sIdx}
                                 className="p-6 rounded-xl space-y-3"
-                                style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}
+                                style={{ background: '#FAF8F5', border: '1px solid rgba(24,22,20,0.08)' }}
                               >
-                                <h3 className="text-white font-bold text-lg" style={{ color: activeCourseViewer.accentColor }}>
+                                <h3 className="text-[#181614] font-bold text-lg" style={{ color: activeCourseViewer.accentColor }}>
                                   {sec.heading}
                                 </h3>
-                                <div className="text-sm leading-relaxed whitespace-pre-line font-mono" style={{ color: 'rgba(255,255,255,0.85)' }}>
+                                <div className="text-sm leading-relaxed whitespace-pre-line font-mono" style={{ color: '#181614' }}>
                                   {sec.text}
                                 </div>
                               </div>
@@ -2562,35 +2562,35 @@ export default function App() {
                         ) : (
                           <div
                             className="p-6 rounded-xl space-y-3"
-                            style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}
+                            style={{ background: '#FAF8F5', border: '1px solid rgba(24,22,20,0.08)' }}
                           >
-                            <h3 className="text-white font-bold text-lg" style={{ color: activeCourseViewer.accentColor }}>
+                            <h3 className="text-[#181614] font-bold text-lg" style={{ color: activeCourseViewer.accentColor }}>
                               Core Architecture &amp; Execution Breakdown
                             </h3>
-                            <div className="text-sm leading-relaxed whitespace-pre-line font-mono" style={{ color: 'rgba(255,255,255,0.85)' }}>
+                            <div className="text-sm leading-relaxed whitespace-pre-line font-mono" style={{ color: '#181614' }}>
                               {currentMod.content || 'No details written for this section yet.'}
                             </div>
                           </div>
                         )}
 
                         {/* Navigation Footer */}
-                        <div className="pt-8 flex items-center justify-between border-t" style={{ borderColor: 'rgba(255,255,255,0.08)' }}>
+                        <div className="pt-8 flex items-center justify-between border-t" style={{ borderColor: 'rgba(24,22,20,0.08)' }}>
                           <button
                             disabled={activeModuleIndex <= 0}
                             onClick={() => setActiveModuleIndex((i) => Math.max(0, i - 1))}
                             className="px-4 py-2 rounded-lg text-xs font-mono font-semibold transition-all cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
-                            style={{ background: 'rgba(255,255,255,0.05)', color: 'rgba(255,255,255,0.7)' }}
+                            style={{ background: '#FAF8F5', color: '#44403C' }}
                           >
                             ← Previous Module
                           </button>
-                          <span className="font-mono text-xs" style={{ color: 'rgba(255,255,255,0.3)' }}>
+                          <span className="font-mono text-xs" style={{ color: '#A8A29E' }}>
                             {activeModuleIndex + 1} of {activeCourseViewer.curriculum.length}
                           </span>
                           <button
                             disabled={activeModuleIndex >= activeCourseViewer.curriculum.length - 1}
                             onClick={() => setActiveModuleIndex((i) => Math.min(activeCourseViewer.curriculum.length - 1, i + 1))}
                             className="px-4 py-2 rounded-lg text-xs font-mono font-semibold transition-all cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
-                            style={{ background: activeCourseViewer.accentColor, color: '#05070B' }}
+                            style={{ background: activeCourseViewer.accentColor, color: '#FFFFFF' }}
                           >
                             Next Module →
                           </button>
@@ -2607,17 +2607,17 @@ export default function App() {
 
       {/* ─── COURSE CREATOR & SYLLABUS BUILDER MODAL ───────── */}
       {showCourseEditor && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6" style={{ background: 'rgba(5,7,11,0.9)', backdropFilter: 'blur(16px)' }}>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6" style={{ background: 'rgba(24,22,20,0.5)', backdropFilter: 'blur(8px)' }}>
           <div
             className="w-full max-w-4xl h-[90vh] rounded-2xl flex flex-col overflow-hidden relative animate-fade-in-up"
             style={{
-              background: '#0D1120',
-              border: '1px solid rgba(0,240,255,0.35)',
-              boxShadow: '0 24px 80px rgba(0,0,0,0.9), 0 0 40px rgba(0,240,255,0.15)',
+              background: '#FFFFFF',
+              border: '1px solid #E2DCD5',
+              boxShadow: '0 20px 50px rgba(24,22,20,0.12)',
             }}
           >
             {/* Modal Header */}
-            <div className="p-5 sm:px-8 flex items-center justify-between border-b" style={{ borderColor: 'rgba(255,255,255,0.08)', background: 'rgba(255,255,255,0.02)' }}>
+            <div className="p-5 sm:px-8 flex items-center justify-between border-b" style={{ borderColor: 'rgba(24,22,20,0.08)', background: '#FAF8F5' }}>
               <div>
                 <div className="flex items-center gap-2 mb-1">
                   <span className="w-2 h-2 rounded-full" style={{ background: '#00F0FF' }} />
@@ -2625,14 +2625,14 @@ export default function App() {
                     {editingCourseId ? 'COURSE ARCHITECT // EDIT TRACK' : 'COURSE ARCHITECT // CREATE NEW TRACK'}
                   </span>
                 </div>
-                <h3 className="text-white font-bold text-xl" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+                <h3 className="text-[#181614] font-bold text-xl" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
                   {editingCourseId ? 'Edit Course & Structure' : 'Author New Engineering Course'}
                 </h3>
               </div>
               <button
                 onClick={() => setShowCourseEditor(false)}
                 className="w-8 h-8 rounded-lg flex items-center justify-center text-sm font-mono transition-colors cursor-pointer"
-                style={{ background: 'rgba(255,255,255,0.05)', color: 'rgba(255,255,255,0.5)' }}
+                style={{ background: '#FAF8F5', color: '#78716A' }}
               >
                 ✕
               </button>
@@ -2641,14 +2641,14 @@ export default function App() {
             {/* Scrollable Form Body */}
             <form onSubmit={handleSaveCourse} className="flex-1 overflow-y-auto p-6 sm:p-8 space-y-6">
               {/* Basic Course Info */}
-              <div className="p-5 rounded-xl space-y-4" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}>
+              <div className="p-5 rounded-xl space-y-4" style={{ background: '#FAF8F5', border: '1px solid rgba(24,22,20,0.08)' }}>
                 <span className="label-mono block" style={{ color: '#00F0FF', fontSize: '0.65rem' }}>
                   STEP 1: COURSE METADATA &amp; TARGETS
                 </span>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="label-mono block mb-1" style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.65rem' }}>Course Title *</label>
+                    <label className="label-mono block mb-1" style={{ color: '#78716A', fontSize: '0.65rem' }}>Course Title *</label>
                     <input
                       type="text"
                       required
@@ -2660,7 +2660,7 @@ export default function App() {
                     />
                   </div>
                   <div>
-                    <label className="label-mono block mb-1" style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.65rem' }}>Subtitle / Tech Highlights</label>
+                    <label className="label-mono block mb-1" style={{ color: '#78716A', fontSize: '0.65rem' }}>Subtitle / Tech Highlights</label>
                     <input
                       type="text"
                       placeholder="e.g. Raft · Tokio · Memory Arenas · Zero-Copy"
@@ -2673,7 +2673,7 @@ export default function App() {
                 </div>
 
                 <div>
-                  <label className="label-mono block mb-1" style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.65rem' }}>Course Overview / Description *</label>
+                  <label className="label-mono block mb-1" style={{ color: '#78716A', fontSize: '0.65rem' }}>Course Overview / Description *</label>
                   <textarea
                     required
                     rows={3}
@@ -2687,12 +2687,12 @@ export default function App() {
 
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                   <div>
-                    <label className="label-mono block mb-1" style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.65rem' }}>Difficulty</label>
+                    <label className="label-mono block mb-1" style={{ color: '#78716A', fontSize: '0.65rem' }}>Difficulty</label>
                     <select
                       value={courseForm.level}
                       onChange={(e) => setCourseForm({ ...courseForm, level: e.target.value })}
                       className="input-field"
-                      style={{ fontSize: '0.8rem', background: '#0D1120' }}
+                      style={{ fontSize: '0.8rem', background: '#FFFFFF' }}
                     >
                       <option value="Beginner">Beginner</option>
                       <option value="Intermediate">Intermediate</option>
@@ -2702,7 +2702,7 @@ export default function App() {
                   </div>
 
                   <div>
-                    <label className="label-mono block mb-1" style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.65rem' }}>Est. Hours</label>
+                    <label className="label-mono block mb-1" style={{ color: '#78716A', fontSize: '0.65rem' }}>Est. Hours</label>
                     <input
                       type="number"
                       min={1}
@@ -2715,12 +2715,12 @@ export default function App() {
                   </div>
 
                   <div>
-                    <label className="label-mono block mb-1" style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.65rem' }}>Theme Accent</label>
+                    <label className="label-mono block mb-1" style={{ color: '#78716A', fontSize: '0.65rem' }}>Theme Accent</label>
                     <select
                       value={courseForm.accentColor}
                       onChange={(e) => setCourseForm({ ...courseForm, accentColor: e.target.value })}
                       className="input-field"
-                      style={{ fontSize: '0.8rem', background: '#0D1120' }}
+                      style={{ fontSize: '0.8rem', background: '#FFFFFF' }}
                     >
                       <option value="#00F0FF">Cyan Neon</option>
                       <option value="#9D4EDD">Amethyst Purple</option>
@@ -2731,7 +2731,7 @@ export default function App() {
                   </div>
 
                   <div>
-                    <label className="label-mono block mb-1" style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.65rem' }}>Badge Label</label>
+                    <label className="label-mono block mb-1" style={{ color: '#78716A', fontSize: '0.65rem' }}>Badge Label</label>
                     <input
                       type="text"
                       placeholder="e.g. NEW TRACK"
@@ -2744,7 +2744,7 @@ export default function App() {
                 </div>
 
                 <div>
-                  <label className="label-mono block mb-1" style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.65rem' }}>Comma-Separated Tags</label>
+                  <label className="label-mono block mb-1" style={{ color: '#78716A', fontSize: '0.65rem' }}>Comma-Separated Tags</label>
                   <input
                     type="text"
                     placeholder="e.g. Distributed, Raft, Rust, Low-Latency"
@@ -2757,7 +2757,7 @@ export default function App() {
               </div>
 
               {/* Module Structure & Content Builder */}
-              <div className="p-5 rounded-xl space-y-5" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}>
+              <div className="p-5 rounded-xl space-y-5" style={{ background: '#FAF8F5', border: '1px solid rgba(24,22,20,0.08)' }}>
                 <div className="flex items-center justify-between">
                   <div>
                     <span className="label-mono block" style={{ color: '#00F0FF', fontSize: '0.65rem' }}>
@@ -2771,7 +2771,7 @@ export default function App() {
                     type="button"
                     onClick={handleAddModuleRow}
                     className="px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer"
-                    style={{ background: 'rgba(0,240,255,0.1)', border: '1px solid rgba(0,240,255,0.3)', color: '#00F0FF' }}
+                    style={{ background: 'rgba(0,240,255,0.1)', border: '1px solid #E2DCD5', color: '#00F0FF' }}
                   >
                     + Add Next Module
                   </button>
@@ -2782,7 +2782,7 @@ export default function App() {
                     <div
                       key={idx}
                       className="p-4 rounded-xl space-y-3 transition-all"
-                      style={{ background: 'rgba(255,255,255,0.015)', border: '1px solid rgba(255,255,255,0.08)' }}
+                      style={{ background: '#FAF8F5', border: '1px solid rgba(24,22,20,0.08)' }}
                     >
                       <div className="flex items-center justify-between gap-2">
                         <span className="label-mono font-bold" style={{ color: '#00F0FF' }}>
@@ -2801,7 +2801,7 @@ export default function App() {
 
                       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                         <div className="sm:col-span-2">
-                          <label className="label-mono block mb-1" style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.6rem' }}>Module Title</label>
+                          <label className="label-mono block mb-1" style={{ color: '#78716A', fontSize: '0.6rem' }}>Module Title</label>
                           <input
                             type="text"
                             required
@@ -2813,7 +2813,7 @@ export default function App() {
                           />
                         </div>
                         <div>
-                          <label className="label-mono block mb-1" style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.6rem' }}>Read / Lab Time</label>
+                          <label className="label-mono block mb-1" style={{ color: '#78716A', fontSize: '0.6rem' }}>Read / Lab Time</label>
                           <input
                             type="text"
                             placeholder="e.g. 20 min"
@@ -2826,7 +2826,7 @@ export default function App() {
                       </div>
 
                       <div>
-                        <label className="label-mono block mb-1" style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.6rem' }}>Quick Summary</label>
+                        <label className="label-mono block mb-1" style={{ color: '#78716A', fontSize: '0.6rem' }}>Quick Summary</label>
                         <input
                           type="text"
                           placeholder="Short 1-line key takeaway for this module"
@@ -2838,7 +2838,7 @@ export default function App() {
                       </div>
 
                       <div>
-                        <label className="label-mono block mb-1" style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.6rem' }}>Lesson Content / Technical Breakdown (Supports Code &amp; Text)</label>
+                        <label className="label-mono block mb-1" style={{ color: '#78716A', fontSize: '0.6rem' }}>Lesson Content / Technical Breakdown (Supports Code &amp; Text)</label>
                         <textarea
                           rows={4}
                           placeholder="Provide the core mental models, code architecture, pseudocode, or steps for this module..."
@@ -2854,7 +2854,7 @@ export default function App() {
               </div>
 
               {/* Form Action Controls */}
-              <div className="pt-4 flex items-center justify-end gap-3 border-t" style={{ borderColor: 'rgba(255,255,255,0.08)' }}>
+              <div className="pt-4 flex items-center justify-end gap-3 border-t" style={{ borderColor: 'rgba(24,22,20,0.08)' }}>
                 <button
                   type="button"
                   onClick={() => setShowCourseEditor(false)}
@@ -2876,20 +2876,20 @@ export default function App() {
         </div>
       )}
       {showAdminModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ background: 'rgba(5,7,11,0.85)', backdropFilter: 'blur(12px)' }}>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ background: 'rgba(24,22,20,0.5)', backdropFilter: 'blur(8px)' }}>
           <div
             className="w-full max-w-md p-6 rounded-2xl relative animate-fade-in-up"
             style={{
-              background: '#0D1120',
-              border: '1px solid rgba(0,240,255,0.3)',
-              boxShadow: '0 20px 60px rgba(0,0,0,0.8), 0 0 30px rgba(0,240,255,0.15)',
+              background: '#FFFFFF',
+              border: '1px solid #E2DCD5',
+              boxShadow: '0 20px 50px rgba(24,22,20,0.12)',
             }}
           >
             {/* Close button */}
             <button
               onClick={() => { setShowAdminModal(false); setAdminError('') }}
               className="absolute top-4 right-4 text-xs font-mono p-1 rounded transition-colors"
-              style={{ color: 'rgba(255,255,255,0.4)' }}
+              style={{ color: '#78716A' }}
             >
               ✕
             </button>
@@ -2898,10 +2898,10 @@ export default function App() {
               <span className="w-2 h-2 rounded-full" style={{ background: '#00F0FF' }} />
               <span className="label-mono" style={{ color: '#00F0FF' }}>ADMIN COMMAND ACCESS</span>
             </div>
-            <h3 className="text-white font-bold text-xl mb-1" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+            <h3 className="text-[#181614] font-bold text-xl mb-1" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
               Authenticate Protocol Root
             </h3>
-            <p className="text-xs leading-relaxed mb-5" style={{ color: 'rgba(139,158,199,0.7)' }}>
+            <p className="text-xs leading-relaxed mb-5" style={{ color: '#57534E' }}>
               Sign in to manage and purge community drops, review queue entries, or reset seed state.
             </p>
 
@@ -2913,7 +2913,7 @@ export default function App() {
 
             <form onSubmit={handleAdminLogin} className="space-y-4">
               <div>
-                <label className="label-mono block mb-1.5" style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.65rem' }}>
+                <label className="label-mono block mb-1.5" style={{ color: '#78716A', fontSize: '0.65rem' }}>
                   ADMIN USERNAME
                 </label>
                 <input
@@ -2929,7 +2929,7 @@ export default function App() {
               </div>
 
               <div>
-                <label className="label-mono block mb-1.5" style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.65rem' }}>
+                <label className="label-mono block mb-1.5" style={{ color: '#78716A', fontSize: '0.65rem' }}>
                   PASSWORD
                 </label>
                 <input
